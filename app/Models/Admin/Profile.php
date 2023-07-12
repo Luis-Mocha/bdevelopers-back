@@ -16,8 +16,8 @@ class Profile extends Model
         "user_id",
     ];
 
-    public function user()
-    {
+    // Relazione One-to-One con "User"
+    public function user() {
         return $this->belongsTo(User::class);
     }
 }

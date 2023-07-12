@@ -14,10 +14,9 @@ return new class extends Migration
     public function up()
     {
         Schema::create('profiles', function (Blueprint $table) {
-            $table->id();
 
-            $table->unsignedBigInteger('user_id')->nullable();
-            
+            $table->id();
+            $table->unsignedBigInteger('user_id')->nullable(); // chiave esterna tabella Users
             $table->string('name', 30)->nullable();
             $table->string('surname', 40)->nullable();
             $table->date('birth_date')->nullable();
@@ -30,6 +29,7 @@ return new class extends Migration
             $table->string('performance')->nullable();
             $table->timestamps();
 
+            // Relazione colonna "user_id" e colonna "id" nella tabella "users"
             $table->foreign('user_id')->references('id')->on('users');
         });
     }

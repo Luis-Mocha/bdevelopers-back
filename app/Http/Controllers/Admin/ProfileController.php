@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Admin\Profile;
 use Illuminate\Http\Request;
+
+//Importo il modello
+use App\Models\Admin\Profile;
 
 class ProfileController extends Controller
 {
@@ -27,7 +29,6 @@ class ProfileController extends Controller
 
         {
             return view('admin.profile.create');
-            
         }
     
     /**
@@ -38,9 +39,12 @@ class ProfileController extends Controller
      */
     public function store(Request $request)
     {
+
         $form_data = $request->all();
 
         $newProfile = Profile::create($form_data);
+
+        // aggiungere un redirect
     }
 
     /**
