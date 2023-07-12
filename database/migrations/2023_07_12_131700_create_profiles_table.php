@@ -18,16 +18,16 @@ return new class extends Migration
 
             $table->unsignedBigInteger('user_id')->nullable();
             
-            $table->string('name', 30);
-            $table->string('surname', 40);
-            $table->date('birth_date');
-            $table->string('phone_number', 12)->unique();
-            $table->string('email', 30)->unique();
-            $table->string('github_url')->unique();
-            $table->string('linkedin_url')->unique();
-            $table->string('profile_image');
-            $table->string('curriculum');
-            $table->string('performance');
+            $table->string('name', 30)->nullable();
+            $table->string('surname', 40)->nullable();
+            $table->date('birth_date')->nullable();
+            $table->string('phone_number', 12)->nullable()->unique();
+            $table->string('email', 30)->nullable()->unique();
+            $table->string('github_url')->nullable()->unique();
+            $table->string('linkedin_url')->nullable()->unique();
+            $table->string('profile_image')->nullable();
+            $table->string('curriculum')->nullable();
+            $table->string('performance')->nullable();
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users');

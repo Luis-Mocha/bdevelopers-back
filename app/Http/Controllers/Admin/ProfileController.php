@@ -24,10 +24,12 @@ class ProfileController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function create()
-    {
-        //
-    }
 
+        {
+            return view('admin.profile.create');
+            
+        }
+    
     /**
      * Store a newly created resource in storage.
      *
@@ -36,7 +38,9 @@ class ProfileController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $form_data = $request->all();
+
+        $newProfile = Profile::create($form_data);
     }
 
     /**
