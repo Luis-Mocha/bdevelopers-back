@@ -16,27 +16,22 @@ class DevProfileController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index()
     {
-        $user = $request->user();
+        
         $user_id = Auth::id();
         $profile = Profile::where('user_id', $user_id)->get();
-
-        //return view('admin.profile.index', compact('profile'));
         
-        if ($user->$user_id->exists()) {
-            // The user has already created a profile, so redirect to the create view.
+        //Verica se l'utente è registrato e ha un profilo developer
+        if (Profile::where('user_id', $user_id)->exists()) {
+            
             return view ('admin.profile.index', compact('profile'));
-        } else {
-            // The user has not yet created a profile, so redirect to the index view.
-            return view ('profile.create');
+            
+            //Verica se l'utente è registrato ma non ha un profilo developer
+        } elseif(Profile::where('user_id', $user_id)->doesntExist()) {
+            
+            return view ('admin.profile.create');
         }
-        // if ($profile['items'] != []) {
-        //     //dd($profile);
-        //     return view('admin.profile.index', compact('profile'));
-        // }else{
-        //     return view('admin.profile.create', compact('profile'));
-        // }
     }
 
     /**
@@ -64,7 +59,7 @@ class DevProfileController extends Controller
         $newProfile = Profile::create($form_data);
 
         // aggiungere un redirect
-        return view('admin.profile.index', compact('newProfile'));
+        return redirect()->route('admin.index');
     }
 
     /**
