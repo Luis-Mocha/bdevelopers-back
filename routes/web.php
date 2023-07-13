@@ -4,7 +4,7 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
 // Importo Controller Profilo
-use App\Http\Controllers\Admin\ProfileController as MyProfileController;
+use App\Http\Controllers\Admin\DevProfileController;
 
 /*
 |--------------------------------------------------------------------------
@@ -32,7 +32,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
     // Rotta resource Profile
-    Route::resource('/admin', MyProfileController::class);
+    Route::resource('/admin', DevProfileController::class);
 });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';

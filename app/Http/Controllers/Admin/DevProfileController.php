@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 //Importo il modello
 use App\Models\Admin\Profile;
 
-class ProfileController extends Controller
+class DevProfileController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,7 +17,6 @@ class ProfileController extends Controller
      */
     public function index()
     {
-
     }
 
     /**
@@ -27,10 +26,10 @@ class ProfileController extends Controller
      */
     public function create()
 
-        {
-            return view('admin.profile.create');
-        }
-    
+    {
+        return view('admin.profile.create');
+    }
+
     /**
      * Store a newly created resource in storage.
      *

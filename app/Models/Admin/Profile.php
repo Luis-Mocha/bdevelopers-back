@@ -17,7 +17,19 @@ class Profile extends Model
     ];
 
     // Relazione One-to-One con "User"
-    public function user() {
+    public function user()
+    {
         return $this->belongsTo(User::class);
+    }
+
+
+    public function technologies()
+    {
+        return $this->belongsToMany(Technology::class);
+    }
+
+    public function sponsorships()
+    {
+        return $this->belongsToMany(Sponsorship::class);
     }
 }
