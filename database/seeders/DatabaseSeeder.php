@@ -25,7 +25,8 @@ class DatabaseSeeder extends Seeder
         //richiama il seeder delle technology
         $this->call([
             TechnologySeeder::class,
-            SponsorshipSeeder::class
+            SponsorshipSeeder::class,
+            ReviewSeeder::class,
         ]);
     }
 }
