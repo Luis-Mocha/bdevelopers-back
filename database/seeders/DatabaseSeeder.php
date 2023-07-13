@@ -20,5 +20,11 @@ class DatabaseSeeder extends Seeder
         //     'name' => 'Test User',
         //     'email' => 'test@example.com',
         // ]);
+
+
+        //richiama il seeder delle technology
+        $this->call([
+            TechnologySeeder::class,
+        ]);
     }
 }
