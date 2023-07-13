@@ -7,6 +7,7 @@ use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvi
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Admin\DevProfileController;
 
 class RouteServiceProvider extends ServiceProvider
 {
@@ -16,8 +17,10 @@ class RouteServiceProvider extends ServiceProvider
      * Typically, users are redirected here after authentication.
      *
      * @var string
-     */
-    public const HOME = '/dashboard';
+     */        
+       public const HOME = '/admin';
+       //public const HOMECREATE = '/admin/create';
+       
 
     /**
      * Define your route model bindings, pattern filters, and other route configuration.
