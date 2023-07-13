@@ -22,14 +22,27 @@ class Profile extends Model
         return $this->belongsTo(User::class);
     }
 
-
+    //crea relazione many to many verso la tabella technologies
     public function technologies()
     {
         return $this->belongsToMany(Technology::class);
     }
 
+    //crea relazione many to many verso la tabella sponsorships
     public function sponsorships()
     {
         return $this->belongsToMany(Sponsorship::class);
+    }
+
+    //crea relazione one to many verso la tabella leads
+    public function leads()
+    {
+        return $this->hasMany(Lead::class);
+    }
+
+    //crea relazione one to many verso la tabella reviews
+    public function reviews()
+    {
+        return $this->hasMany(Lead::class);
     }
 }
