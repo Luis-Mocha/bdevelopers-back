@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 //Importo il modello
 use App\Models\Admin\Profile;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Redirect;
 
 class DevProfileController extends Controller
 {
@@ -94,7 +95,7 @@ class DevProfileController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
-    {   
+    {
         $profile_id =  Profile::find($id);
         $form_data = $request->all();
 
@@ -111,6 +112,10 @@ class DevProfileController extends Controller
      */
     public function destroy($id)
     {
-        //
+
+        $profile_id =  Profile::find($id);
+        $profile_id->delete();
+
+        return view('welcome');
     }
 }
