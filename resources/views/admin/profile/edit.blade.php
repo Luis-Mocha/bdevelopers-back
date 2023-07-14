@@ -13,7 +13,7 @@
 
     <div class="container">
         <p class="text-center fs-2 my-5 text-uppercase">Modifica il tuo profilo</p>
-        <form action="{{ route('admin.update', $profile) }}" method="POST" enctype=”multipart/form-data”>
+        <form action="{{ route('admin.update', $profile_id['id']) }}" method="POST" enctype=”multipart/form-data”>
             @csrf
 
             @method('PUT')

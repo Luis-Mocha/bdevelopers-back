@@ -79,11 +79,11 @@ class DevProfileController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Profile $profile)
+    public function edit($id)
     {
 
-
-        return view('admin.profile.edit', compact('profile'));
+        $profile_id =  Profile::find($id);
+        return view('admin.profile.edit', compact('profile_id'));
     }
 
     /**
@@ -93,11 +93,12 @@ class DevProfileController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Profile $profile)
-    {
+    public function update(Request $request, $id)
+    {   
+        $profile_id =  Profile::find($id);
         $form_data = $request->all();
 
-        $profile->update($form_data);
+        $profile_id->update($form_data);
 
         return redirect()->route('admin.index');
     }
