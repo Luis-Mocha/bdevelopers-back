@@ -1,12 +1,13 @@
 @extends('layouts.app')
 
 @section('content')
+    <h1>sono la index</h1>
 
-<h1>sono la index</h1>
+    @foreach ($profile as $elem)
+        <div>{{ $elem['name'] }}</div>
 
-@foreach ($profile as $elem)
-
-<div>{{$elem['name']}}</div>
-    
-@endforeach
+        <div>
+            <a class="text-decoration-none" href=" {{ route('admin.edit', $elem) }} " class="my-2 btn btn-primary">Modifica</a>
+        </div>
+    @endforeach
 @endsection

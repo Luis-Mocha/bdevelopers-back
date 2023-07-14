@@ -18,19 +18,19 @@ class DevProfileController extends Controller
      */
     public function index()
     {
-        
+
         $user_id = Auth::id();
         $profile = Profile::where('user_id', $user_id)->get();
-        
+
         //Verica se l'utente è registrato e ha un profilo developer
         if (Profile::where('user_id', $user_id)->exists()) {
-            
-            return view ('admin.profile.index', compact('profile'));
-            
+
+            return view('admin.profile.index', compact('profile'));
+
             //Verica se l'utente è registrato ma non ha un profilo developer
-        } elseif(Profile::where('user_id', $user_id)->doesntExist()) {
-            
-            return view ('admin.profile.create');
+        } elseif (Profile::where('user_id', $user_id)->doesntExist()) {
+
+            return view('admin.profile.create');
         }
     }
 
@@ -79,9 +79,11 @@ class DevProfileController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Profile $profile)
     {
-        //
+
+
+        return view('admin.profile.edit', compact('profile'));
     }
 
     /**
@@ -91,9 +93,13 @@ class DevProfileController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Profile $profile)
     {
-        //
+        $form_data = $request->all();
+
+        $profile->update($form_data);
+
+        return redirect()->route('admin.index');
     }
 
     /**
