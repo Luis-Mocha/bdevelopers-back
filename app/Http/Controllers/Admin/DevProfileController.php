@@ -60,16 +60,18 @@ class DevProfileController extends Controller
 
         $form_data = $request->all();
 
-        $newProfile = Profile::create($form_data);
+
 
         if ($request->hasFile('profile_image')) {
 
             // creo un path dove viene salvata la cover del progetto
             // 'project_covers' è una sottocartella che creo in storage
-            $path = Storage::disk('public')->put('profile_image', $request->profile_image);
+            $path = Storage::disk('public')->put('project_covers', $request->profile_image);
 
             $form_data['profile_image'] = $path;
         }
+
+        $newProfile = Profile::create($form_data);
 
         // aggiungere un redirect
         return redirect()->route('admin.index');
