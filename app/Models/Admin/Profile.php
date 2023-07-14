@@ -13,6 +13,14 @@ class Profile extends Model
     protected $fillable = [
         "name",
         "surname",
+        "birth_date",
+        "phone_number",
+        "email",
+        "github_url",
+        "linkedin_url",
+        "profile_image",
+        "curriculum",
+        "performance",
         "user_id",
     ];
 
