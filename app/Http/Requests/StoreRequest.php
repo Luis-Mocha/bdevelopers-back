@@ -27,8 +27,8 @@ class StoreRequest extends FormRequest
             'name'=>'required|max:30',
             'surname'=>'required|max:40',
             'birth_date'=>'required|date|before:2023-01-01',
-            'phone_number'=>'nullable|numeric|regex:/^[0-9]{8,12}$/',
-            'email'=>'required|email|unique:users,email,profiles,email',
+            'phone_number'=>'nullable|numeric|regex:/^[0-9]{8,13}$/',
+            'email'=>'required|email|unique:profiles,email',
             'github_url'=>'required|unique:profiles|url',
             'linkedin_url'=>'required|unique:profiles|required|url',
             'profile_image'=> 'required|mimes:jpeg,png,jpg,gif|max:10240',
@@ -71,7 +71,7 @@ class StoreRequest extends FormRequest
 
             'phone_number.numeric' => 'Il campo deve contenere numeri',
             
-            'phone_number.regex' => 'Il numero deve essere compreso tra 8 e 12 cifre'
+            'phone_number.regex' => 'Il numero deve essere compreso tra 8 e 13 cifre'
         ];
     }
 }

@@ -18,17 +18,18 @@
 
             @method('PUT')
 
-            {{-- <input type="hidden" name="user_id" value="{{ Auth::id() }}"> --}}
+            {{-- INPUT NOME --}}
             <div class="mb-3">
                 <label class="form-label">Nome</label>
-                <input name="name" type="text" class="form-control" value="{{ old('name') ?? $profile_id->name }}">
+                <input name="name" type="text" class="form-control" value="{{ old('name') ?? $profile_id->name }}" required maxlength="30" autofocus>
                 @error('name')
                     <div class="alert alert-danger">{{ $message }}</div>
                 @enderror
             </div>
+            {{-- INPUT COGNOME--}}
             <div class="mb-3">
                 <label class="form-label">Cognome</label>
-                <input name="surname" type="text" class="form-control " value="{{ old('surname') ?? $profile_id->surname }}">
+                <input name="surname" type="text" class="form-control " value="{{ old('surname') ?? $profile_id->surname }}" required maxlength="40">
                 @error('surname')
                     <div class="alert alert-danger">{{ $message }}</div>
                 @enderror
@@ -36,7 +37,7 @@
             {{-- INPUT BIRTH DATE --}}
             <div class="mb-3">
                 <label class="form-label">Data di nascita</label>
-                <input name="birth_date" type="date" class="form-control " value="{{ old('birth_date') ?? $profile_id->birth_date }}">
+                <input name="birth_date" type="date" class="form-control " value="{{ old('birth_date') ?? $profile_id->birth_date }}" required>
                 @error('birth_date')
                     <div class="alert alert-danger">{{ $message }}</div>
                 @enderror
@@ -44,7 +45,7 @@
             {{-- INPUT PHONE NUMBER --}}
             <div class="mb-3">
                 <label class="form-label">Numero di telefono</label>
-                <input name="phone_number" type="tel" class="form-control " value="{{ old('phone_number') ?? $profile_id->phone_number }}">
+                <input name="phone_number" type="tel" class="form-control " value="{{ old('phone_number') ?? $profile_id->phone_number }}" required minlength="8" maxlength="13">
                 @error('phone_number')
                     <div class="alert alert-danger">{{ $message }}</div>
                 @enderror
@@ -52,7 +53,7 @@
             {{-- EMAIL --}}
             <div class="mb-3">
                 <label class="form-label">Email</label>
-                <input name="email" type="email" class="form-control " value="{{ old('email') ?? $profile_id->email  }}">
+                <input name="email" type="email" class="form-control " value="{{ old('email') ?? $profile_id->email  }}" required>
                 @error('email')
                     <div class="alert alert-danger">{{ $message }}</div>
                 @enderror
@@ -60,7 +61,7 @@
             {{-- GITHUB URL --}}
             <div class="mb-3">
                 <label class="form-label">Github/URL</label>
-                <input name="github_url" type="url" class="form-control" value="{{ old('github_url') ?? $profile_id->github_url  }}">
+                <input name="github_url" type="url" class="form-control" value="{{ old('github_url') ?? $profile_id->github_url  }}" required>
                 @error('github_url')
                     <div class="alert alert-danger">{{ $message }}</div>
                 @enderror
@@ -68,7 +69,7 @@
             {{-- LINKEDIN URL --}}
             <div class="mb-3">
                 <label class="form-label">Linkedin/URL</label>
-                <input name="linkedin_url" type="url" class="form-control" value="{{ old('linkedin_url') ?? $profile_id->linkedin_url  }}">
+                <input name="linkedin_url" type="url" class="form-control" value="{{ old('linkedin_url') ?? $profile_id->linkedin_url  }}" required>
                 @error('linkedin_url')
                     <div class="alert alert-danger">{{ $message }}</div>
                 @enderror
@@ -76,13 +77,13 @@
             {{-- PROFILE IMAGE --}}
             <div class="mb-3">
                 <label for="profile_image" class="form-label">Immagine di profilo</label>
-                <input type="file" class="form-control" name="profile_image" id="profile_image" placeholder=""
+                <input type="file" class="form-control" name="profile_image" id="profile_image" required accept=".jpg,.png,.jpg,.gif"
                     aria-describedby="fileHelpId">
             </div>
             {{-- CV --}}
             <div class="mb-3">
                 <label class="form-label">Curriculum</label>
-                <input name="curriculum" type="file" class="form-control ">
+                <input name="curriculum" type="file" class="form-control " required accept=".pdf">
                 @error('curriculum')
                     <div class="alert alert-danger">{{ $message }}</div>
                 @enderror
@@ -90,7 +91,7 @@
             {{-- PERFORMANCE --}}
             <div class="mb-3">
                 <label class="form-label">Perfomance</label>
-                <input name="performance" type="text" class="form-control" value="{{ old('performance') ?? $profile_id->performance  }}">
+                <input name="performance" type="text" class="form-control" value="{{ old('performance') ?? $profile_id->performance  }}" required >
                 @error('performance')
                     <div class="alert alert-danger">{{ $message }}</div>
                 @enderror

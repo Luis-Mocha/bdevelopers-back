@@ -26,22 +26,29 @@ class UpdateRequest extends FormRequest
      */
     public function rules()
     {
-        $id = $this->route('Profile');
+        
         return [
             'name'=>'required|max:30',
             'surname'=>'required|max:40',
             'birth_date'=>'required|date|before:2023-01-01',
-            'phone_number'=>'nullable|numeric|regex:/^[0-9]{8,12}$/',
+            'phone_number'=>'nullable|numeric|regex:/^[0-9]{8,13}$/',
             'email'=>[
                 'required',
                 'email',
-                // 'unique:users,email,profiles,email',
-                
-                Rule::unique('profiles')->ignore($this->id)
-                //Rule::unique('projects')->ignore($this->project)
+                Rule::unique('profiles')->ignore($this->route('admin'))
             ],
-            'github_url'=>'required|unique:profiles|url',
-            'linkedin_url'=>'required|unique:profiles|required|url',
+            'github_url'=>[
+                'required',
+                'url',  
+                Rule::unique('profiles')->ignore($this->route('admin'))
+
+            ],
+            'linkedin_url'=>[
+                'required',
+                'url',
+                Rule::unique('profiles')->ignore($this->route('admin'))
+
+            ],
             'profile_image'=> 'required|mimes:jpeg,png,jpg,gif|max:10240',
             'curriculum'=>'required|mimes:pdf|max:5120',
             'performance'=>'required'
@@ -83,7 +90,7 @@ class UpdateRequest extends FormRequest
 
             'phone_number.numeric' => 'Il campo deve contenere numeri',
             
-            'phone_number.regex' => 'Il numero deve essere compreso tra 8 e 12 cifre'
+            'phone_number.regex' => 'Il numero deve essere compreso tra 8 e 13 cifre'
         ];
     }
 }

@@ -118,6 +118,19 @@ class DevProfileController extends Controller
         $profile_id =  Profile::find($id);
         $form_data = $request->all();
 
+        if( $request->hasFile('profile_image') ){
+            
+            //PROCEDIMENTO SOLO SE SIAMO NELLA UPDATE!!!!!
+            if( $profile_id->profile_image ){
+                Storage::delete($profile_id->profile_image);
+            }
+            //FINE: PROCEDIMENTO SOLO SE SIAMO NELLA UPDATE!!!!!
+
+            //Genere un path di dove verrà salvata l'iimagine nel progetto
+            $path = Storage::disk('public')->put( 'project_covers', $request->profile_image );
+
+            $form_data['profile_image'] = $path;
+        }
         $profile_id->update($form_data);
 
         return redirect()->route('admin.index');
@@ -132,7 +145,12 @@ class DevProfileController extends Controller
     public function destroy($id)
     {
 
+        
+
         $profile_id =  Profile::find($id);
+        if( $profile_id->profile_image ){
+            Storage::delete($profile_id->profile_image);
+        } 
         $profile_id->delete();
 
         return view('welcome');
