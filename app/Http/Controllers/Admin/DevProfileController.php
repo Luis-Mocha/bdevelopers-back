@@ -13,6 +13,11 @@ use Illuminate\Support\Facades\Redirect;
 // importo lo Storage
 use Illuminate\Support\Facades\Storage;
 
+//importo il request
+use App\Http\Requests\StorePostRequest;
+use App\Http\Requests\UpdatePostRequest;
+
+
 class DevProfileController extends Controller
 {
     /**
@@ -55,7 +60,7 @@ class DevProfileController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StorePostRequest $request)
     {
 
         $form_data = $request->all();
@@ -64,7 +69,7 @@ class DevProfileController extends Controller
 
         if ($request->hasFile('profile_image')) {
 
-            // creo un path dove viene salvata la cover del progetto
+            // creo un path dove viene salvata l'immagine del profilo
             // 'project_covers' è una sottocartella che creo in storage
             $path = Storage::disk('public')->put('project_covers', $request->profile_image);
 
@@ -108,7 +113,7 @@ class DevProfileController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UpdatePostRequest $request, $id)
     {
         $profile_id =  Profile::find($id);
         $form_data = $request->all();

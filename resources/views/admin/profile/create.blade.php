@@ -77,6 +77,9 @@
                 <label for="profile_image" class="form-label">Immagine di profilo</label>
                 <input type="file" class="form-control" name="profile_image" id="profile_image" placeholder=""
                     aria-describedby="fileHelpId">
+                    @error('profile_image')
+                    <div class="alert alert-danger">{{ $message }}</div>
+                @enderror
             </div>
             {{-- CV --}}
             <div class="mb-3">
