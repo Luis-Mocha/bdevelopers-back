@@ -4,7 +4,10 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class UpdatePostRequest extends FormRequest
+// importo la classe Rule per le eccezioni nell'unique
+use Illuminate\Validation\Rule;
+
+class UpdateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -23,15 +26,23 @@ class UpdatePostRequest extends FormRequest
      */
     public function rules()
     {
+        $id = $this->route('Profile');
         return [
             'name'=>'required|max:30',
             'surname'=>'required|max:40',
             'birth_date'=>'required|date|before:2023-01-01',
-            'phone_number'=>'numeric|min:8|max:12',
-            'email'=>'required|email|unique:users,email,profiles,email',
-            'github_url'=>'unique:profiles|required|url',
-            'linkedin_url'=>'unique:profiles|required|url',
-            'profile_image'=> 'required|image|mimes:jpeg,png,jpg,gif|max:10240',
+            'phone_number'=>'nullable|numeric|regex:/^[0-9]{8,12}$/',
+            'email'=>[
+                'required',
+                'email',
+                // 'unique:users,email,profiles,email',
+                
+                Rule::unique('profiles')->ignore($this->id)
+                //Rule::unique('projects')->ignore($this->project)
+            ],
+            'github_url'=>'required|unique:profiles|url',
+            'linkedin_url'=>'required|unique:profiles|required|url',
+            'profile_image'=> 'required|mimes:jpeg,png,jpg,gif|max:10240',
             'curriculum'=>'required|mimes:pdf|max:5120',
             'performance'=>'required'
         ];
@@ -50,6 +61,7 @@ class UpdatePostRequest extends FormRequest
             'curriculum.required'=> 'Il campo "curriculum" è obbligatorio',
             'performance.required'=> 'Il campo "performance" è obbligatorio',
 
+            'email.unique' => 'Questa mail è già stata utilizzata da un altro utente',
             'github_url.unique'=> 'Questo link github è già utilizzato da un altro utente',
             'linkedin_url.unique'=> 'Questo link linkedin è già utilizzato da un altro utente',
 
@@ -59,18 +71,19 @@ class UpdatePostRequest extends FormRequest
             'linkedin_url.url' => 'Questo campo deve contenere un link URL valido ',
 
             'profile_image.mimes' => 'Il file deve essere formato jpeg, png, jpg, gif',
-            'profile_image.mimes' => 'Il file deve essere formato pdf',
+            'curriculum.mimes' => 'Il file deve essere formato pdf',
 
             'name.max' => 'Il nome non deve superare i 30 caratteri',
             'surname.max' => 'Il cognome non deve superare i 40 caratteri',
-            'phone_number.max' => 'Il numero di telefono non deve superara le 12 cifre',
             'profile_image.max' => "La dimensione dell'immagine non deve superare i 10MB",
             'curriculum.max' => "La dimensione del curriculum non deve superare i 5MB",
-            
-            'phone_number.min' => 'Il numero di telefono deve contenere almeno 8 cifre',
 
             'birth_date.date' => 'Inserisci una data',
-            'birth_date.before' => 'Inserisci una data valida',       
+            'birth_date.before' => 'Inserisci una data valida',
+
+            'phone_number.numeric' => 'Il campo deve contenere numeri',
+            
+            'phone_number.regex' => 'Il numero deve essere compreso tra 8 e 12 cifre'
         ];
     }
 }

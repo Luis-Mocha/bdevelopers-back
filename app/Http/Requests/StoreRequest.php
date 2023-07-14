@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StorePostRequest extends FormRequest
+class StoreRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -27,7 +27,7 @@ class StorePostRequest extends FormRequest
             'name'=>'required|max:30',
             'surname'=>'required|max:40',
             'birth_date'=>'required|date|before:2023-01-01',
-            'phone_number'=>'nullable|numeric|max:12|min:8',
+            'phone_number'=>'nullable|numeric|regex:/^[0-9]{8,12}$/',
             'email'=>'required|email|unique:users,email,profiles,email',
             'github_url'=>'required|unique:profiles|url',
             'linkedin_url'=>'required|unique:profiles|required|url',
@@ -63,16 +63,15 @@ class StorePostRequest extends FormRequest
 
             'name.max' => 'Il nome non deve superare i 30 caratteri',
             'surname.max' => 'Il cognome non deve superare i 40 caratteri',
-            'phone_number.max' => 'Il numero di telefono non deve superara le 12 cifre',
             'profile_image.max' => "La dimensione dell'immagine non deve superare i 10MB",
             'curriculum.max' => "La dimensione del curriculum non deve superare i 5MB",
-            
-            'phone_number.min' => 'Il numero di telefono deve contenere almeno 8 cifre',
 
             'birth_date.date' => 'Inserisci una data',
             'birth_date.before' => 'Inserisci una data valida',
 
-            'phone_number.numeric' => 'Il campo deve contenere numeri'       
+            'phone_number.numeric' => 'Il campo deve contenere numeri',
+            
+            'phone_number.regex' => 'Il numero deve essere compreso tra 8 e 12 cifre'
         ];
     }
 }

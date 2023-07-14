@@ -14,8 +14,8 @@ use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Storage;
 
 //importo il request
-use App\Http\Requests\StorePostRequest;
-use App\Http\Requests\UpdatePostRequest;
+use App\Http\Requests\StoreRequest;
+use App\Http\Requests\UpdateRequest;
 
 
 class DevProfileController extends Controller
@@ -60,7 +60,7 @@ class DevProfileController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StorePostRequest $request)
+    public function store(StoreRequest $request)
     {
 
         $form_data = $request->all();
@@ -113,7 +113,7 @@ class DevProfileController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdatePostRequest $request, $id)
+    public function update(UpdateRequest $request, $id)
     {
         $profile_id =  Profile::find($id);
         $form_data = $request->all();

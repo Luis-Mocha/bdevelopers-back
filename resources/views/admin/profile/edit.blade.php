@@ -13,7 +13,7 @@
 
     <div class="container">
         <p class="text-center fs-2 my-5 text-uppercase">Modifica il tuo profilo</p>
-        <form action="{{ route('admin.update', $profile_id['id']) }}" method="POST" enctype=”multipart/form-data”>
+        <form action="{{ route('admin.update', $profile_id['id']) }}" method="POST" enctype="multipart/form-data">
             @csrf
 
             @method('PUT')
@@ -21,14 +21,14 @@
             {{-- <input type="hidden" name="user_id" value="{{ Auth::id() }}"> --}}
             <div class="mb-3">
                 <label class="form-label">Nome</label>
-                <input name="name" type="text" class="form-control">
+                <input name="name" type="text" class="form-control" value="{{ old('name') ?? $profile_id->name }}">
                 @error('name')
                     <div class="alert alert-danger">{{ $message }}</div>
                 @enderror
             </div>
             <div class="mb-3">
                 <label class="form-label">Cognome</label>
-                <input name="surname" type="text" class="form-control ">
+                <input name="surname" type="text" class="form-control " value="{{ old('surname') ?? $profile_id->surname }}">
                 @error('surname')
                     <div class="alert alert-danger">{{ $message }}</div>
                 @enderror
@@ -36,7 +36,7 @@
             {{-- INPUT BIRTH DATE --}}
             <div class="mb-3">
                 <label class="form-label">Data di nascita</label>
-                <input name="birth_date" type="date" class="form-control ">
+                <input name="birth_date" type="date" class="form-control " value="{{ old('birth_date') ?? $profile_id->birth_date }}">
                 @error('birth_date')
                     <div class="alert alert-danger">{{ $message }}</div>
                 @enderror
@@ -44,7 +44,7 @@
             {{-- INPUT PHONE NUMBER --}}
             <div class="mb-3">
                 <label class="form-label">Numero di telefono</label>
-                <input name="phone_number" type="tel" class="form-control ">
+                <input name="phone_number" type="tel" class="form-control " value="{{ old('phone_number') ?? $profile_id->phone_number }}">
                 @error('phone_number')
                     <div class="alert alert-danger">{{ $message }}</div>
                 @enderror
@@ -52,7 +52,7 @@
             {{-- EMAIL --}}
             <div class="mb-3">
                 <label class="form-label">Email</label>
-                <input name="email" type="email" class="form-control ">
+                <input name="email" type="email" class="form-control " value="{{ old('email') ?? $profile_id->email  }}">
                 @error('email')
                     <div class="alert alert-danger">{{ $message }}</div>
                 @enderror
@@ -60,7 +60,7 @@
             {{-- GITHUB URL --}}
             <div class="mb-3">
                 <label class="form-label">Github/URL</label>
-                <input name="github_url" type="url" class="form-control">
+                <input name="github_url" type="url" class="form-control" value="{{ old('github_url') ?? $profile_id->github_url  }}">
                 @error('github_url')
                     <div class="alert alert-danger">{{ $message }}</div>
                 @enderror
@@ -68,7 +68,7 @@
             {{-- LINKEDIN URL --}}
             <div class="mb-3">
                 <label class="form-label">Linkedin/URL</label>
-                <input name="linkedin_url" type="url" class="form-control">
+                <input name="linkedin_url" type="url" class="form-control" value="{{ old('linkedin_url') ?? $profile_id->linkedin_url  }}">
                 @error('linkedin_url')
                     <div class="alert alert-danger">{{ $message }}</div>
                 @enderror
@@ -90,7 +90,7 @@
             {{-- PERFORMANCE --}}
             <div class="mb-3">
                 <label class="form-label">Perfomance</label>
-                <input name="performance" type="text" class="form-control ">
+                <input name="performance" type="text" class="form-control" value="{{ old('performance') ?? $profile_id->performance  }}">
                 @error('performance')
                     <div class="alert alert-danger">{{ $message }}</div>
                 @enderror
