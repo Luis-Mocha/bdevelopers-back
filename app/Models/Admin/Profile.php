@@ -37,6 +37,12 @@ class Profile extends Model
         return $this->belongsToMany(Technology::class);
     }
 
+    //crea relazione many to many verso la tabella fields
+    public function fields()
+    {
+        return $this->belongsToMany(Field::class);
+    }
+
     //crea relazione many to many verso la tabella sponsorships
     public function sponsorships()
     {
