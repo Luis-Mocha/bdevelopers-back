@@ -20,4 +20,9 @@ class Field extends Model
     {
         return $this->belongsToMany(Profile::class);
     }
+
+    public function users()
+    {
+        return $this->belongsToMany(User::class);
+    }
 }

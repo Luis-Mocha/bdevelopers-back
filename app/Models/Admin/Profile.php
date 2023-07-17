@@ -38,10 +38,10 @@ class Profile extends Model
     }
 
     //crea relazione many to many verso la tabella fields
-    public function fields()
-    {
-        return $this->belongsToMany(Field::class);
-    }
+    // public function fields()
+    // {
+    //     return $this->belongsToMany(Field::class);
+    // }
 
     //crea relazione many to many verso la tabella sponsorships
     public function sponsorships()

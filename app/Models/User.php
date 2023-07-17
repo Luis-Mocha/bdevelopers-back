@@ -8,6 +8,9 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
+// importo i modelli
+use App\Models\Admin\Field;
+
 class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
@@ -26,6 +29,12 @@ class User extends Authenticatable
     // Relazione One-to-One con "Profile"
     public function profile() {
         return $this->hasOne(Profile::class);
+    }
+
+    // Relazione many-to-many con "fields"
+    public function fields()
+    {
+        return $this->belongsToMany(Field::class);
     }
 
 

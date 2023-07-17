@@ -25,6 +25,25 @@
                             </div>
                         </div>
 
+                        {{-- Checkbox technologies --}}
+                        <div class="form-group mt-3">
+                            <div>
+                                Ambiti di svilluppo:
+                            </div>
+                            <div class="d-flex flex-wrap">
+                                
+                                @foreach ($fields as $elem)
+                                    <div class="me-4">
+                                        <label for="input-technology-{{$elem->id}}" class="form-label">
+                                            {{$elem->name}}:
+                                        </label>
+                                        <input type="checkbox" id="input-technology-{{$elem->id}}" value="{{$elem->id}}" name="fields[]" {{ in_array( $elem->id, old('technologies', [] ) ) ? 'checked' : '' }}>
+                                    </div>
+                                @endforeach
+                            </div>
+                        </div>
+                        
+
                         <div class="mb-4 row">
                             <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
 

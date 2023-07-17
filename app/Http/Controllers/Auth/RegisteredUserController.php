@@ -13,6 +13,9 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
 use Illuminate\View\View;
 
+// importo i modelli
+use App\Models\Admin\Field;
+
 class RegisteredUserController extends Controller
 {
     /**
@@ -20,7 +23,12 @@ class RegisteredUserController extends Controller
      */
     public function create(): View
     {
-        return view('auth.register');
+        // importo i field dal modello Field
+        $fields = Field::all();
+
+        // dd($fields, 'hello');
+
+        return view('auth.register', compact('fields'));
     }
 
     /**
@@ -41,6 +49,14 @@ class RegisteredUserController extends Controller
             'email' => $request->email,
             'password' => Hash::make($request->password),
         ]);
+
+        //Controllo checked Technologies
+        if ($request->has('fields')) {
+
+            $user->fields()->attach($request->fields);
+        }
+
+        // dd($user, $request);
 
         event(new Registered($user));
 

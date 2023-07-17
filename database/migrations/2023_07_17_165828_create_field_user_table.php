@@ -13,18 +13,15 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('field_profile', function (Blueprint $table) {
-            
-            $table->unsignedBigInteger('profile_id');
-            $table->foreign('profile_id')->references('id')->on('profiles')->cascadeOnDelete();
-            //cascade cancella i record in relazione con la tabella
-
-            // Relazione tabella Technologies-pivot
+        Schema::create('field_user', function (Blueprint $table) {
             $table->unsignedBigInteger('field_id');
+            $table->unsignedBigInteger('user_id');
+
             $table->foreign('field_id')->references('id')->on('fields')->cascadeOnDelete();
+            $table->foreign('user_id')->references('id')->on('users')->cascadeOnDelete();
 
-            $table->primary(['profile_id', 'field_id']);
 
+            $table->primary(['field_id', 'user_id']);
         });
     }
 
@@ -35,6 +32,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('field_profile');
+        Schema::dropIfExists('field_user');
     }
 };
