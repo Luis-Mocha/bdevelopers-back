@@ -80,10 +80,13 @@
             <div class="alert alert-danger">{{ $message }}</div>
             @enderror
         </div>
+
+        
+        <img id="img-preview" src="http://placehold.it/180" alt="your image" />
         {{-- PROFILE IMAGE --}}
         <div class="mb-3">
             <label for="profile_image" class="form-label">Immagine di profilo</label>
-            <input type="file" class="form-control" name="profile_image" id="profile_image" aria-describedby="fileHelpId" accept=".jpg,.png,.jpg,.gif">
+            <input type="file" class="form-control" name="profile_image" id="profile_image" aria-describedby="fileHelpId" accept=".jpg,.png,.jpg,.gif" onchange="readURL(this);">
             @error('profile_image')
             <div class="alert alert-danger">{{ $message }}</div>
             @enderror
@@ -109,4 +112,26 @@
 
     </form>
 </div>
+
+
+<script>
+
+    // Funzione per visualizzare l'anteprima dell'immagine
+    function readURL(input) {
+        if (input.files && input.files[0]) {
+            let reader = new FileReader();
+
+            reader.onload = function (e) {
+                const imgPreview = document.getElementById('img-preview');
+                imgPreview.setAttribute("src", e.target.result);
+            };
+
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+
+</script>
+
+
 @endsection
+

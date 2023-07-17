@@ -82,10 +82,15 @@
             <div class="alert alert-danger">{{ $message }}</div>
             @enderror
         </div>
+
+        <div>
+            <h2>Anteprima immagine:</h2>
+            <img id="img-preview" src="{{ asset('storage/' . $profile_id->profile_image) }}" alt="">
+        </div>
         {{-- PROFILE IMAGE --}}
         <div class="mb-3">
             <label for="profile_image" class="form-label">Immagine di profilo</label>
-            <input type="file" class="form-control" name="profile_image" id="profile_image" accept=".jpg,.png,.jpg,.gif" aria-describedby="fileHelpId">
+            <input type="file" class="form-control" name="profile_image" id="profile_image" accept=".jpg,.png,.jpg,.gif" aria-describedby="fileHelpId" onchange="readURL(this);">
         </div>
         {{-- CV --}}
         <div class="mb-3">
@@ -108,4 +113,24 @@
 
     </form>
 </div>
+
+<script>
+
+    // Funzione per visualizzare l'anteprima dell'immagine
+    function readURL(input) {
+        if (input.files && input.files[0]) {
+            let reader = new FileReader();
+
+            reader.onload = function (e) {
+                const imgPreview = document.getElementById('img-preview');
+                imgPreview.setAttribute("src", e.target.result);
+            };
+
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+
+</script>
+
+
 @endsection
