@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('name', 30)->nullable();
             $table->string('surname', 40)->nullable();
             $table->date('birth_date')->nullable();
+            $table->string('address')->nullable();
             $table->string('phone_number', 12)->nullable()->unique();
             $table->string('email', 30)->nullable()->unique();
             $table->string('github_url')->nullable()->unique();

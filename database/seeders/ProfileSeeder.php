@@ -24,6 +24,7 @@ class ProfileSeeder extends Seeder
                 'name' => 'John',
                 'surname' => 'Doe',
                 'birth_date' => '1985-09-10',
+                'address' => 'Via Roma',
                 'phone_number' => '123-456-7890',
                 'email' => 'john.doe@example.com',
                 'github_url' => 'https://github.com/johndoe',
@@ -37,6 +38,7 @@ class ProfileSeeder extends Seeder
                 'name' => 'Jane',
                 'surname' => 'Smith',
                 'birth_date' => '1990-03-15',
+                'address' => 'Via Roma',
                 'phone_number' => '987-654-3210',
                 'email' => 'jane.smith@example.com',
                 'github_url' => 'https://github.com/janesmith',
@@ -50,6 +52,7 @@ class ProfileSeeder extends Seeder
                 'name' => 'Robert',
                 'surname' => 'Johnson',
                 'birth_date' => '1978-12-03',
+                'address' => 'Via Roma',
                 'phone_number' => '555-123-4567',
                 'email' => 'robert.johnson@example.com',
                 'github_url' => 'https://github.com/robertjohnson',
@@ -69,6 +72,7 @@ class ProfileSeeder extends Seeder
             $new_profile->name = $elem['name'];
             $new_profile->surname = $elem['surname'];
             $new_profile->birth_date = $elem['birth_date'];
+            $new_profile->address = $elem['address'];
             $new_profile->phone_number = $elem['phone_number'];
             $new_profile->email = $elem['email'];
             $new_profile->github_url = $elem['github_url'];

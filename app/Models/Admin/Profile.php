@@ -14,6 +14,7 @@ class Profile extends Model
         "name",
         "surname",
         "birth_date",
+        "address",
         "phone_number",
         "email",
         "github_url",

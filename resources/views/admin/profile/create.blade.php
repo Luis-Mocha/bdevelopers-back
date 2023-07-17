@@ -1,104 +1,112 @@
 @extends('layouts.app')
 
 @section('content')
-    {{-- @if ($errors->any())
+{{-- @if ($errors->any())
     <div class="alert alert-danger">
         <ul>
             @foreach ($errors->all() as $error)
                 <li>{{ $error }}</li>
-            @endforeach
-        </ul>
-    </div>
+@endforeach
+</ul>
+</div>
 @endif --}}
 
-    <div class="container">
-        <p class="text-center fs-2 my-5 text-uppercase">Aggiungi un profilo a questo sito internet</p>
-        <form action="{{ route('admin.store') }}" method="POST" enctype="multipart/form-data">
-            @csrf
-            <input type="hidden" name="user_id" value="{{ Auth::id() }}">
-            {{-- INPUT NOME --}}
-            <div class="mb-3">
-                <label class="form-label">Nome</label>
-                <input name="name" type="text" class="form-control" value="{{ old('name') }}" placeholder="Inserisci il tuo nome" required maxlength="30" autofocus>
-                @error('name')
-                    <div class="alert alert-danger">{{ $message }}</div>
-                @enderror
-            </div>
-            {{-- INPUT COGNOME --}}
-            <div class="mb-3">
-                <label class="form-label">Cognome</label>
-                <input name="surname" type="text" class="form-control" value="{{ old('surname') }}" placeholder="Inserisci il tuo cognome" required maxlength="40">
-                @error('surname')
-                    <div class="alert alert-danger">{{ $message }}</div>
-                @enderror
-            </div>
-            {{-- INPUT BIRTH DATE --}}
-            <div class="mb-3">
-                <label class="form-label">Data di nascita</label>
-                <input name="birth_date" type="date" class="form-control" value="{{ old('birth_date') }}" required>
-                @error('birth_date')
-                    <div class="alert alert-danger">{{ $message }}</div>
-                @enderror
-            </div>
-            {{-- INPUT PHONE NUMBER --}}
-            <div class="mb-3">
-                <label class="form-label">Numero di telefono</label>
-                <input name="phone_number" type="tel" class="form-control" value="{{ old('phone_number') }}" required minlength="8" maxlength="13" placeholder="Inserisci il tuo numero di telefono">
-                @error('phone_number')
-                    <div class="alert alert-danger">{{ $message }}</div>
-                @enderror
-            </div>
-            {{-- EMAIL --}}
-            <div class="mb-3">
-                <label class="form-label">Email</label>
-                <input name="email" type="email" class="form-control" value="{{ old('email') }}" required placeholder="Inserisci la tua email">
-                @error('email')
-                    <div class="alert alert-danger">{{ $message }}</div>
-                @enderror
-            </div>
-            {{-- GITHUB URL --}}
-            <div class="mb-3">
-                <label class="form-label">Github/URL</label>
-                <input name="github_url" type="url" class="form-control" value="{{ old('github_url') }}" required placeholder="Inserisci il tuo profilo GitHub">
-                @error('github_url')
-                    <div class="alert alert-danger">{{ $message }}</div>
-                @enderror
-            </div>
-            {{-- LINKEDIN URL --}}
-            <div class="mb-3">
-                <label class="form-label">Linkedin/URL</label>
-                <input name="linkedin_url" type="url" class="form-control" value="{{ old('linkedin_url') }}" required placeholder="Inserisci il tuo profilo LinkedIn">
-                @error('linkedin_url')
-                    <div class="alert alert-danger">{{ $message }}</div>
-                @enderror
-            </div>
-            {{-- PROFILE IMAGE --}}
-            <div class="mb-3">
-                <label for="profile_image" class="form-label">Immagine di profilo</label>
-                <input type="file" class="form-control" name="profile_image" id="profile_image" required aria-describedby="fileHelpId" accept=".jpg,.png,.jpg,.gif">
-                    @error('profile_image')
-                    <div class="alert alert-danger">{{ $message }}</div>
-                @enderror
-            </div>
-            {{-- CV --}}
-            <div class="mb-3">
-                <label class="form-label">Curriculum</label>
-                <input name="curriculum" type="file" class="form-control" required accept=".pdf">
-                @error('curriculum')
-                    <div class="alert alert-danger">{{ $message }}</div>
-                @enderror
-            </div>
-            {{-- PERFORMANCE --}}
-            <div class="mb-3">
-                <label class="form-label">Perfomance</label>
-                <input name="performance" type="text" class="form-control"  value="{{ old('performance') }}" required placeholder="Inserisci le tue performance">
-                @error('performance')
-                    <div class="alert alert-danger">{{ $message }}</div>
-                @enderror
-            </div>
+<div class="container">
+    <p class="text-center fs-2 my-5 text-uppercase">Aggiungi un profilo a questo sito internet</p>
+    <form action="{{ route('admin.store') }}" method="POST" enctype="multipart/form-data">
+        @csrf
+        <input type="hidden" name="user_id" value="{{ Auth::id() }}">
+        {{-- INPUT NOME --}}
+        <div class="mb-3">
+            <label class="form-label">Nome *</label>
+            <input name="name" type="text" class="form-control" value="{{ old('name') }}" placeholder="Inserisci il tuo nome" required maxlength="30" autofocus>
+            @error('name')
+            <div class="alert alert-danger">{{ $message }}</div>
+            @enderror
+        </div>
+        {{-- INPUT COGNOME --}}
+        <div class="mb-3">
+            <label class="form-label">Cognome *</label>
+            <input name="surname" type="text" class="form-control" value="{{ old('surname') }}" placeholder="Inserisci il tuo cognome" required maxlength="40">
+            @error('surname')
+            <div class="alert alert-danger">{{ $message }}</div>
+            @enderror
+        </div>
+        {{-- INPUT BIRTH DATE --}}
+        <div class="mb-3">
+            <label class="form-label">Data di nascita</label>
+            <input name="birth_date" type="date" class="form-control" value="{{ old('birth_date') }}">
+            @error('birth_date')
+            <div class="alert alert-danger">{{ $message }}</div>
+            @enderror
+        </div>
+        {{-- INPUT INDIRIZZO --}}
+        <div class="mb-3">
+            <label class="form-label">Indirizzo *</label>
+            <input name="address" type="text" class="form-control" value="{{ old('address') }}" placeholder="Inserisci il tuo indirizzo" required maxlength="100">
+            @error('address')
+            <div class="alert alert-danger">{{ $message }}</div>
+            @enderror
+        </div>
+        {{-- INPUT PHONE NUMBER --}}
+        <div class="mb-3">
+            <label class="form-label">Numero di telefono</label>
+            <input name="phone_number" type="tel" class="form-control" value="{{ old('phone_number') }}" required minlength="8" maxlength="13" placeholder="Inserisci il tuo numero di telefono">
+            @error('phone_number')
+            <div class="alert alert-danger">{{ $message }}</div>
+            @enderror
+        </div>
+        {{-- EMAIL --}}
+        <div class="mb-3">
+            <label class="form-label">Email *</label>
+            <input name="email" type="email" class="form-control" value="{{ old('email') }}" required placeholder="Inserisci la tua email">
+            @error('email')
+            <div class="alert alert-danger">{{ $message }}</div>
+            @enderror
+        </div>
+        {{-- GITHUB URL --}}
+        <div class="mb-3">
+            <label class="form-label">Github/URL</label>
+            <input name="github_url" type="url" class="form-control" value="{{ old('github_url') }}" placeholder="Inserisci il tuo profilo GitHub">
+            @error('github_url')
+            <div class="alert alert-danger">{{ $message }}</div>
+            @enderror
+        </div>
+        {{-- LINKEDIN URL --}}
+        <div class="mb-3">
+            <label class="form-label">Linkedin/URL</label>
+            <input name="linkedin_url" type="url" class="form-control" value="{{ old('linkedin_url') }}" placeholder="Inserisci il tuo profilo LinkedIn">
+            @error('linkedin_url')
+            <div class="alert alert-danger">{{ $message }}</div>
+            @enderror
+        </div>
+        {{-- PROFILE IMAGE --}}
+        <div class="mb-3">
+            <label for="profile_image" class="form-label">Immagine di profilo</label>
+            <input type="file" class="form-control" name="profile_image" id="profile_image" aria-describedby="fileHelpId" accept=".jpg,.png,.jpg,.gif">
+            @error('profile_image')
+            <div class="alert alert-danger">{{ $message }}</div>
+            @enderror
+        </div>
+        {{-- CV --}}
+        <div class="mb-3">
+            <label class="form-label">Curriculum</label>
+            <input name="curriculum" type="file" class="form-control" accept=".pdf">
+            @error('curriculum')
+            <div class="alert alert-danger">{{ $message }}</div>
+            @enderror
+        </div>
+        {{-- PERFORMANCE --}}
+        <div class="mb-3">
+            <label class="form-label">Perfomance *</label>
+            <input name="performance" type="text" class="form-control" value="{{ old('performance') }}" required placeholder="Inserisci le tue performance">
+            @error('performance')
+            <div class="alert alert-danger">{{ $message }}</div>
+            @enderror
+        </div>
 
-            <button type="submit" class="btn btn-primary">CREA</button>
+        <button type="submit" class="btn btn-primary">CREA</button>
 
-        </form>
-    </div>
+    </form>
+</div>
 @endsection
