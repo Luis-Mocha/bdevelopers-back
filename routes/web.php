@@ -6,6 +6,12 @@ use Illuminate\Support\Facades\Route;
 // Importo Controller Profilo
 use App\Http\Controllers\Admin\DevProfileController;
 
+//importo model Profile
+use App\Models\Admin\Profile;
+
+//importo Auth
+use Illuminate\Support\Facades\Auth;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -34,5 +40,8 @@ Route::middleware('auth',)->group(function () {
     // Rotta resource Profile
     Route::resource('/admin', DevProfileController::class);
 });
+
+
+
 
 require __DIR__ . '/auth.php';

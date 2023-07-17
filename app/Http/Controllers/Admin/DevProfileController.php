@@ -100,10 +100,19 @@ class DevProfileController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
+
     {
+        $user_id = Auth::id();
 
         $profile_id =  Profile::find($id);
-        return view('admin.profile.edit', compact('profile_id'));
+
+        // condizione che confronta l'id user con l'id profile
+        if ($profile_id->user_id == $user_id) {
+            return view('admin.profile.edit', compact('profile_id'));
+        } else {
+            //reindirizzamento alla pagina di errore
+            abort(401);
+        }
     }
 
     /**
@@ -118,16 +127,16 @@ class DevProfileController extends Controller
         $profile_id =  Profile::find($id);
         $form_data = $request->all();
 
-        if( $request->hasFile('profile_image') ){
-            
+        if ($request->hasFile('profile_image')) {
+
             //PROCEDIMENTO SOLO SE SIAMO NELLA UPDATE!!!!!
-            if( $profile_id->profile_image ){
+            if ($profile_id->profile_image) {
                 Storage::delete($profile_id->profile_image);
             }
             //FINE: PROCEDIMENTO SOLO SE SIAMO NELLA UPDATE!!!!!
 
             //Genere un path di dove verrà salvata l'iimagine nel progetto
-            $path = Storage::disk('public')->put( 'project_covers', $request->profile_image );
+            $path = Storage::disk('public')->put('project_covers', $request->profile_image);
 
             $form_data['profile_image'] = $path;
         }
@@ -145,12 +154,12 @@ class DevProfileController extends Controller
     public function destroy($id)
     {
 
-        
+
 
         $profile_id =  Profile::find($id);
-        if( $profile_id->profile_image ){
+        if ($profile_id->profile_image) {
             Storage::delete($profile_id->profile_image);
-        } 
+        }
         $profile_id->delete();
 
         return view('welcome');
