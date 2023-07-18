@@ -82,7 +82,16 @@ class DevProfileController extends Controller
 
             $form_data['profile_image'] = $path;
         }
-        //Controllo checked Technologies
+        
+
+        if ($request->hasFile('curriculum')) {
+
+            // creo un path dove viene salvata l'immagine del profilo
+            // 'profile_curriculum' è una sottocartella che creo in storage
+            $path = Storage::disk('public')->put('profile_cvs', $request->curriculum);
+
+            $form_data['curriculum'] = $path;
+        }
 
         $newProfile = Profile::create($form_data);
 
@@ -90,13 +99,14 @@ class DevProfileController extends Controller
         $user_id = Auth::id();
         $currentUser = User::find($user_id);
 
-        // fields
+
+        // Controllo checked fields
         if ($request->has('fields')) {
 
             $currentUser->fields()->sync($request->fields);
         }
 
-        // technolpogies
+        // Controllo checked Technologies
         if ($request->has('technologies')) {
 
             $newProfile->technologies()->attach($request->technologies);
@@ -163,6 +173,7 @@ class DevProfileController extends Controller
 
         $form_data = $request->all();
 
+        // se il profilo ha un immmagine
         if ($request->hasFile('profile_image')) {
 
             //PROCEDIMENTO SOLO SE SIAMO NELLA UPDATE!!!!!
@@ -171,14 +182,29 @@ class DevProfileController extends Controller
             }
             //FINE: PROCEDIMENTO SOLO SE SIAMO NELLA UPDATE!!!!!
 
-            //Genere un path di dove verrà salvata l'iimagine nel progetto
+            //Genere un path di dove verrà salvata l'immagine nel progetto
             $path = Storage::disk('public')->put('project_covers', $request->profile_image);
 
             $form_data['profile_image'] = $path;
         }
 
-        $profile_id->update($form_data);
+        // se il profilo ha un cv
+        if ($request->hasFile('curriculum')) {
 
+            //PROCEDIMENTO SOLO SE SIAMO NELLA UPDATE!!!!!
+            if ($profile_id->curriculum) {
+                Storage::delete($profile_id->curriculum);
+            }
+            //FINE: PROCEDIMENTO SOLO SE SIAMO NELLA UPDATE!!!!!
+
+            //Genere un path di dove verrà salvata l'immagine nel progetto
+            $path = Storage::disk('public')->put('profile_cvs', $request->curriculum);
+
+            $form_data['curriculum'] = $path;
+        }
+
+        
+        $profile_id->update($form_data);
 
         //Controllo Technologies aggiornati
         if ($request->has('technologies')) {

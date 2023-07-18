@@ -33,14 +33,20 @@
         <h2>Linkedin:</h2>
         <h3 class="mb-3">{{ $elem['linkedin_url'] }}</h3>
     </div>
+    
+    {{-- Immagine profilo --}}
     <div>
         <h2>Immagine di profilo:</h2>
         <img src="{{ asset('storage/' . $elem->profile_image) }}" alt="">
     </div>
+
+    {{-- Curriculum --}}
     <div>
         <h2>Curriculum:</h2>
-        {{-- <img src="{{asset('storage/' . $elem->curriculum)}}" alt=""> --}}
+        <a href="{{ asset('storage/' . $elem->curriculum) }}" download="{{ $elem['name'] }}-{{ $elem['surname'] }}-CV">Scarica il tuo curriculum</a>
     </div>
+
+    {{-- Perfomance --}}
     <div>
         <h2>Performance:</h2>
         <h3 class="mb-3 text-uppercase">{{ $elem['performance'] }}</h3>
