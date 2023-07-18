@@ -72,8 +72,6 @@ class DevProfileController extends Controller
 
         $form_data = $request->all();
 
-
-
         if ($request->hasFile('profile_image')) {
 
             // creo un path dove viene salvata l'immagine del profilo
@@ -86,10 +84,14 @@ class DevProfileController extends Controller
 
         $newProfile = Profile::create($form_data);
 
+        // Ottengo lo user autenticato
+        $user_id = Auth::id();
+        $currentUser = User::find($user_id);
+
         // fields
         if ($request->has('fields')) {
 
-            $newProfile->fields()->attach($request->fields);
+            $currentUser->fields()->attach($request->fields);
         }
 
         // technolpogies
@@ -97,8 +99,6 @@ class DevProfileController extends Controller
 
             $newProfile->technologies()->attach($request->technologies);
         }
-
-        //$newProfile->save();
         
 
         // aggiungere un redirect
@@ -196,9 +196,6 @@ class DevProfileController extends Controller
      */
     public function destroy($id)
     {
-
-
-
         $profile_id =  Profile::find($id);
         if ($profile_id->profile_image) {
             Storage::delete($profile_id->profile_image);
