@@ -33,7 +33,7 @@ class UpdateRequest extends FormRequest
             'birth_date' => 'required|date|before:2023-01-01',
             'phone_number' => [
                 'nullable',
-                'unique:profiles',
+                Rule::unique('profiles')->ignore($this->route('admin')),
                 'numeric',
                 'regex:/^[0-9]{8,13}$/',
 
@@ -44,20 +44,17 @@ class UpdateRequest extends FormRequest
                 Rule::unique('profiles')->ignore($this->route('admin'))
             ],
             'github_url' => [
-                'required',
                 'url',
                 Rule::unique('profiles')->ignore($this->route('admin'))
 
             ],
             'linkedin_url' => [
-                'required',
                 'url',
                 Rule::unique('profiles')->ignore($this->route('admin'))
 
             ],
-            'profile_image' => 'required|mimes:jpeg,png,jpg,gif|max:10240',
-            'curriculum' => 'required|mimes:pdf|max:5120',
-            'performance' => 'required'
+            'profile_image' => 'mimes:jpeg,png,jpg,gif|max:10240',
+            'curriculum' => 'mimes:pdf|max:5120'
         ];
     }
     public function messages()
@@ -65,13 +62,8 @@ class UpdateRequest extends FormRequest
         return [
             'name.required' => 'Il campo "nome" è obbligatorio',
             'surname.required' => 'Il campo "cognome" è obbligatorio',
-            'birth_date.required' => 'Il campo "data di nascita" è obbligatorio',
             'email.required' => 'Il campo "email" è obbligatorio',
-            'github_url.required' => 'Il campo "github" è obbligatorio',
-            'linkedin_url.required' => 'Il campo "linkedin" è obbligatorio',
-            'profile_image.required' => 'Il campo "immagine" è obbligatorio',
-            'curriculum.required' => 'Il campo "curriculum" è obbligatorio',
-            'performance.required' => 'Il campo "performance" è obbligatorio',
+
 
             'phone_number.unique' => 'Questo numero è gia utilizzato da un altro utente',
             'email.unique' => 'Questa mail è già stata utilizzata da un altro utente',

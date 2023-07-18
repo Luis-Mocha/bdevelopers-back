@@ -26,14 +26,13 @@ class StoreRequest extends FormRequest
         return [
             'name' => 'required|max:30',
             'surname' => 'required|max:40',
-            'birth_date' => 'required|date|before:2023-01-01',
+            'birth_date' => 'date|before:2023-01-01',
             'phone_number' => 'nullable|unique:profiles|numeric|regex:/^[0-9]{8,13}$/',
             'email' => 'required|email|unique:profiles,email',
-            'github_url' => 'required|unique:profiles|url',
-            'linkedin_url' => 'required|unique:profiles|required|url',
-            'profile_image' => 'required|mimes:jpeg,png,jpg,gif|max:10240',
-            'curriculum' => 'required|mimes:pdf|max:5120',
-            'performance' => 'required'
+            'github_url' => 'unique:profiles|url',
+            'linkedin_url' => 'unique:profiles|required|url',
+            'profile_image' => 'mimes:jpeg,png,jpg,gif|max:10240',
+            'curriculum' => 'mimes:pdf|max:5120',
         ];
     }
     public function messages()
@@ -41,13 +40,7 @@ class StoreRequest extends FormRequest
         return [
             'name.required' => 'Il campo "nome" è obbligatorio',
             'surname.required' => 'Il campo "cognome" è obbligatorio',
-            'birth_date.required' => 'Il campo "data di nascita" è obbligatorio',
             'email.required' => 'Il campo "email" è obbligatorio',
-            'github_url.required' => 'Il campo "github" è obbligatorio',
-            'linkedin_url.required' => 'Il campo "linkedin" è obbligatorio',
-            'profile_image.required' => 'Il campo "immagine" è obbligatorio',
-            'curriculum.required' => 'Il campo "curriculum" è obbligatorio',
-            'performance.required' => 'Il campo "performance" è obbligatorio',
 
             'phone_number.unique' => 'Questo numero è gia utilizzato da un altro utente',
             'github_url.unique' => 'Questo link github è già utilizzato da un altro utente',

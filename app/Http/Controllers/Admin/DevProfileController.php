@@ -53,12 +53,14 @@ class DevProfileController extends Controller
      */
     public function create()
 
-    { 
+    {
         $fields = Field::all();
+
+        $currentUser = Auth::user();
 
         $technologies = Technology::all();
         // dd($technologies);
-        return view('admin.profile.create', compact('technologies', 'fields'));
+        return view('admin.profile.create', compact('technologies', 'fields', 'currentUser'));
     }
 
     /**
@@ -99,7 +101,7 @@ class DevProfileController extends Controller
 
             $newProfile->technologies()->attach($request->technologies);
         }
-        
+
 
         // aggiungere un redirect
         return redirect()->route('admin.index');
@@ -133,9 +135,11 @@ class DevProfileController extends Controller
 
         $technologies = Technology::all();
 
+        $currentUser = Auth::user();
+
         // condizione che confronta l'id user con l'id profile
         if ($profile_id->user_id == $user_id) {
-            return view('admin.profile.edit', compact('profile_id', 'fields', 'technologies'));
+            return view('admin.profile.edit', compact('profile_id', 'fields', 'technologies', 'currentUser'));
         } else {
             //reindirizzamento alla pagina di errore
             abort(401);
@@ -156,7 +160,7 @@ class DevProfileController extends Controller
         $user_id = Auth::id();
 
         $user = User::find($user_id);
-      
+
         $form_data = $request->all();
 
         if ($request->hasFile('profile_image')) {
@@ -174,7 +178,7 @@ class DevProfileController extends Controller
         }
 
         $profile_id->update($form_data);
-       
+
 
         //Controllo Technologies aggiornati
         if ($request->has('technologies')) {

@@ -10,7 +10,7 @@
         {{-- INPUT NOME --}}
         <div class="mb-3">
             <label class="form-label">Nome *</label>
-            <input name="name" type="text" class="form-control" value="{{ old('name') }}" placeholder="Inserisci il tuo nome (max 30 caratteri)" required maxlength="30" autofocus>
+            <input name="name" type="text" class="form-control" value="{{ $currentUser->name }}" placeholder="Inserisci il tuo nome (max 30 caratteri)" required maxlength="30" autofocus readonly>
             @error('name')
             <div class="alert alert-danger">{{ $message }}</div>
             @enderror
@@ -18,7 +18,7 @@
         {{-- INPUT COGNOME --}}
         <div class="mb-3">
             <label class="form-label">Cognome *</label>
-            <input name="surname" type="text" class="form-control" value="{{ old('surname') }}" placeholder="Inserisci il tuo cognome (max 40 caratteri)" required maxlength="40">
+            <input name="surname" type="text" class="form-control" value="{{ $currentUser->surname }}" placeholder="Inserisci il tuo cognome (max 40 caratteri)" required maxlength="40" readonly>
             @error('surname')
             <div class="alert alert-danger">{{ $message }}</div>
             @enderror
@@ -34,7 +34,7 @@
         {{-- INPUT INDIRIZZO --}}
         <div class="mb-3">
             <label class="form-label">Indirizzo *</label>
-            <input name="address" type="text" class="form-control" value="{{ old('address') }}" placeholder="Inserisci il tuo indirizzo (max 100 caratteri)" required maxlength="100">
+            <input name="address" type="text" class="form-control" value="{{ $currentUser->address }}" placeholder="Inserisci il tuo indirizzo (max 100 caratteri)" required maxlength="100" readonly>
             @error('address')
             <div class="alert alert-danger">{{ $message }}</div>
             @enderror
@@ -50,7 +50,7 @@
         {{-- EMAIL --}}
         <div class="mb-3">
             <label class="form-label">Email *</label>
-            <input name="email" type="email" class="form-control" value="{{ old('email') }}" required placeholder="Inserisci la tua email">
+            <input name="email" type="email" class="form-control" value="{{ $currentUser->email }}" required placeholder="Inserisci la tua email" readonly>
             @error('email')
             <div class="alert alert-danger">{{ $message }}</div>
             @enderror
@@ -78,32 +78,32 @@
                 Ambiti di svilluppo:
             </div>
             <div class="d-flex flex-wrap w-25">
-              
+
                 @foreach ($fields as $elem)
-                    <div class="ms-4 d-flex">
-                        <input class="me-2" type="checkbox" id="input-field-{{$elem->id}}" value="{{$elem->id}}" name="fields[]" {{ in_array( $elem->id, old('fields', [] ) ) ? 'checked' : '' }}>
-                        <label for="input-field-{{$elem->id}}" class="form-label text-capitalize">
-                            {{$elem->name}}
-                        </label>
-                    </div>
+                <div class="ms-4 d-flex">
+                    <input class="me-2" type="checkbox" id="input-field-{{$elem->id}}" value="{{$elem->id}}" name="fields[]" {{ in_array( $elem->id, old('fields', [] ) ) ? 'checked' : '' }}>
+                    <label for="input-field-{{$elem->id}}" class="form-label text-capitalize">
+                        {{$elem->name}}
+                    </label>
+                </div>
                 @endforeach
             </div>
-        </div> 
-        
-       {{-- technologies --}}
+        </div>
+
+        {{-- technologies --}}
         <div class="form-group mt-3 mb-4 d-flex">
             <div style="width:35%">
                 Tecnologie di svilluppo:
             </div>
             <div class="d-flex flex-wrap w-25">
-              
+
                 @foreach ($technologies as $elem)
-                    <div class="ms-4 d-flex">
-                        <input class="me-2" type="checkbox" id="input-technology-{{$elem->id}}" value="{{$elem->id}}" name="technologies[]" {{ in_array( $elem->id, old('technologies', [] ) ) ? 'checked' : '' }}>
-                        <label for="input-technology-{{$elem->id}}" class="form-label text-capitalize">
-                            {{$elem->name}}
-                        </label>
-                    </div>
+                <div class="ms-4 d-flex">
+                    <input class="me-2" type="checkbox" id="input-technology-{{$elem->id}}" value="{{$elem->id}}" name="technologies[]" {{ in_array( $elem->id, old('technologies', [] ) ) ? 'checked' : '' }}>
+                    <label for="input-technology-{{$elem->id}}" class="form-label text-capitalize">
+                        {{$elem->name}}
+                    </label>
+                </div>
                 @endforeach
             </div>
         </div>
@@ -141,13 +141,12 @@
 
 
 <script>
-
     // Funzione per visualizzare l'anteprima dell'immagine
     function readURL(input) {
         if (input.files && input.files[0]) {
             let reader = new FileReader();
 
-            reader.onload = function (e) {
+            reader.onload = function(e) {
                 const imgPreview = document.getElementById('img-preview');
                 imgPreview.setAttribute("src", e.target.result);
             };
@@ -155,9 +154,7 @@
             reader.readAsDataURL(input.files[0]);
         }
     }
-
 </script>
 
 
 @endsection
-
