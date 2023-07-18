@@ -91,7 +91,7 @@ class DevProfileController extends Controller
         // fields
         if ($request->has('fields')) {
 
-            $currentUser->fields()->attach($request->fields);
+            $currentUser->fields()->sync($request->fields);
         }
 
         // technolpogies
