@@ -12,7 +12,7 @@
                         @csrf
 
                         <div class="mb-4 row">
-                            <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Name') }}</label>
+                            <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Nome') }}</label>
 
                             <div class="col-md-6">
                                 <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
@@ -24,20 +24,48 @@
                                 @enderror
                             </div>
                         </div>
+                        {{--Inserimento Cognome--}}
+                        <div class="mb-4 row">
+                            <label for="surname" class="col-md-4 col-form-label text-md-right">{{ __('Cognome') }}</label>
 
-                        {{-- Checkbox technologies --}}
-                        <div class="form-group mt-3">
-                            <div>
+                            <div class="col-md-6">
+                                <input id="surname" type="text" class="form-control @error('surname') is-invalid @enderror" name="surname" value="{{ old('surname') }}" required autocomplete="surname" autofocus>
+
+                                @error('surname')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                                @enderror
+                            </div>
+                        </div>
+                         {{--Inserimento Indirizzo--}}
+                         <div class="mb-4 row">
+                            <label for="address" class="col-md-4 col-form-label text-md-right">{{ __('Indirizzo') }}</label>
+
+                            <div class="col-md-6">
+                                <input id="address" type="text" class="form-control @error('address') is-invalid @enderror" name="address" value="{{ old('address') }}" required autocomplete="address" autofocus>
+
+                                @error('address')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                                @enderror
+                            </div>
+                        </div>
+
+                        {{-- Checkbox fields --}}
+                        <div class="form-group mt-3 mb-4 d-flex">
+                            <div style="width:35%">
                                 Ambiti di svilluppo:
                             </div>
-                            <div class="d-flex flex-wrap">
+                            <div class="d-flex flex-wrap w-25">
                                 
                                 @foreach ($fields as $elem)
-                                    <div class="me-4">
-                                        <label for="input-technology-{{$elem->id}}" class="form-label">
-                                            {{$elem->name}}:
+                                    <div class="ms-4 d-flex">
+                                        <input class="me-2" type="checkbox" id="input-technology-{{$elem->id}}" value="{{$elem->id}}" name="fields[]" {{ in_array( $elem->id, old('technologies', [] ) ) ? 'checked' : '' }}>
+                                        <label for="input-technology-{{$elem->id}}" class="form-label text-capitalize">
+                                            {{$elem->name}}
                                         </label>
-                                        <input type="checkbox" id="input-technology-{{$elem->id}}" value="{{$elem->id}}" name="fields[]" {{ in_array( $elem->id, old('technologies', [] ) ) ? 'checked' : '' }}>
                                     </div>
                                 @endforeach
                             </div>
@@ -45,7 +73,7 @@
                         
 
                         <div class="mb-4 row">
-                            <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
+                            <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail') }}</label>
 
                             <div class="col-md-6">
                                 <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email">
@@ -73,7 +101,7 @@
                         </div>
 
                         <div class="mb-4 row">
-                            <label for="password-confirm" class="col-md-4 col-form-label text-md-right">{{ __('Confirm Password') }}</label>
+                            <label for="password-confirm" class="col-md-4 col-form-label text-md-right">{{ __('Conferma Password') }}</label>
 
                             <div class="col-md-6">
                                 <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
@@ -83,7 +111,7 @@
                         <div class="mb-4 row mb-0">
                             <div class="col-md-6 offset-md-4">
                                 <button type="submit" class="btn btn-primary">
-                                    {{ __('Register') }}
+                                    {{ __('Registrati') }}
                                 </button>
                             </div>
                         </div>

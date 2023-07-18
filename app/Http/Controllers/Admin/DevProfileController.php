@@ -9,7 +9,8 @@ use Illuminate\Http\Request;
 use App\Models\Admin\Profile;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
-
+use App\Models\Admin\Field;
+use App\Models\Admin\Technology;
 // importo lo Storage
 use Illuminate\Support\Facades\Storage;
 
@@ -51,7 +52,10 @@ class DevProfileController extends Controller
     public function create()
 
     {
-        return view('admin.profile.create');
+        //$fields = Field::all();
+        $technologies = Technology::all();
+        dd($technologies);
+        return view('admin.profile.create', compact('technologies'));
     }
 
     /**
@@ -75,8 +79,19 @@ class DevProfileController extends Controller
 
             $form_data['profile_image'] = $path;
         }
+        //Controllo checked Technologies
+        
+       
 
         $newProfile = Profile::create($form_data);
+
+        if ($request->has('technologies')) {
+
+            $newProfile->technologies()->attach($request->technologies);
+        }
+
+        //$newProfile->save();
+        
 
         // aggiungere un redirect
         return redirect()->route('admin.index');
