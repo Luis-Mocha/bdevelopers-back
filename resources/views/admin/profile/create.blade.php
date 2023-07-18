@@ -73,7 +73,7 @@
         </div>
 
         {{-- fields --}}
-        {{-- <div class="form-group mt-3 mb-4 d-flex">
+        <div class="form-group mt-3 mb-4 d-flex">
             <div style="width:35%">
                 Ambiti di svilluppo:
             </div>
@@ -88,7 +88,7 @@
                     </div>
                 @endforeach
             </div>
-        </div> --}}
+        </div> 
         
        {{-- technologies --}}
         <div class="form-group mt-3 mb-4 d-flex">

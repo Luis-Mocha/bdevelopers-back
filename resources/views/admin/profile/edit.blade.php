@@ -83,6 +83,24 @@
             @enderror
         </div>
 
+        {{-- fields --}}
+        <div class="form-group mt-3 mb-4 d-flex">
+            <div style="width:35%">
+                Ambiti di svilluppo:
+            </div>
+            <div class="d-flex flex-wrap w-25">
+              
+                @foreach ($fields as $elem)
+                    <div class="ms-4 d-flex">
+                        <input class="me-2" type="checkbox" id="input-field-{{$elem->id}}" value="{{$elem->id}}" name="fields[]" {{ in_array( $elem->id, old('fields', [] ) ) ? 'checked' : '' }}>
+                        <label for="input-field-{{$elem->id}}" class="form-label text-capitalize">
+                            {{$elem->name}}
+                        </label>
+                    </div>
+                @endforeach
+            </div>
+        </div> 
+
         {{-- Checkbox techs --}}
         <div class="form-group mt-3 mb-4 d-flex">
             <div style="width:35%">

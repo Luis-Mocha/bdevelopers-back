@@ -11,6 +11,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use App\Models\Admin\Field;
 use App\Models\Admin\Technology;
+use App\Models\User;
+
 // importo lo Storage
 use Illuminate\Support\Facades\Storage;
 
@@ -150,6 +152,11 @@ class DevProfileController extends Controller
     public function update(UpdateRequest $request, $id)
     {
         $profile_id =  Profile::find($id);
+
+        $user_id = Auth::id();
+
+        $user = User::find($user_id);
+      
         $form_data = $request->all();
 
         if ($request->hasFile('profile_image')) {
@@ -167,10 +174,15 @@ class DevProfileController extends Controller
         }
 
         $profile_id->update($form_data);
+       
 
         //Controllo Technologies aggiornati
         if ($request->has('technologies')) {
             $profile_id->technologies()->sync($request->technologies);
+        }
+        //Controllo Fields aggiornati
+        if ($request->has('fields')) {
+            $user->fields()->sync($request->fields);
         }
 
         return redirect()->route('admin.index');
