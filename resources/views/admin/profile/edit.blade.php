@@ -82,23 +82,26 @@
             <div class="alert alert-danger">{{ $message }}</div>
             @enderror
         </div>
-        {{-- Checkbox fields NON CICLA FIELDS
+
+        {{-- Checkbox techs --}}
         <div class="form-group mt-3 mb-4 d-flex">
             <div style="width:35%">
-                Ambiti di svilluppo:
+                Tecnologie di svilluppo:
             </div>
             <div class="d-flex flex-wrap w-25">
                 
-                @foreach ($fields as $elem)
+                @foreach ($technologies as $elem)
                     <div class="ms-4 d-flex">
-                        <input class="me-2" type="checkbox" id="input-technology-{{$elem->id}}" value="{{$elem->id}}" name="fields[]" {{ in_array( $elem->id, old('technologies', [] ) ) ? 'checked' : '' }}>
+                        <input class="me-2" type="checkbox" id="input-technology-{{$elem->id}}" value="{{$elem->id}}" name="technologies[]" {{ in_array( $elem->id, old('technologies', [] ) ) ? 'checked' : '' }}>
                         <label for="input-technology-{{$elem->id}}" class="form-label text-capitalize">
                             {{$elem->name}}
                         </label>
                     </div>
                 @endforeach
             </div>
-        </div> --}}
+        </div>
+
+
         <div>
             <h2>Anteprima immagine:</h2>
             <img id="img-preview" src="{{ asset('storage/' . $profile_id->profile_image) }}" alt="">

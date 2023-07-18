@@ -40,7 +40,7 @@ class DevProfileController extends Controller
             //Verica se l'utente è registrato ma non ha un profilo developer
         } elseif (Profile::where('user_id', $user_id)->doesntExist()) {
 
-            return view('admin.profile.create');
+            return redirect()->route('admin.create');
         }
     }
 
@@ -51,11 +51,12 @@ class DevProfileController extends Controller
      */
     public function create()
 
-    {
-        //$fields = Field::all();
+    { 
+        $fields = Field::all();
+
         $technologies = Technology::all();
-        dd($technologies);
-        return view('admin.profile.create', compact('technologies'));
+        // dd($technologies);
+        return view('admin.profile.create', compact('technologies', 'fields'));
     }
 
     /**
@@ -80,11 +81,16 @@ class DevProfileController extends Controller
             $form_data['profile_image'] = $path;
         }
         //Controllo checked Technologies
-        
-       
 
         $newProfile = Profile::create($form_data);
 
+        // fields
+        if ($request->has('fields')) {
+
+            $newProfile->fields()->attach($request->fields);
+        }
+
+        // technolpogies
         if ($request->has('technologies')) {
 
             $newProfile->technologies()->attach($request->technologies);
@@ -121,9 +127,13 @@ class DevProfileController extends Controller
 
         $profile_id =  Profile::find($id);
 
+        $fields = Field::all();
+
+        $technologies = Technology::all();
+
         // condizione che confronta l'id user con l'id profile
         if ($profile_id->user_id == $user_id) {
-            return view('admin.profile.edit', compact('profile_id'));
+            return view('admin.profile.edit', compact('profile_id', 'fields', 'technologies'));
         } else {
             //reindirizzamento alla pagina di errore
             abort(401);
@@ -155,7 +165,13 @@ class DevProfileController extends Controller
 
             $form_data['profile_image'] = $path;
         }
+
         $profile_id->update($form_data);
+
+        //Controllo Technologies aggiornati
+        if ($request->has('technologies')) {
+            $profile_id->technologies()->sync($request->technologies);
+        }
 
         return redirect()->route('admin.index');
     }
