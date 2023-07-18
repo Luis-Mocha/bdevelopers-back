@@ -40,17 +40,21 @@ class RegisteredUserController extends Controller
     {
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
+            'surname'=>['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:'.User::class],
+            'address'=>['required', 'string', 'max:255'],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
 
         $user = User::create([
             'name' => $request->name,
+            'surname'=>$request->surname,
             'email' => $request->email,
+            'address'=> $request->address,
             'password' => Hash::make($request->password),
         ]);
 
-        //Controllo checked Technologies
+        //Controllo checked Fields
         if ($request->has('fields')) {
 
             $user->fields()->attach($request->fields);

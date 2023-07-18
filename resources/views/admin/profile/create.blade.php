@@ -1,15 +1,6 @@
 @extends('layouts.app')
 
 @section('content')
-{{-- @if ($errors->any())
-    <div class="alert alert-danger">
-        <ul>
-            @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-@endforeach
-</ul>
-</div>
-@endif --}}
 
 <div class="container">
     <p class="text-center fs-2 my-5 text-uppercase">Aggiungi un profilo a questo sito internet</p>
@@ -19,7 +10,7 @@
         {{-- INPUT NOME --}}
         <div class="mb-3">
             <label class="form-label">Nome *</label>
-            <input name="name" type="text" class="form-control" value="{{ old('name') }}" placeholder="Inserisci il tuo nome" required maxlength="30" autofocus>
+            <input name="name" type="text" class="form-control" value="{{ old('name') }}" placeholder="Inserisci il tuo nome (max 30 caratteri)" required maxlength="30" autofocus>
             @error('name')
             <div class="alert alert-danger">{{ $message }}</div>
             @enderror
@@ -27,7 +18,7 @@
         {{-- INPUT COGNOME --}}
         <div class="mb-3">
             <label class="form-label">Cognome *</label>
-            <input name="surname" type="text" class="form-control" value="{{ old('surname') }}" placeholder="Inserisci il tuo cognome" required maxlength="40">
+            <input name="surname" type="text" class="form-control" value="{{ old('surname') }}" placeholder="Inserisci il tuo cognome (max 40 caratteri)" required maxlength="40">
             @error('surname')
             <div class="alert alert-danger">{{ $message }}</div>
             @enderror
@@ -43,7 +34,7 @@
         {{-- INPUT INDIRIZZO --}}
         <div class="mb-3">
             <label class="form-label">Indirizzo *</label>
-            <input name="address" type="text" class="form-control" value="{{ old('address') }}" placeholder="Inserisci il tuo indirizzo" required maxlength="100">
+            <input name="address" type="text" class="form-control" value="{{ old('address') }}" placeholder="Inserisci il tuo indirizzo (max 100 caratteri)" required maxlength="100">
             @error('address')
             <div class="alert alert-danger">{{ $message }}</div>
             @enderror
@@ -81,7 +72,42 @@
             @enderror
         </div>
 
+        {{-- fields --}}
+        {{-- <div class="form-group mt-3 mb-4 d-flex">
+            <div style="width:35%">
+                Ambiti di svilluppo:
+            </div>
+            <div class="d-flex flex-wrap w-25">
+              
+                @foreach ($fields as $elem)
+                    <div class="ms-4 d-flex">
+                        <input class="me-2" type="checkbox" id="input-field-{{$elem->id}}" value="{{$elem->id}}" name="fields[]" {{ in_array( $elem->id, old('fields', [] ) ) ? 'checked' : '' }}>
+                        <label for="input-field-{{$elem->id}}" class="form-label text-capitalize">
+                            {{$elem->name}}
+                        </label>
+                    </div>
+                @endforeach
+            </div>
+        </div> --}}
         
+       {{-- technologies --}}
+        <div class="form-group mt-3 mb-4 d-flex">
+            <div style="width:35%">
+                Tecnologie di svilluppo:
+            </div>
+            <div class="d-flex flex-wrap w-25">
+              
+                @foreach ($technologies as $elem)
+                    <div class="ms-4 d-flex">
+                        <input class="me-2" type="checkbox" id="input-technology-{{$elem->id}}" value="{{$elem->id}}" name="technologies[]" {{ in_array( $elem->id, old('technologies', [] ) ) ? 'checked' : '' }}>
+                        <label for="input-technology-{{$elem->id}}" class="form-label text-capitalize">
+                            {{$elem->name}}
+                        </label>
+                    </div>
+                @endforeach
+            </div>
+        </div>
+
         <img id="img-preview" src="http://placehold.it/180" alt="your image" />
         {{-- PROFILE IMAGE --}}
         <div class="mb-3">
