@@ -45,7 +45,7 @@
         {{-- INPUT INDIRIZZO --}}
         <div class="mb-3">
             <label class="form-label">Indirizzo *</label>
-            <input name="address" type="text" class="form-control" value="{{ old('address') ?? $profile_id->address}}" placeholder="Inserisci il tuo indirizzo (max 100 caratteri)" required maxlength="100">
+            <input name="address" type="text" class="form-control" value="{{ old('address') ?? $profile_id->address}}" placeholder="Inserisci il tuo indirizzo (max 100 caratteri)" maxlength="100">
             @error('address')
             <div class="alert alert-danger">{{ $message }}</div>
             @enderror
@@ -140,7 +140,7 @@
         {{-- PERFORMANCE --}}
         <div class="mb-3">
             <label class="form-label">Perfomance *</label>
-            <input name="performance" type="text" class="form-control" value="{{ old('performance') ?? $profile_id->performance  }}" required>
+            <input name="performance" type="text" class="form-control" value="{{ old('performance') ?? $profile_id->performance  }}">
             @error('performance')
             <div class="alert alert-danger">{{ $message }}</div>
             @enderror

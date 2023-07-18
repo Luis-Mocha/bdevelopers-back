@@ -34,7 +34,7 @@
         {{-- INPUT INDIRIZZO --}}
         <div class="mb-3">
             <label class="form-label">Indirizzo *</label>
-            <input name="address" type="text" class="form-control" value="{{ $currentUser->address }}" placeholder="Inserisci il tuo indirizzo (max 100 caratteri)" required maxlength="100" readonly>
+            <input name="address" type="text" class="form-control" value="{{ $currentUser->address }}" placeholder="Inserisci il tuo indirizzo (max 100 caratteri)" maxlength="100" readonly>
             @error('address')
             <div class="alert alert-danger">{{ $message }}</div>
             @enderror
@@ -42,7 +42,7 @@
         {{-- INPUT PHONE NUMBER --}}
         <div class="mb-3">
             <label class="form-label">Numero di telefono</label>
-            <input name="phone_number" type="tel" class="form-control" value="{{ old('phone_number') }}" required minlength="8" maxlength="13" placeholder="Inserisci il tuo numero di telefono">
+            <input name="phone_number" type="tel" class="form-control" value="{{ old('phone_number') }}" minlength="8" maxlength="13" placeholder="Inserisci il tuo numero di telefono">
             @error('phone_number')
             <div class="alert alert-danger">{{ $message }}</div>
             @enderror
@@ -128,7 +128,7 @@
         {{-- PERFORMANCE --}}
         <div class="mb-3">
             <label class="form-label">Perfomance *</label>
-            <input name="performance" type="text" class="form-control" value="{{ old('performance') }}" required placeholder="Inserisci le tue performance">
+            <input name="performance" type="text" class="form-control" value="{{ old('performance') }}" placeholder="Inserisci le tue performance">
             @error('performance')
             <div class="alert alert-danger">{{ $message }}</div>
             @enderror

@@ -30,7 +30,7 @@ class UpdateRequest extends FormRequest
         return [
             'name' => 'required|max:30',
             'surname' => 'required|max:40',
-            'birth_date' => 'required|date|before:2023-01-01',
+            'birth_date' => 'nullable|date|before:2023-01-01',
             'phone_number' => [
                 'nullable',
                 Rule::unique('profiles')->ignore($this->route('admin')),
@@ -44,11 +44,13 @@ class UpdateRequest extends FormRequest
                 Rule::unique('profiles')->ignore($this->route('admin'))
             ],
             'github_url' => [
+                'nullable',
                 'url',
                 Rule::unique('profiles')->ignore($this->route('admin'))
 
             ],
             'linkedin_url' => [
+                'nullable',
                 'url',
                 Rule::unique('profiles')->ignore($this->route('admin'))
 

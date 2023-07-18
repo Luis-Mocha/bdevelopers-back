@@ -26,11 +26,11 @@ class StoreRequest extends FormRequest
         return [
             'name' => 'required|max:30',
             'surname' => 'required|max:40',
-            'birth_date' => 'date|before:2023-01-01',
+            'birth_date' => 'nullable|date|before:2023-01-01',
             'phone_number' => 'nullable|unique:profiles|numeric|regex:/^[0-9]{8,13}$/',
             'email' => 'required|email|unique:profiles,email',
-            'github_url' => 'unique:profiles|url',
-            'linkedin_url' => 'unique:profiles|required|url',
+            'github_url' => 'nullable|unique:profiles|url',
+            'linkedin_url' => 'nullable|unique:profiles|url',
             'profile_image' => 'mimes:jpeg,png,jpg,gif|max:10240',
             'curriculum' => 'mimes:pdf|max:5120',
         ];
