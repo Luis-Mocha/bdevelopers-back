@@ -92,7 +92,16 @@
 
                 @foreach ($fields as $elem)
                 <div class="ms-4 d-flex">
-                    <input class="me-2" type="checkbox" id="input-field-{{$elem->id}}" value="{{$elem->id}}" name="fields[]" {{ in_array( $elem->id, old('fields', [] ) ) ? 'checked' : '' }}>
+                    @if ($errors->any())
+
+                        <input type="checkbox" id="input-field-{{$elem->id}}" value="{{$elem->id}}" name="fields[]" {{ in_array( $elem->id, old('fields', [] ) ) ? 'checked' : '' }}>
+                            
+                    @else
+                        {{-- nessun errore --}}
+                        <input type="checkbox" id="input-field-{{$elem->id}}" value="{{$elem->id}}" name="fields[]" {{ $currentUser->fields->contains($elem) ? 'checked' : '' }}>
+                        
+                    @endif
+                    {{-- <input class="me-2" type="checkbox" id="input-field-{{$elem->id}}" value="{{$elem->id}}" name="fields[]" {{ in_array( $elem->id, old('fields', [] ) ) ? 'checked' : '' }}> --}}
                     <label for="input-field-{{$elem->id}}" class="form-label text-capitalize">
                         {{$elem->name}}
                     </label>
@@ -110,7 +119,16 @@
 
                 @foreach ($technologies as $elem)
                 <div class="ms-4 d-flex">
-                    <input class="me-2" type="checkbox" id="input-technology-{{$elem->id}}" value="{{$elem->id}}" name="technologies[]" {{ in_array( $elem->id, old('technologies', [] ) ) ? 'checked' : '' }}>
+                    @if ($errors->any())
+
+                        <input type="checkbox" id="input-technology-{{$elem->id}}" value="{{$elem->id}}" name="technologies[]" {{ in_array( $elem->id, old('technologies', [] ) ) ? 'checked' : '' }}>
+                        
+                    @else
+                        {{-- nessun errore --}}
+                        <input type="checkbox" id="input-technology-{{$elem->id}}" value="{{$elem->id}}" name="technologies[]" {{ $profile_id->technologies->contains($elem) ? 'checked' : '' }}>
+                        
+                    @endif
+                    {{-- <input class="me-2" type="checkbox" id="input-technology-{{$elem->id}}" value="{{$elem->id}}" name="technologies[]" {{ in_array( $elem->id, old('technologies', [] ) ) ? 'checked' : '' }}> --}}
                     <label for="input-technology-{{$elem->id}}" class="form-label text-capitalize">
                         {{$elem->name}}
                     </label>
