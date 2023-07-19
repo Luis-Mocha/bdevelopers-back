@@ -151,18 +151,12 @@ class DevProfileController extends Controller
 
         $currentUser = Auth::user();
 
-        $check_user = is_null($profile_id);
 
-        if ($check_user == false) {
-
-            // condizione che confronta l'id user con l'id profile
-            if ($profile_id->user_id == $user_id) {
-                return view('admin.profile.edit', compact('profile_id', 'fields', 'technologies', 'currentUser'));
-            } else {
-                //reindirizzamento alla pagina di errore
-                abort(401);
-            }
+        // condizione che confronta l'id user con l'id profile
+        if ($profile_id != null && $profile_id->user_id == $user_id) {
+            return view('admin.profile.edit', compact('profile_id', 'fields', 'technologies', 'currentUser'));
         } else {
+            //reindirizzamento alla pagina di errore
             abort(401);
         }
     }
