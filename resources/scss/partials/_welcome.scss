@@ -1,4 +1,4 @@
-    @import url("https://fonts.googleapis.com/css?family=Poppins:100,200,300,400,500,600,700,800,900");
+    // @import url("https://fonts.googleapis.com/css?family=Poppins:100,200,300,400,500,600,700,800,900");
 
     // * {
     //     margin: 0;
@@ -14,7 +14,12 @@
     //     align-items: center;
     //     justify-content: center;
     // }
+    @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@500&family=VT323&display=swap');
+
     #section-welcome {
+        font-family: 'Roboto', sans-serif;
+        font-family: 'VT323', monospace;
+
         height: 100vh;
         position: absolute;
         top: 0;
@@ -29,6 +34,19 @@
 
             display: flex;
             justify-content: center;
+            box-shadow: rgba(0, 0, 0, 0.17) 0px -23px 25px 0px inset, rgba(0, 0, 0, 0.15) 0px -36px 30px 0px inset, rgba(0, 0, 0, 0.1) 0px -79px 40px 0px inset, rgba(0, 0, 0, 0.06) 0px 2px 1px, rgba(0, 0, 0, 0.09) 0px 4px 2px, rgba(0, 0, 0, 0.09) 0px 8px 4px, rgba(0, 0, 0, 0.09) 0px 16px 8px, rgba(0, 0, 0, 0.09) 0px 32px 16px;
+
+            h1.text-center.text-uppercase {
+                background-color: rgb(255 255 255 / 13%);
+                padding: 20px;
+                border-radius: 10px;
+
+                // &:hover {
+                //     transition: 0.5s;
+                //     background-color: rgba(255, 255, 255, 0.651);
+                // }
+
+            }
 
             .content h1 {
                 color: #fff;
@@ -39,12 +57,14 @@
 
             .content h1:nth-child(1) {
                 color: transparent;
-                -webkit-text-stroke: 2px #03a9f4;
+                -webkit-text-stroke: 2px #01ff2e;
             }
 
             .content h1:nth-child(2) {
-                color: #03a9f4;
+                color: #01ff2e;
                 animation: animate 4s ease-in-out infinite;
+
+                background-color: rgba(255, 255, 255, 0.651);
             }
         }
 
@@ -89,7 +109,7 @@
 
         .wrapper {
             animation: scroll 100s linear infinite;
-            background: url("https://images.unsplash.com/photo-1465146633011-14f8e0781093?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=3450&q=80"),
+            background: url("https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80"),
                 #111111;
             color: #eee;
             height: 100vh;
