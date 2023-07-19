@@ -1,66 +1,124 @@
 @extends('layouts.app')
 
 @section('content')
-<h1 class="text-center mt-3 text-uppercase">sono la index</h1>
+<div class="text-center mt-3 text-uppercase fw-bold fs-3">Ecco il tuo profilo da sviluppatore!</div>
 
-<div class="container">
+<div class="container mb-5">
     @foreach ($profile as $elem)
-    <div>
-        <h2>NOME:</h2>
-        <h3 class="mb-3">{{ $elem['name'] }}</h3>
+    {{-- dati utente --}}
+    <div class="border-bottom mb-3">
+        <div class="mb-3">
+            <span>Nome:</span>
+            <div class="fw-bold">{{ $elem['name'] }}</div>
+        </div>
+        <div class="mb-3">
+            <span>Cognome:</span>
+            <div class="fw-bold">{{ $elem['surname'] }}</div>
+        </div>
+        <div class="mb-3">
+            <span>Email:</span>
+            <div class="fw-bold">{{ $elem['email'] }}</div>
+        </div>
+        <div class="mb-2">
+            <span>Indirizzo:</span>
+            <div class="fw-bold">{{ $elem['address'] }}</div>
+        </div>
     </div>
-    <div>
-        <h2>Cognome:</h2>
-        <h3 class="mb-3">{{ $elem['surname'] }}</h3>
+    
+    {{-- dati profilo --}}
+    <div class="mb-3">
+        <span>Data di nascita:</span>
+
+        @if ($elem['birth_date'])
+            <div class="fw-bold ">{{ $elem['birth_date'] }}</div>
+        @else
+            <div class="fw-light fst-italic text-secondary">Nessun dato inserito</div>
+        @endif
+       
     </div>
-    <div>
-        <h2>Data di nascita:</h2>
-        <h3 class="mb-3 ">{{ $elem['birth_date'] }}</h3>
+
+    <div class="mb-3">
+        <span>Numero di telefono:</span>
+
+        @if ($elem['phone_number'])
+            <div class="fw-bold ">{{ $elem['phone_number'] }}</div>
+        @else
+            <div class="fw-light fst-italic text-secondary">Nessun dato inserito</div>
+        @endif
     </div>
-    <div>
-        <h2>Numero di telefono:</h2>
-        <h3 class="mb-3">{{ $elem['phone_number'] }}</h3>
+    
+    <div class="mb-3">
+        <span>Github:</span>
+
+        @if ($elem['github_url'])
+            <div class="fw-bold ">{{ $elem['github_url'] }}</div>
+        @else
+            <div class="fw-light fst-italic text-secondary">Nessun dato inserito</div>
+        @endif
+
     </div>
-    <div>
-        <h2>Email:</h2>
-        <h3 class="mb-3">{{ $elem['email'] }}</h3>
-    </div>
-    <div>
-        <h2>Github:</h2>
-        <h3 class="mb-3">{{ $elem['github_url'] }}</h3>
-    </div>
-    <div>
-        <h2>Linkedin:</h2>
-        <h3 class="mb-3">{{ $elem['linkedin_url'] }}</h3>
+
+    <div class="mb-3">
+        <span>Linkedin:</span>
+        
+        @if ($elem['linkedin_url'])
+            <div class="fw-bold ">{{ $elem['linkedin_url'] }}</div>
+        @else
+            <div class="fw-light fst-italic text-secondary">Nessun dato inserito</div>
+        @endif
     </div>
     
     {{-- Immagine profilo --}}
-    <div>
-        <h2>Immagine di profilo:</h2>
-        <img src="{{ asset('storage/' . $elem->profile_image) }}" alt="">
+    <div class="mb-3">
+        <span>Immagine di profilo:</span>
+
+        @if ($elem['profile_image'])
+            <img src="{{ asset('storage/' . $elem->profile_image) }}" alt="">
+        @else
+            <div class="fw-light fst-italic text-secondary">Nessuna immagine inserita</div>
+        @endif
+       
     </div>
 
     {{-- Curriculum --}}
-    <div>
-        <h2>Curriculum:</h2>
-        <a href="{{ asset('storage/' . $elem->curriculum) }}" download="{{ $elem['name'] }}-{{ $elem['surname'] }}-CV">Scarica il tuo curriculum</a>
+    <div class="mb-3">
+        <span>Curriculum:</span>
+
+        @if ($elem['curriculum'])
+            <a href="{{ asset('storage/' . $elem->curriculum) }}" download="{{ $elem['name'] }}-{{ $elem['surname'] }}-CV">Scarica il tuo curriculum</a>
+        @else
+            <div class="fw-light fst-italic text-secondary">Nessuna curriculum aggiunto</div>
+        @endif
     </div>
 
     {{-- Perfomance --}}
-    <div>
-        <h2>Performance:</h2>
-        <h3 class="mb-3 text-uppercase">{{ $elem['performance'] }}</h3>
-    </div>
-    <div>
-        <a class="text-decoration-none" href=" {{ route('admin.edit', $elem) }} " class="my-2 btn btn-primary">Modifica</a>
+    <div class="mb-3">
+        <span>Performance:</span>
+
+        @if ($elem['performance'])
+            <div class="fw-bold text-capitalize">{{ $elem['performance'] }}</div>
+        @else
+            <div class="fw-light fst-italic text-secondary">Nessun dato inserito</div>
+        @endif
     </div>
 
+    {{-- bottoni --}}
+    <div class="d-flex justify-content-end">
+        {{-- bottone edit --}}
+        <div class="">
+            <a class="btn btn-warning" href=" {{ route('admin.edit', $elem) }} " class="my-2 btn btn-primary">Modifica</a>
+        </div>
+        <!-- Button trigger delete modal -->
+        <button type="button" class="btn btn-danger ms-3" data-bs-toggle="modal" data-bs-target="#modale-delete">
+            Elimina account
+        </button>
+    </div>
+    
+
     @endforeach
-    <!-- Button trigger modal -->
-    <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal">
-        Elimina account
-    </button>
-    <div class="modal" tabindex="-1" id="exampleModal">
+    
+    {{-- modale eliminazione profilo --}}
+    <div class="modal" tabindex="-1" id="modale-delete">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
