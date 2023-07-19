@@ -32,12 +32,21 @@ class DevProfileController extends Controller
     {
 
         $user_id = Auth::id();
-        $profile = Profile::where('user_id', $user_id)->get();
+        $profile = Profile::where('user_id', $user_id)->first();
 
         //Verica se l'utente è registrato e ha un profilo developer
         if (Profile::where('user_id', $user_id)->exists()) {
 
-            return view('admin.profile.index', compact('profile'));
+            // richiamo lo user interessato
+            $user = User::find($user_id);
+            // Accedo ai fields collegati a questo Utente tramite la relazione definita nel modello
+            $fields = $user->fields;
+            // Accedo alle techs collegate a questo Profilo tramite la relazione definita nel modello
+            $technologies = $profile->technologies;
+
+            // dd($technologies);
+
+            return view('admin.profile.index', compact('profile','user', 'fields', 'technologies'));
 
             //Verica se l'utente è registrato ma non ha un profilo developer
         } elseif (Profile::where('user_id', $user_id)->doesntExist()) {
@@ -74,8 +83,8 @@ class DevProfileController extends Controller
 
         $form_data = $request->all();
 
+        // profile img
         if ($request->hasFile('profile_image')) {
-
             // creo un path dove viene salvata l'immagine del profilo
             // 'project_covers' è una sottocartella che creo in storage
             $path = Storage::disk('public')->put('project_covers', $request->profile_image);
@@ -83,11 +92,8 @@ class DevProfileController extends Controller
             $form_data['profile_image'] = $path;
         }
         
-
+        // curriculum
         if ($request->hasFile('curriculum')) {
-
-            // creo un path dove viene salvata l'immagine del profilo
-            // 'profile_curriculum' è una sottocartella che creo in storage
             $path = Storage::disk('public')->put('profile_cvs', $request->curriculum);
 
             $form_data['curriculum'] = $path;
@@ -98,7 +104,6 @@ class DevProfileController extends Controller
         // Ottengo lo user autenticato
         $user_id = Auth::id();
         $currentUser = User::find($user_id);
-
 
         // Controllo checked fields
         if ($request->has('fields')) {
@@ -111,7 +116,6 @@ class DevProfileController extends Controller
 
             $newProfile->technologies()->attach($request->technologies);
         }
-
 
         // aggiungere un redirect
         return redirect()->route('admin.index');
@@ -207,13 +211,13 @@ class DevProfileController extends Controller
         $profile_id->update($form_data);
 
         //Controllo Technologies aggiornati
-        if ($request->has('technologies')) {
+        // if ($request->has('technologies')) {
             $profile_id->technologies()->sync($request->technologies);
-        }
+        // }
         //Controllo Fields aggiornati
-        if ($request->has('fields')) {
+        // if ($request->has('fields')) {
             $user->fields()->sync($request->fields);
-        }
+        // }
 
         return redirect()->route('admin.index');
     }
