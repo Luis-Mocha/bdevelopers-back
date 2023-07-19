@@ -7,22 +7,46 @@
     <form action="{{ route('admin.store') }}" method="POST" enctype="multipart/form-data">
         @csrf
         <input type="hidden" name="user_id" value="{{ Auth::id() }}">
-        {{-- INPUT NOME --}}
-        <div class="mb-3">
-            <label class="form-label">Nome *</label>
-            <input name="name" type="text" class="form-control" value="{{ $currentUser->name }}" placeholder="Inserisci il tuo nome (max 30 caratteri)" required maxlength="30" autofocus readonly>
-            @error('name')
-            <div class="alert alert-danger">{{ $message }}</div>
-            @enderror
+
+        <div class="border-bottom border-end border-primary mb-3 pe-4">
+            <div class="fw-light text-secondary text-end">*Informazioni Utente</div>
+
+            {{-- INPUT NOME --}}
+            <div class="mb-3">
+                <label class="form-label">Nome *</label>
+                <input name="name" type="text" class="form-control" value="{{ $currentUser->name }}" placeholder="Inserisci il tuo nome (max 30 caratteri)" required maxlength="30" autofocus readonly>
+                @error('name')
+                <div class="alert alert-danger">{{ $message }}</div>
+                @enderror
+            </div>
+            {{-- INPUT COGNOME --}}
+            <div class="mb-3">
+                <label class="form-label">Cognome *</label>
+                <input name="surname" type="text" class="form-control" value="{{ $currentUser->surname }}" placeholder="Inserisci il tuo cognome (max 40 caratteri)" required maxlength="40" readonly>
+                @error('surname')
+                <div class="alert alert-danger">{{ $message }}</div>
+                @enderror
+            </div>
+
+            {{-- EMAIL --}}
+            <div class="mb-3">
+                <label class="form-label">Email *</label>
+                <input name="email" type="email" class="form-control" value="{{ $currentUser->email }}" required placeholder="Inserisci la tua email" readonly>
+                @error('email')
+                <div class="alert alert-danger">{{ $message }}</div>
+                @enderror
+            </div>
+
+            {{-- INPUT INDIRIZZO --}}
+            <div class="mb-3">
+                <label class="form-label">Indirizzo *</label>
+                <input name="address" type="text" class="form-control" value="{{ $currentUser->address }}" placeholder="Inserisci il tuo indirizzo (max 100 caratteri)" maxlength="100" readonly>
+                @error('address')
+                <div class="alert alert-danger">{{ $message }}</div>
+                @enderror
+            </div>
         </div>
-        {{-- INPUT COGNOME --}}
-        <div class="mb-3">
-            <label class="form-label">Cognome *</label>
-            <input name="surname" type="text" class="form-control" value="{{ $currentUser->surname }}" placeholder="Inserisci il tuo cognome (max 40 caratteri)" required maxlength="40" readonly>
-            @error('surname')
-            <div class="alert alert-danger">{{ $message }}</div>
-            @enderror
-        </div>
+
         {{-- INPUT BIRTH DATE --}}
         <div class="mb-3">
             <label class="form-label">Data di nascita</label>
@@ -31,14 +55,7 @@
             <div class="alert alert-danger">{{ $message }}</div>
             @enderror
         </div>
-        {{-- INPUT INDIRIZZO --}}
-        <div class="mb-3">
-            <label class="form-label">Indirizzo *</label>
-            <input name="address" type="text" class="form-control" value="{{ $currentUser->address }}" placeholder="Inserisci il tuo indirizzo (max 100 caratteri)" maxlength="100" readonly>
-            @error('address')
-            <div class="alert alert-danger">{{ $message }}</div>
-            @enderror
-        </div>
+        
         {{-- INPUT PHONE NUMBER --}}
         <div class="mb-3">
             <label class="form-label">Numero di telefono</label>
@@ -47,14 +64,7 @@
             <div class="alert alert-danger">{{ $message }}</div>
             @enderror
         </div>
-        {{-- EMAIL --}}
-        <div class="mb-3">
-            <label class="form-label">Email *</label>
-            <input name="email" type="email" class="form-control" value="{{ $currentUser->email }}" required placeholder="Inserisci la tua email" readonly>
-            @error('email')
-            <div class="alert alert-danger">{{ $message }}</div>
-            @enderror
-        </div>
+        
         {{-- GITHUB URL --}}
         <div class="mb-3">
             <label class="form-label">Github/URL</label>

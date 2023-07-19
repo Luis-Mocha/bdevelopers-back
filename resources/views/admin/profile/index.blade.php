@@ -157,7 +157,7 @@
         </div>
         <!-- Button trigger delete modal -->
         <button type="button" class="btn btn-danger ms-3" data-bs-toggle="modal" data-bs-target="#modale-delete">
-            Elimina account
+            Elimina Profilo
         </button>
     </div>
     
