@@ -119,16 +119,14 @@
 
                 @foreach ($technologies as $elem)
                 <div class="ms-4 d-flex">
+                    {{-- checkbox con valori precedenti --}}
                     @if ($errors->any())
-
-                        <input type="checkbox" id="input-technology-{{$elem->id}}" value="{{$elem->id}}" name="technologies[]" {{ in_array( $elem->id, old('technologies', [] ) ) ? 'checked' : '' }}>
-                        
+                        <input type="checkbox" id="input-technology-{{$elem->id}}" value="{{$elem->id}}" name="technologies[]" {{ in_array( $elem->id, old('technologies', [] ) ) ? 'checked' : '' }}> 
                     @else
                         {{-- nessun errore --}}
                         <input type="checkbox" id="input-technology-{{$elem->id}}" value="{{$elem->id}}" name="technologies[]" {{ $profile_id->technologies->contains($elem) ? 'checked' : '' }}>
-                        
                     @endif
-                    {{-- <input class="me-2" type="checkbox" id="input-technology-{{$elem->id}}" value="{{$elem->id}}" name="technologies[]" {{ in_array( $elem->id, old('technologies', [] ) ) ? 'checked' : '' }}> --}}
+
                     <label for="input-technology-{{$elem->id}}" class="form-label text-capitalize">
                         {{$elem->name}}
                     </label>
