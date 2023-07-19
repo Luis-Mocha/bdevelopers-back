@@ -9,6 +9,9 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
 
+//Importo il modello
+use App\Models\Admin\Profile;
+
 class ProfileController extends Controller
 {
     /**
@@ -33,6 +36,26 @@ class ProfileController extends Controller
             $request->user()->email_verified_at = null;
         }
         $request->user()->save();
+
+        // dd($request->surname);
+
+        $user_id = Auth::id();
+        $profile_id = Profile::where('user_id', $user_id);
+        $profile_id->update([
+            'name' => $request->name,
+            'surname' => $request->surname,
+            'address' => $request->address,
+            'email' => $request->email,
+
+        ]);
+
+        // $profile_id['name'] = $request->name;
+        // $profile_id->sync($form_data);
+
+        // Profile::find($request->id)
+        // ->update([
+        //             'onloan' => "1",
+        //         ]);
 
         return Redirect::route('profile.edit')->with('status', 'profile-updated');
     }

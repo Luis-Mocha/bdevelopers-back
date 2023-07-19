@@ -1,11 +1,12 @@
 <section>
     <header>
         <h2 class="text-secondary">
-            {{ __('Profile Information') }}
+            {{ __('Informazioni Utente') }}
         </h2>
 
         <p class="mt-1 text-muted">
-            {{ __("Update your account's profile information and email address.") }}
+            {{-- {{ __("Update your account's profile information and email address.") }} --}}
+            {{ __("Modifica le informazioni del tuo account") }}
         </p>
     </header>
 
@@ -18,7 +19,7 @@
         @method('patch')
 
         <div class="mb-2">
-            <label for="name">{{__('Name')}}</label>
+            <label for="name">{{__('Nome')}}</label>
             <input class="form-control" type="text" name="name" id="name" autocomplete="name" value="{{old('name', $user->name)}}" required autofocus>
             @error('name')
             <span class="invalid-feedback" role="alert">
@@ -27,7 +28,7 @@
             @enderror
         </div>
         <div class="mb-2">
-            <label for="surname">{{__('Surname')}}</label>
+            <label for="surname">{{__('Cognome')}}</label>
             <input class="form-control" type="text" name="surname" id="surname" autocomplete="surname" value="{{old('surname', $user->surname)}}" required autofocus>
             @error('name')
             <span class="invalid-feedback" role="alert">
@@ -36,7 +37,7 @@
             @enderror
         </div>
         <div class="mb-2">
-            <label for="name">{{__('Address')}}</label>
+            <label for="name">{{__('Indirizzo')}}</label>
             <input class="form-control" type="text" name="address" id="address" autocomplete="address" value="{{old('address', $user->address)}}" required autofocus>
             @error('name')
             <span class="invalid-feedback" role="alert">
@@ -78,7 +79,7 @@
         </div>
 
         <div class="d-flex align-items-center gap-4">
-            <button class="btn btn-primary" type="submit">{{ __('Save') }}</button>
+            <button class="btn btn-primary" type="submit">{{ __('Salva') }}</button>
 
             @if (session('status') === 'profile-updated')
             <script>
