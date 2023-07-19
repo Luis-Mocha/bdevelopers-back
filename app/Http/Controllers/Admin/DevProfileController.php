@@ -13,6 +13,7 @@ use App\Models\Admin\Field;
 use App\Models\Admin\Technology;
 use App\Models\User;
 
+
 // importo lo Storage
 use Illuminate\Support\Facades\Storage;
 
@@ -30,7 +31,7 @@ class DevProfileController extends Controller
      */
     public function index()
     {
-
+        
         $user_id = Auth::id();
         $profile = Profile::where('user_id', $user_id)->first();
 
