@@ -46,7 +46,7 @@ class DevProfileController extends Controller
 
             // dd($technologies);
 
-            return view('admin.profile.index', compact('profile','user', 'fields', 'technologies'));
+            return view('admin.profile.index', compact('profile', 'user', 'fields', 'technologies'));
 
             //Verica se l'utente è registrato ma non ha un profilo developer
         } elseif (Profile::where('user_id', $user_id)->doesntExist()) {
@@ -91,7 +91,7 @@ class DevProfileController extends Controller
 
             $form_data['profile_image'] = $path;
         }
-        
+
         // curriculum
         if ($request->hasFile('curriculum')) {
             $path = Storage::disk('public')->put('profile_cvs', $request->curriculum);
@@ -151,11 +151,18 @@ class DevProfileController extends Controller
 
         $currentUser = Auth::user();
 
-        // condizione che confronta l'id user con l'id profile
-        if ($profile_id->user_id == $user_id) {
-            return view('admin.profile.edit', compact('profile_id', 'fields', 'technologies', 'currentUser'));
+        $check_user = is_null($profile_id);
+
+        if ($check_user == false) {
+
+            // condizione che confronta l'id user con l'id profile
+            if ($profile_id->user_id == $user_id) {
+                return view('admin.profile.edit', compact('profile_id', 'fields', 'technologies', 'currentUser'));
+            } else {
+                //reindirizzamento alla pagina di errore
+                abort(401);
+            }
         } else {
-            //reindirizzamento alla pagina di errore
             abort(401);
         }
     }
@@ -207,16 +214,16 @@ class DevProfileController extends Controller
             $form_data['curriculum'] = $path;
         }
 
-        
+
         $profile_id->update($form_data);
 
         //Controllo Technologies aggiornati
         // if ($request->has('technologies')) {
-            $profile_id->technologies()->sync($request->technologies);
+        $profile_id->technologies()->sync($request->technologies);
         // }
         //Controllo Fields aggiornati
         // if ($request->has('fields')) {
-            $user->fields()->sync($request->fields);
+        $user->fields()->sync($request->fields);
         // }
 
         return redirect()->route('admin.index');
