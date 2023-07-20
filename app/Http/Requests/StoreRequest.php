@@ -34,12 +34,8 @@ class StoreRequest extends FormRequest
             'linkedin_url' => 'nullable|unique:profiles|url',
             'profile_image' => 'mimes:jpeg,png,jpg,gif|max:10240',
             'curriculum' => 'mimes:pdf|max:5120',
-<<<<<<< HEAD
-            
-=======
 
             'fields' => 'required',
->>>>>>> b724b2872a4acbfb58d491ae371d23b26d4a3662
         ];
     }
     public function messages()
