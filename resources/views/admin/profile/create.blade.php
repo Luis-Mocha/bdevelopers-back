@@ -84,13 +84,13 @@
 
         {{-- fields --}}
         <div class="form-group mt-3 mb-4 d-flex">
-            <div style="width:35%">
+            <div>
                 Ambiti di svilluppo:
             </div>
-            <div class="d-flex flex-wrap w-25">
+            <div class="row">
 
                 @foreach ($fields as $elem)
-                <div class="ms-4 d-flex">
+                <div class="ms-4 col-2">
                     {{-- checkbox con valori precedenti --}}
                     @if ($errors->any())
                         <input type="checkbox" id="input-field-{{$elem->id}}" value="{{$elem->id}}" name="fields[]" {{ in_array( $elem->id, old('fields', [] ) ) ? 'checked' : '' }}> 
@@ -112,10 +112,10 @@
             <div style="width:35%">
                 Tecnologie di svilluppo:
             </div>
-            <div class="d-flex flex-wrap w-25">
+            <div class="row">
 
                 @foreach ($technologies as $elem)
-                <div class="ms-4 d-flex">
+                <div class="ms-4 col-2">
                     <input class="me-2" type="checkbox" id="input-technology-{{$elem->id}}" value="{{$elem->id}}" name="technologies[]" {{ in_array( $elem->id, old('technologies', [] ) ) ? 'checked' : '' }}>
                     <label for="input-technology-{{$elem->id}}" class="form-label text-capitalize">
                         {{$elem->name}}
