@@ -13,7 +13,7 @@
 
 <div class="container">
     <p class="text-center fs-2 my-5 text-uppercase">Modifica il tuo profilo</p>
-    <form action="{{ route('admin.update', $profile_id['id']) }}" method="POST" enctype="multipart/form-data">
+    <form id="myForm" action="{{ route('admin.update', $profile_id['id']) }}" method="POST" enctype="multipart/form-data">
         @csrf
 
         @method('PUT')
@@ -98,16 +98,18 @@
                 Ambiti di svilluppo:
             </div>
             <div class="row">
-
+                <div style="visibility:hidden; color:red; " id="chk_option_error">
+                    Seleziona almeno un ambito di sviluppo
+                </div>
                 @foreach ($fields as $elem)
                 <div class="ms-4 col-2">
                     @if ($errors->any())
 
-                        <input type="checkbox" id="input-field-{{$elem->id}}" value="{{$elem->id}}" name="fields[]" {{ in_array( $elem->id, old('fields', [] ) ) ? 'checked' : '' }}>
+                        <input class="field-checks" type="checkbox" id="input-field-{{$elem->id}}" value="{{$elem->id}}" name="fields[]" {{ in_array( $elem->id, old('fields', [] ) ) ? 'checked' : '' }}>
                             
                     @else
                         {{-- nessun errore --}}
-                        <input type="checkbox" id="input-field-{{$elem->id}}" value="{{$elem->id}}" name="fields[]" {{ $currentUser->fields->contains($elem) ? 'checked' : '' }}>
+                        <input class="field-checks" type="checkbox" id="input-field-{{$elem->id}}" value="{{$elem->id}}" name="fields[]" {{ $currentUser->fields->contains($elem) ? 'checked' : '' }}>
                         
                     @endif
 
@@ -189,7 +191,32 @@
 
             reader.readAsDataURL(input.files[0]);
         }
+    }; 
+
+    function validateForm() {
+      var checkboxes = document.querySelectorAll('input.field-checks');
+      var isChecked = false;
+
+      checkboxes.forEach(function(checkbox) {
+        if (checkbox.checked) {
+          isChecked = true;
+        }
+      });
+
+      if (!isChecked) {
+        // alert('Seleziona almeno una checkbox Ambito prima di inviare il form.');
+        document.getElementById("chk_option_error").style.visibility = "visible";
+        return false; // Impedisce l'invio del form
+      }
+      // Se almeno una checkbox è stata selezionata, il form viene inviato normalmente
+      return true;
     }
+
+    // Ottieni il riferimento al form
+    var myForm = document.getElementById('myForm');
+
+    // Assegna la funzione di validazione all'evento onsubmit del form
+    myForm.onsubmit = validateForm;
 </script>
 
 
