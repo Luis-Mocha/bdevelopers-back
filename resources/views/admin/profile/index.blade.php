@@ -112,10 +112,10 @@
 
     {{-- Immagine profilo --}}
     <div class="mb-3">
-        <span>Immagine di profilo:</span>
+        <div>Immagine di profilo:</div>
 
         @if ($profile['profile_image'])
-            <img src="{{ asset('storage/' . $profile->profile_image) }}" alt="">
+            <img src="{{ asset('storage/' . $profile->profile_image) }}" alt="" style="max-width: 400px; max-height: 300px;">
         @else
             <div class="fw-light fst-italic text-secondary">Nessuna immagine inserita</div>
         @endif
