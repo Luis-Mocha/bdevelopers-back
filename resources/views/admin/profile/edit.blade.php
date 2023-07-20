@@ -101,6 +101,9 @@
                 <div style="visibility:hidden; color:red; " id="chk_option_error">
                     Seleziona almeno un ambito di sviluppo
                 </div>
+                @error('fields')
+                    <div class="alert alert-danger">{{ $message }}</div>
+                @enderror
                 @foreach ($fields as $elem)
                 <div class="ms-4 col-2">
                     @if ($errors->any())
@@ -193,30 +196,26 @@
         }
     }; 
 
-    function validateForm() {
-      var checkboxes = document.querySelectorAll('input.field-checks');
-      var isChecked = false;
-
-      checkboxes.forEach(function(checkbox) {
-        if (checkbox.checked) {
-          isChecked = true;
-        }
-      });
-
-      if (!isChecked) {
-        // alert('Seleziona almeno una checkbox Ambito prima di inviare il form.');
-        document.getElementById("chk_option_error").style.visibility = "visible";
-        return false; // Impedisce l'invio del form
-      }
-      // Se almeno una checkbox è stata selezionata, il form viene inviato normalmente
-      return true;
+     function validateForm() {
+       var checkboxes = document.querySelectorAll('input.field-checks');
+       var isChecked = false
+       checkboxes.forEach(function(checkbox) {
+         if (checkbox.checked) {
+           isChecked = true;
+         }
+       })
+       if (!isChecked) {
+         // alert('Seleziona almeno una checkbox Ambito prima di inviare il form.');
+         document.getElementById("chk_option_error").style.visibility = "visible";
+         return false; // Impedisce l'invio del form
+       }
+       // Se almeno una checkbox è stata selezionata, il form viene inviato normalmente
+       return true;
     }
-
-    // Ottieni il riferimento al form
-    var myForm = document.getElementById('myForm');
-
-    // Assegna la funzione di validazione all'evento onsubmit del form
-    myForm.onsubmit = validateForm;
+     // Ottieni il riferimento al form
+     var myForm = document.getElementById('myForm')
+     // Assegna la funzione di validazione all'evento onsubmit del form
+     myForm.onsubmit = validateForm;
 </script>
 
 

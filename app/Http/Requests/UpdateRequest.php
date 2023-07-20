@@ -56,7 +56,9 @@ class UpdateRequest extends FormRequest
 
             ],
             'profile_image' => 'mimes:jpeg,png,jpg,gif|max:10240',
-            'curriculum' => 'mimes:pdf|max:5120'
+            'curriculum' => 'mimes:pdf|max:5120',
+
+            'fields' => 'required'
         ];
     }
     public function messages()
@@ -65,7 +67,7 @@ class UpdateRequest extends FormRequest
             'name.required' => 'Il campo "nome" è obbligatorio',
             'surname.required' => 'Il campo "cognome" è obbligatorio',
             'email.required' => 'Il campo "email" è obbligatorio',
-
+            'fields.required' => 'Inserisci almeno un ambito',
 
             'phone_number.unique' => 'Questo numero è gia utilizzato da un altro utente',
             'email.unique' => 'Questa mail è già stata utilizzata da un altro utente',
