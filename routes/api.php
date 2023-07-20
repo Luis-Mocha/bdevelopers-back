@@ -2,7 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\Api\DevProfileController;
 use App\Http\Controllers\Api\LeadController;
 
 /*
@@ -22,3 +22,5 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 
 Route::post('/contacts', [LeadController::class, 'store']);
+
+Route::get('/profiles',[DevProfileController::class, 'index']);
