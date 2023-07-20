@@ -164,7 +164,7 @@
         </div>
         {{-- PERFORMANCE --}}
         <div class="mb-3">
-            <label class="form-label">Perfomance *</label>
+            <label class="form-label">Perfomance</label>
             <input name="performance" type="text" class="form-control" value="{{ old('performance') ?? $profile_id->performance  }}">
             @error('performance')
             <div class="alert alert-danger">{{ $message }}</div>
