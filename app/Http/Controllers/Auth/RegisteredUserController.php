@@ -38,14 +38,36 @@ class RegisteredUserController extends Controller
      */
     public function store(Request $request): RedirectResponse
     {
-        $request->validate([
-            'name' => ['required', 'string', 'max:255'],
-            'surname' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:' . User::class],
-            'address' => ['required', 'string', 'max:255'],
-            'fields' => ['required'],
-            'password' => ['required', 'confirmed', Rules\Password::defaults()],
-        ]);
+        $request->validate(
+
+            [
+                'name' => 'required|string|max:255',
+                'surname' => 'required|string|max:255',
+                'email' => 'required|string|email|max:255|unique:' . User::class,
+                'address' => 'required|string|max:255',
+                'fields' => 'required',
+                'password' => 'required|confirmed'
+            ],
+
+            // 'name' => ['required', 'string', 'max:255'],
+            // 'surname' => ['required', 'string', 'max:255'],
+            // 'email' => ['required', 'string', 'email', 'max:255', 'unique:' . User::class],
+            // 'address' => ['required', 'string', 'max:255'],
+            // 'fields' => ['required'],
+            // 'password' => ['required', 'confirmed', Rules\Password::defaults()],
+
+            [
+                'name.required' => 'Il campo "nome" è obbligatorio',
+                'surname.required' => 'Il campo "cognome" è obbligatorio',
+                'email.required' => 'Il campo "email" è obbligatorio',
+                'address.required' => 'Il campo "address" è obbligatorio',
+                'password.required' => 'Il campo "password" è obbligatorio',
+
+                'email.unique' => 'Questa email è già utilizzata da un altro utente',
+
+                'password.confirmed' => 'La password non corrisponde'
+            ]
+        );
 
         $user = User::create([
             'name' => $request->name,

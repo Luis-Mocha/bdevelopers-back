@@ -94,7 +94,7 @@
                                     <input id="email" type="email"
                                         class="form-control @error('email') is-invalid @enderror" name="email"
                                         value="{{ old('email') }}" required autocomplete="email"
-                                        onclick="return handleData()">
+                                        onclick="return handleData()" onfocus="return handleData()">
 
                                     @error('email')
                                         <span class="invalid-feedback" role="alert">
