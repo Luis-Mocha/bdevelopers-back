@@ -4,11 +4,6 @@
 <div class="text-center mt-3 text-uppercase fw-bold fs-3">Ecco il tuo profilo da sviluppatore!</div>
 
 <div class="container mb-5">
-    
-    <div class="mb-3">
-        <span>Nome:</span>
-        <div class="fw-bold">{{ $profile['name'] }}</div>
-    </div>
 
     {{-- dati utente --}}
     <div class="border-bottom mb-3">
