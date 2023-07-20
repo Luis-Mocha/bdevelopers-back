@@ -14,7 +14,7 @@
             {{-- INPUT NOME --}}
             <div class="mb-3">
                 <label class="form-label">Nome *</label>
-                <input name="name" type="text" class="form-control" value="{{ $currentUser->name }}" placeholder="Inserisci il tuo nome (max 30 caratteri)" required maxlength="30" autofocus readonly>
+                <input name="name" type="text" class="form-control" value="{{ $currentUser->name }}" placeholder="Inserisci il tuo nome (max 30 caratteri)" required maxlength="30" readonly>
                 @error('name')
                 <div class="alert alert-danger">{{ $message }}</div>
                 @enderror
@@ -50,7 +50,7 @@
         {{-- INPUT BIRTH DATE --}}
         <div class="mb-3">
             <label class="form-label">Data di nascita</label>
-            <input name="birth_date" type="date" class="form-control" value="{{ old('birth_date') }}">
+            <input name="birth_date" type="date" class="form-control" value="{{ old('birth_date') }}" autofocus>
             @error('birth_date')
             <div class="alert alert-danger">{{ $message }}</div>
             @enderror
