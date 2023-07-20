@@ -125,7 +125,7 @@
             </div>
         </div>
 
-        <img id="img-preview" src="http://placehold.it/180" alt="your image" />
+        <img id="img-preview" src="http://placehold.it/180" alt="your image" style="max-width: 400px; max-height: 300px;">
         {{-- PROFILE IMAGE --}}
         <div class="mb-3">
             <label for="profile_image" class="form-label">Immagine di profilo</label>

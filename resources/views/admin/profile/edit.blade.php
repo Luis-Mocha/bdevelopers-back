@@ -146,8 +146,8 @@
 
 
         <div>
-            <h2>Anteprima immagine:</h2>
-            <img id="img-preview" src="{{ asset('storage/' . $profile_id->profile_image) }}" alt="">
+            <div class="fs-5">Anteprima immagine:</div>
+            <img id="img-preview" src="{{ asset('storage/' . $profile_id->profile_image) }}" alt="" style="max-width: 400px; max-height: 300px;">
         </div>
         {{-- PROFILE IMAGE --}}
         <div class="mb-3">
