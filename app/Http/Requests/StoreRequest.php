@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Ramsey\Uuid\Guid\Fields;
 
 class StoreRequest extends FormRequest
 {
@@ -33,7 +34,12 @@ class StoreRequest extends FormRequest
             'linkedin_url' => 'nullable|unique:profiles|url',
             'profile_image' => 'mimes:jpeg,png,jpg,gif|max:10240',
             'curriculum' => 'mimes:pdf|max:5120',
+<<<<<<< HEAD
             
+=======
+
+            'fields' => 'required',
+>>>>>>> b724b2872a4acbfb58d491ae371d23b26d4a3662
         ];
     }
     public function messages()
@@ -42,6 +48,7 @@ class StoreRequest extends FormRequest
             'name.required' => 'Il campo "nome" è obbligatorio',
             'surname.required' => 'Il campo "cognome" è obbligatorio',
             'email.required' => 'Il campo "email" è obbligatorio',
+            'fields.required' => 'Inserisci almeno un ambito di sviluppo',
 
             'phone_number.unique' => 'Questo numero è gia utilizzato da un altro utente',
             'github_url.unique' => 'Questo link github è già utilizzato da un altro utente',

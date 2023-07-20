@@ -92,6 +92,9 @@
                 <div style="visibility:hidden; color:red; " id="chk_option_error">
                     Seleziona almeno un ambito di sviluppo
                 </div>
+                @error('fields')
+                    <div class="alert alert-danger">{{ $message }}</div>
+                @enderror
 
                 @foreach ($fields as $elem)
                 <div class="ms-4 col-2">
@@ -176,21 +179,6 @@
         }
     };
 
-    
-    // function handleData() {
-    //     var form_data = new FormData(document.querySelector("form"));
-
-    //     if (!form_data.has("fields[]")) {
-    //         document.getElementById("chk_option_error").style.visibility = "visible";
-    //         console.log('no fields');
-    //         return false;
-    //     } else {
-    //         document.getElementById("chk_option_error").style.visibility = "hidden";
-    //         return true;
-    //     }
-
-    // }
-
     function validateForm() {
       var checkboxes = document.querySelectorAll('input.field-checks');
       var isChecked = false;
@@ -202,8 +190,8 @@
       });
 
       if (!isChecked) {
-        // alert('Seleziona almeno una checkbox Ambito prima di inviare il form.');
-        document.getElementById("chk_option_error").style.visibility = "visible";
+         // alert('Seleziona almeno una checkbox Ambito prima di inviare il form.');
+       document.getElementById("chk_option_error").style.visibility = "visible";
         return false; // Impedisce l'invio del form
       }
       // Se almeno una checkbox è stata selezionata, il form viene inviato normalmente
