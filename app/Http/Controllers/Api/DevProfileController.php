@@ -22,7 +22,7 @@ class DevProfileController extends Controller
             ->join('users', 'profiles.user_id', '=', 'users.id')
             ->join('field_user', 'users.id', '=', 'field_user.user_id')
             ->join('fields', 'field_user.field_id', '=', 'fields.id')
-            ->select('profiles.name', 'profiles.surname', 'fields.slug')
+            ->select('profiles.*', 'users.*', 'fields.name as field_name', 'fields.slug', 'fields.id as field_id')
             ->get();
 
 
