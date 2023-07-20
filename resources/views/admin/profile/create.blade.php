@@ -4,7 +4,7 @@
 
 <div class="container">
     <p class="text-center fs-2 my-5 text-uppercase">Aggiungi un profilo a questo sito internet</p>
-    <form action="{{ route('admin.store') }}" method="POST" enctype="multipart/form-data">
+    <form id="myForm" action="{{ route('admin.store') }}" method="POST" enctype="multipart/form-data"> 
         @csrf
         <input type="hidden" name="user_id" value="{{ Auth::id() }}">
 
@@ -89,14 +89,18 @@
             </div>
             <div class="row">
 
+                <div style="visibility:hidden; color:red; " id="chk_option_error">
+                    Seleziona almeno un ambito di sviluppo
+                </div>
+
                 @foreach ($fields as $elem)
                 <div class="ms-4 col-2">
                     {{-- checkbox con valori precedenti --}}
                     @if ($errors->any())
-                        <input type="checkbox" id="input-field-{{$elem->id}}" value="{{$elem->id}}" name="fields[]" {{ in_array( $elem->id, old('fields', [] ) ) ? 'checked' : '' }}> 
+                        <input class="field-checks" type="checkbox" id="input-field-{{$elem->id}}" value="{{$elem->id}}" name="fields[]" {{ in_array( $elem->id, old('fields', [] ) ) ? 'checked' : '' }}> 
                     @else
                         {{-- nessun errore --}}
-                        <input type="checkbox" id="input-field-{{$elem->id}}" value="{{$elem->id}}" name="fields[]" {{ $currentUser->fields->contains($elem) ? 'checked' : '' }}>
+                        <input class="field-checks" type="checkbox" id="input-field-{{$elem->id}}" value="{{$elem->id}}" name="fields[]" {{ $currentUser->fields->contains($elem) ? 'checked' : '' }}>
                     @endif
 
                     <label for="input-field-{{$elem->id}}" class="form-label text-capitalize">
@@ -170,7 +174,48 @@
 
             reader.readAsDataURL(input.files[0]);
         }
+    };
+
+    
+    // function handleData() {
+    //     var form_data = new FormData(document.querySelector("form"));
+
+    //     if (!form_data.has("fields[]")) {
+    //         document.getElementById("chk_option_error").style.visibility = "visible";
+    //         console.log('no fields');
+    //         return false;
+    //     } else {
+    //         document.getElementById("chk_option_error").style.visibility = "hidden";
+    //         return true;
+    //     }
+
+    // }
+
+    function validateForm() {
+      var checkboxes = document.querySelectorAll('input.field-checks');
+      var isChecked = false;
+
+      checkboxes.forEach(function(checkbox) {
+        if (checkbox.checked) {
+          isChecked = true;
+        }
+      });
+
+      if (!isChecked) {
+        // alert('Seleziona almeno una checkbox Ambito prima di inviare il form.');
+        document.getElementById("chk_option_error").style.visibility = "visible";
+        return false; // Impedisce l'invio del form
+      }
+      // Se almeno una checkbox è stata selezionata, il form viene inviato normalmente
+      return true;
     }
+
+    // Ottieni il riferimento al form
+    var myForm = document.getElementById('myForm');
+
+    // Assegna la funzione di validazione all'evento onsubmit del form
+    myForm.onsubmit = validateForm;
+    
 </script>
 
 
