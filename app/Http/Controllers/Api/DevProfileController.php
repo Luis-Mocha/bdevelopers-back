@@ -22,7 +22,7 @@ class DevProfileController extends Controller
         ->join('users', 'profiles.user_id', '=', 'users.id')
         ->join('field_user', 'users.id', '=', 'field_user.user_id')
         ->join('fields', 'field_user.field_id', '=', 'fields.id')
-        ->select('profiles.*', 'users.*', DB::raw('GROUP_CONCAT(fields.name) as field_names'), DB::raw('GROUP_CONCAT(fields.id) as field_ids'))
+        ->select('profiles.*', 'users.*', DB::raw('GROUP_CONCAT(fields.name ORDER BY fields.name) as field_names'), DB::raw('GROUP_CONCAT(fields.id ORDER BY fields.id) as field_ids'))
         ->groupBy('profiles.id', 'users.id') // Raggruppa per l'ID del profilo e l'ID dell'utente
         ->get();
 
