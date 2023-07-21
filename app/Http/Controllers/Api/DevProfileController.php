@@ -19,47 +19,39 @@ class DevProfileController extends Controller
         //$profiles = Profile::all();
 
         $profiles = DB::table('profiles')
-            // ->join('users', 'profiles.user_id', '=', 'users.id')
-            // ->join('field_user', 'users.id', '=', 'field_user.user_id')
-            // ->join('fields', 'field_user.field_id', '=', 'fields.id')
-            // ->select('profiles.*', 'users.*', 'fields.name as field_name', 'fields.slug', 'fields.id as field_id')
-            // ->get();
+        ->join('users', 'profiles.user_id', '=', 'users.id')
+        ->join('field_user', 'users.id', '=', 'field_user.user_id')
+        ->join('fields', 'field_user.field_id', '=', 'fields.id')
+        ->select('profiles.*', 'users.*', DB::raw('GROUP_CONCAT(fields.name) as field_names'), DB::raw('GROUP_CONCAT(fields.id) as field_ids'))
+        ->groupBy('profiles.id', 'users.id') // Raggruppa per l'ID del profilo e l'ID dell'utente
+        ->get();
 
-            ->join('users', 'profiles.user_id', '=', 'users.id')
-            ->join('field_user', 'users.id', '=', 'field_user.user_id')
-            ->join('fields', 'field_user.field_id', '=', 'fields.id')
-            ->select('profiles.*', 'users.*', DB::raw('GROUP_CONCAT(fields.name) as field_names'), DB::raw('GROUP_CONCAT(fields.id) as field_ids'))
-            ->groupBy('profiles.id', 'users.id') // Raggruppa per l'ID del profilo e l'ID dell'utente
-            ->get();
+        $profilesData = [];
+        foreach ($profiles as $result) {
+            $profileData = [
+                'id' => $result->id,
+                'name' => $result->name,
+                'surname' => $result->surname,
+                'birth_date' => $result->birth_date,
+                'address' => $result->address,
+                'phone_number' => $result->phone_number,
+                'email' => $result->email,
+                'github_url' => $result->github_url,
+                'linkedin_url' => $result->linkedin_url,
+                'profile_image' => $result->profile_image,
+                'curriculum' => $result->curriculum,
+                'performance' => $result->performance,
+                // Altri attributi del profilo
+                'field_names' => explode(',', $result->field_names), // Converto la stringa in un array di nomi dei campi
+                'field_ids' => explode(',', $result->field_ids), // Converto la stringa in un array di ID dei campi
+            ];
+            $profilesData[] = $profileData;
+        }
 
-            $profilesData = [];
-            foreach ($profiles as $result) {
-                $profileData = [
-                    'id' => $result->id,
-                    'name' => $result->name,
-                    'surname' => $result->surname,
-                    'birth_date' => $result->birth_date,
-                    'address' => $result->address,
-                    'phone_number' => $result->phone_number,
-                    'email' => $result->email,
-                    'github_url' => $result->github_url,
-                    'linkedin_url' => $result->linkedin_url,
-                    'profile_image' => $result->profile_image,
-                    'curriculum' => $result->curriculum,
-                    'performance' => $result->performance,
-                    // Altri attributi del profilo
-                    'field_names' => explode(',', $result->field_names), // Converto la stringa in un array di nomi dei campi
-                    'field_ids' => explode(',', $result->field_ids), // Converto la stringa in un array di ID dei campi
-                ];
-                $profilesData[] = $profileData;
-            }
-
-            return response()->json($profilesData);
-
-        // return response()->json([
-        //     'success' => true,
-        //     'profiles' => $profiles
-        // ]);
+        return response()->json([
+            'success' => true,
+            'profilesData' => $profilesData
+        ]);
     }
 
     /**
