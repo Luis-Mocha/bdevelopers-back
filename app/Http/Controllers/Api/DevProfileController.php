@@ -34,12 +34,32 @@ class DevProfileController extends Controller
             ->groupBy('profiles.id', 'users.id') // Raggruppa per l'ID del profilo e l'ID dell'utente
             ->get();
 
-        if ($request->has('fields_ids')) {
-            $field_ids = explode(',', $request->fields_ids);
+        if ($request->has('field_ids')) {
+            $field_ids = explode(',', $request->field_ids);
 
-            $profiles->whereHas('fields', function ($profiles) use ($field_ids) {
-                $profiles->whereIn('id', $field_ids);
-            });
+            $profiles = DB::table('profiles')
+            ->join('users', 'profiles.user_id', '=', 'users.id')
+            ->whereExists(function ($query) use ($field_ids) {
+                $query->select(DB::raw(1))
+                    ->from('field_user')
+                    ->whereRaw('field_user.user_id = users.id')
+                    ->where('field_user.field_id', $field_ids);
+            })
+            ->join('field_user', 'users.id', '=', 'field_user.user_id')
+            ->join('fields', 'field_user.field_id', '=', 'fields.id')
+            ->leftJoin('profile_technology', 'profiles.id', '=', 'profile_technology.profile_id')
+            ->leftJoin('technologies', 'profile_technology.technology_id', '=', 'technologies.id')
+            ->select(
+                'profiles.*',
+                'users.*',
+                DB::raw('GROUP_CONCAT(DISTINCT fields.name ORDER BY fields.name) as field_names'),
+                DB::raw('GROUP_CONCAT(DISTINCT fields.id ORDER BY fields.id) as field_ids'),
+                DB::raw('GROUP_CONCAT(DISTINCT technologies.name ORDER BY technologies.name) as technology_names'),
+                DB::raw('GROUP_CONCAT(DISTINCT technologies.id ORDER BY technologies.id) as technology_ids'),
+            )
+            ->groupBy('profiles.id', 'users.id')
+            ->get();
+
         }
 
         $profilesData = [];
