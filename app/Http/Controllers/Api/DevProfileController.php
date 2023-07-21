@@ -21,6 +21,7 @@ class DevProfileController extends Controller
             ->join('users', 'profiles.user_id', '=', 'users.id')
             ->join('field_user', 'users.id', '=', 'field_user.user_id')
             ->join('fields', 'field_user.field_id', '=', 'fields.id')
+            ->join('reviews', 'profiles.id', '=', 'reviews.profile_id')
             ->leftJoin('profile_technology', 'profiles.id', '=', 'profile_technology.profile_id')
             ->leftJoin('technologies', 'profile_technology.technology_id', '=', 'technologies.id')
             ->select(
@@ -30,6 +31,17 @@ class DevProfileController extends Controller
                 DB::raw('GROUP_CONCAT(DISTINCT fields.id ORDER BY fields.id) as field_ids'),
                 DB::raw('GROUP_CONCAT(DISTINCT technologies.name ORDER BY technologies.name) as technology_names'),
                 DB::raw('GROUP_CONCAT(DISTINCT technologies.id ORDER BY technologies.id) as technology_ids'),
+                //DB::raw('GROUP_CONCAT(DISTINCT reviews.description ORDER BY reviews.description) as review_desc'),
+                // DB::raw('GROUP_CONCAT(DISTINCT reviews.id ORDER BY reviews.id) as review_ids'),
+                DB::raw('GROUP_CONCAT(DISTINCT reviews.vote) as review_vote'),
+                DB::raw('GROUP_CONCAT(DISTINCT reviews.description) as review_desc'),
+                DB::raw('GROUP_CONCAT(DISTINCT reviews.name) as review_name'),
+                DB::raw('GROUP_CONCAT(DISTINCT reviews.surname) as review_surname'),
+                DB::raw('GROUP_CONCAT(DISTINCT reviews.date) as review_date'),
+
+
+
+
             )
             ->groupBy('profiles.id', 'users.id');
 
@@ -66,6 +78,11 @@ class DevProfileController extends Controller
                 'field_ids' => explode(',', $result->field_ids), // Converto la stringa in un array di ID dei campi
                 'technology_names' =>  $result->technology_names ? explode(',', $result->technology_names) : null,
                 'technology_ids' => $result->technology_ids ? explode(',', $result->technology_ids) : null,
+                'review_desc' => $result->review_desc ? explode(',', $result->review_desc) : null,
+                'review_vote' => $result->review_vote ? explode(',', $result->review_vote) : null,
+                'review_name' => $result->review_name ? explode(',', $result->review_name) : null,
+                'review_surname' => $result->review_surname ? explode(',', $result->review_surname) : null,
+                'review_date' => $result->review_date ? explode(',', $result->review_date) : null,
             ];
             $profilesData[] = $profileData;
         }
