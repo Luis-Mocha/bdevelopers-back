@@ -16,13 +16,21 @@ class DevProfileController extends Controller
      */
     public function index(Request $request)
     {
-        //$profiles = Profile::all();
 
         $profiles = DB::table('profiles')
         ->join('users', 'profiles.user_id', '=', 'users.id')
         ->join('field_user', 'users.id', '=', 'field_user.user_id')
         ->join('fields', 'field_user.field_id', '=', 'fields.id')
-        ->select('profiles.*', 'users.*', DB::raw('GROUP_CONCAT(fields.name ORDER BY fields.name) as field_names'), DB::raw('GROUP_CONCAT(fields.id ORDER BY fields.id) as field_ids'))
+        ->join('profile_technology', 'profiles.id', '=', 'profile_technology.profile_id')
+        ->join('technologies', 'profile_technology.technology_id', '=', 'technologies.id')
+        ->select(
+            'profiles.*',
+            'users.*', 
+            DB::raw('GROUP_CONCAT(DISTINCT fields.name ORDER BY fields.name) as field_names'), 
+            DB::raw('GROUP_CONCAT(DISTINCT fields.id ORDER BY fields.id) as field_ids'), 
+            DB::raw('GROUP_CONCAT(DISTINCT technologies.name ORDER BY technologies.name) as technology_names'),
+            DB::raw('GROUP_CONCAT(DISTINCT technologies.id ORDER BY technologies.id) as technology_ids'),
+        )
         ->groupBy('profiles.id', 'users.id') // Raggruppa per l'ID del profilo e l'ID dell'utente
         ->get();
 
@@ -41,9 +49,11 @@ class DevProfileController extends Controller
                 'profile_image' => $result->profile_image,
                 'curriculum' => $result->curriculum,
                 'performance' => $result->performance,
-                // Altri attributi del profilo
+                // Field e technologies
                 'field_names' => explode(',', $result->field_names), // Converto la stringa in un array di nomi dei campi
                 'field_ids' => explode(',', $result->field_ids), // Converto la stringa in un array di ID dei campi
+                'technology_names' => explode(',', $result->technology_names), 
+                'technology_ids' => explode(',', $result->technology_ids), 
             ];
             $profilesData[] = $profileData;
         }
