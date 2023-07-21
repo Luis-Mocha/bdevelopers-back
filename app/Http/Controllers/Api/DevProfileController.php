@@ -21,8 +21,8 @@ class DevProfileController extends Controller
         ->join('users', 'profiles.user_id', '=', 'users.id')
         ->join('field_user', 'users.id', '=', 'field_user.user_id')
         ->join('fields', 'field_user.field_id', '=', 'fields.id')
-        ->join('profile_technology', 'profiles.id', '=', 'profile_technology.profile_id')
-        ->join('technologies', 'profile_technology.technology_id', '=', 'technologies.id')
+        ->leftJoin('profile_technology', 'profiles.id', '=', 'profile_technology.profile_id')
+        ->leftJoin('technologies', 'profile_technology.technology_id', '=', 'technologies.id')
         ->select(
             'profiles.*',
             'users.*', 
@@ -52,8 +52,8 @@ class DevProfileController extends Controller
                 // Field e technologies
                 'field_names' => explode(',', $result->field_names), // Converto la stringa in un array di nomi dei campi
                 'field_ids' => explode(',', $result->field_ids), // Converto la stringa in un array di ID dei campi
-                'technology_names' => explode(',', $result->technology_names), 
-                'technology_ids' => explode(',', $result->technology_ids), 
+                'technology_names' =>  $result->technology_names ? explode(',', $result->technology_names) : null,
+                'technology_ids' => $result->technology_ids ? explode(',', $result->technology_ids) : null, 
             ];
             $profilesData[] = $profileData;
         }
