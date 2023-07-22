@@ -24,6 +24,7 @@ class DevProfileController extends Controller
             ->join('reviews', 'profiles.id', '=', 'reviews.profile_id')
             ->leftJoin('profile_technology', 'profiles.id', '=', 'profile_technology.profile_id')
             ->leftJoin('technologies', 'profile_technology.technology_id', '=', 'technologies.id')
+            
             ->select(
                 'profiles.*',
                 'users.*',
@@ -38,9 +39,7 @@ class DevProfileController extends Controller
                 DB::raw('GROUP_CONCAT(DISTINCT reviews.name) as review_name'),
                 DB::raw('GROUP_CONCAT(DISTINCT reviews.surname) as review_surname'),
                 DB::raw('GROUP_CONCAT(DISTINCT reviews.date) as review_date'),
-
-
-
+                DB::raw('COUNT(DISTINCT reviews.id) as total_reviews'), // Aggiungi il conteggio delle recensioni
 
             )
             ->groupBy('profiles.id', 'users.id');
@@ -54,6 +53,18 @@ class DevProfileController extends Controller
                     ->whereRaw('field_user.user_id = users.id')
                     ->whereIn('field_user.field_id', $field_ids);
             });
+        }
+
+        // prova filtro numero recensioni
+        if ($request->has('total_reviews')) {
+            $total_reviews = $request->total_reviews;
+
+            // $profilesQuery->whereExists(function ($query) use ($total_reviews) {
+            //     $query->select(DB::raw(1))
+            //         ->from('reviews')
+            //         ->whereRaw('field_user.user_id = users.id')
+            //          ->whereIn('field_user.field_id', $field_ids);
+            // });
         }
 
         $profiles = $profilesQuery->get();
@@ -83,6 +94,7 @@ class DevProfileController extends Controller
                 'review_name' => $result->review_name ? explode(',', $result->review_name) : null,
                 'review_surname' => $result->review_surname ? explode(',', $result->review_surname) : null,
                 'review_date' => $result->review_date ? explode(',', $result->review_date) : null,
+                'total_reviews' => $result->total_reviews
             ];
             $profilesData[] = $profileData;
         }
