@@ -64,6 +64,13 @@ class DevProfileController extends Controller
             $profilesQuery->having('total_reviews', '>=', $total_reviews);
         }
 
+        // filtro voto medio recensioni
+        if ($request->has('average_vote')) {
+            $average_vote = intval($request->average_vote);
+
+            $profilesQuery->having('average_vote', '>=', $average_vote);
+        }
+
         $profiles = $profilesQuery->get();
 
         $profilesData = [];
@@ -92,7 +99,7 @@ class DevProfileController extends Controller
                 'review_surname' => $result->review_surname ? explode(',', $result->review_surname) : null,
                 'review_date' => $result->review_date ? explode(',', $result->review_date) : null,
                 'total_reviews' => $result->total_reviews,
-                'average_vote' =>intval($result->average_vote)
+                'average_vote' =>intval($result->average_vote) ? intval($result->average_vote) : 0,
             ];
             $profilesData[] = $profileData;
         }
