@@ -21,7 +21,7 @@ class DevProfileController extends Controller
             ->join('users', 'profiles.user_id', '=', 'users.id')
             ->join('field_user', 'users.id', '=', 'field_user.user_id')
             ->join('fields', 'field_user.field_id', '=', 'fields.id')
-            ->join('reviews', 'profiles.id', '=', 'reviews.profile_id')
+            ->leftJoin('reviews', 'profiles.id', '=', 'reviews.profile_id')
             ->leftJoin('profile_technology', 'profiles.id', '=', 'profile_technology.profile_id')
             ->leftJoin('technologies', 'profile_technology.technology_id', '=', 'technologies.id')
             
@@ -40,10 +40,12 @@ class DevProfileController extends Controller
                 DB::raw('GROUP_CONCAT(DISTINCT reviews.surname) as review_surname'),
                 DB::raw('GROUP_CONCAT(DISTINCT reviews.date) as review_date'),
                 DB::raw('COUNT(DISTINCT reviews.id) as total_reviews'), // Aggiungi il conteggio delle recensioni
+                DB::raw('AVG(reviews.vote) as average_vote'),
 
             )
             ->groupBy('profiles.id', 'users.id');
 
+        // filtro fields 
         if ($request->has('field_ids')) {
             $field_ids = explode(',', $request->field_ids);
 
@@ -55,16 +57,11 @@ class DevProfileController extends Controller
             });
         }
 
-        // prova filtro numero recensioni
+        // filtro numero recensioni
         if ($request->has('total_reviews')) {
-            $total_reviews = $request->total_reviews;
+            $total_reviews = intval($request->total_reviews);
 
-            // $profilesQuery->whereExists(function ($query) use ($total_reviews) {
-            //     $query->select(DB::raw(1))
-            //         ->from('reviews')
-            //         ->whereRaw('field_user.user_id = users.id')
-            //          ->whereIn('field_user.field_id', $field_ids);
-            // });
+            $profilesQuery->having('total_reviews', '>=', $total_reviews);
         }
 
         $profiles = $profilesQuery->get();
@@ -94,7 +91,8 @@ class DevProfileController extends Controller
                 'review_name' => $result->review_name ? explode(',', $result->review_name) : null,
                 'review_surname' => $result->review_surname ? explode(',', $result->review_surname) : null,
                 'review_date' => $result->review_date ? explode(',', $result->review_date) : null,
-                'total_reviews' => $result->total_reviews
+                'total_reviews' => $result->total_reviews,
+                'average_vote' =>intval($result->average_vote)
             ];
             $profilesData[] = $profileData;
         }
