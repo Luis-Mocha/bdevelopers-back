@@ -6,10 +6,9 @@ use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
 // importo il modello
-use App\Models\Admin\Profile;
+use App\Models\User;
 
-
-class ProfileSeeder extends Seeder
+class UserSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -18,49 +17,51 @@ class ProfileSeeder extends Seeder
      */
     public function run()
     {
-        $profiles = [
-            [
-                'user_id' => '1',
+        $users = [
+            [ 
                 'name' => 'A',
                 'surname' => 'AA',
                 'address' => 'Via A',
                 'email' => 'a@a.com',
+                'password' => '$2y$10$cp8X9FtVMXX4ha0u/WjjIOHuhXlpDMGe2jnqZa8YUdAbg7q7.gzu2'
+               
             ],
             [
-                'user_id' => '2',
                 'name' => 'B',
                 'surname' => 'BB',
                 'address' => 'Via B',
                 'email' => 'b@b.com',
+                'password' => '$2y$10$cp8X9FtVMXX4ha0u/WjjIOHuhXlpDMGe2jnqZa8YUdAbg7q7.gzu2'
             ],
             [
-                'user_id' => '3',
                 'name' => 'C',
                 'surname' => 'CC',
                 'address' => 'Via C',
                 'email' => 'c@c.com',
+                'password' => '$2y$10$cp8X9FtVMXX4ha0u/WjjIOHuhXlpDMGe2jnqZa8YUdAbg7q7.gzu2'
             ],
             [
-                'user_id' => '4',
                 'name' => 'D',
                 'surname' => 'DD',
                 'address' => 'Via D',
                 'email' => 'd@d.com',
+                'password' => '$2y$10$cp8X9FtVMXX4ha0u/WjjIOHuhXlpDMGe2jnqZa8YUdAbg7q7.gzu2'
             ]
         ];
 
+        foreach ($users as $elem) {
 
-        foreach ($profiles as $elem) {
+            $new_user = new User();
 
-            $new_profile = new Profile();
+            // $new_user->user_id = $elem['user_id'];
+            $new_user->name = $elem['name'];
+            $new_user->surname = $elem['surname'];
+            $new_user->address = $elem['address'];
+            $new_user->email = $elem['email'];
+            $new_user->password = $elem['password'];
 
-            $new_profile->user_id = $elem['user_id'];
-            $new_profile->name = $elem['name'];
-            $new_profile->surname = $elem['surname'];
-            $new_profile->address = $elem['address'];
-            $new_profile->email = $elem['email'];
 
-            $new_profile->save();
+            $new_user->save();
         }
     }
 }

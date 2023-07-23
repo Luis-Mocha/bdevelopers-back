@@ -24,11 +24,12 @@ class DatabaseSeeder extends Seeder
 
         //richiama il seeder delle technology
         $this->call([
+            UserSeeder::class,
+            ProfileSeeder::class,
             TechnologySeeder::class,
             FieldSeeder::class,
             SponsorshipSeeder::class,
             ReviewSeeder::class,
-            ProfileSeeder::class,
         ]);
     }
 }
