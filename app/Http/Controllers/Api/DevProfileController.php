@@ -24,10 +24,11 @@ class DevProfileController extends Controller
             ->leftJoin('reviews', 'profiles.id', '=', 'reviews.profile_id')
             ->leftJoin('profile_technology', 'profiles.id', '=', 'profile_technology.profile_id')
             ->leftJoin('technologies', 'profile_technology.technology_id', '=', 'technologies.id')
-            
+
             ->select(
                 'profiles.*',
                 'users.*',
+                DB::raw('profiles.id as profile_id'),
                 DB::raw('GROUP_CONCAT(DISTINCT fields.name ORDER BY fields.name) as field_names'),
                 DB::raw('GROUP_CONCAT(DISTINCT fields.id ORDER BY fields.id) as field_ids'),
                 DB::raw('GROUP_CONCAT(DISTINCT technologies.name ORDER BY technologies.name) as technology_names'),
@@ -76,7 +77,7 @@ class DevProfileController extends Controller
         $profilesData = [];
         foreach ($profiles as $result) {
             $profileData = [
-                'id' => $result->id,
+                'profile_id' => $result->profile_id,
                 'name' => $result->name,
                 'surname' => $result->surname,
                 'birth_date' => $result->birth_date,
@@ -99,7 +100,7 @@ class DevProfileController extends Controller
                 'review_surname' => $result->review_surname ? explode(',', $result->review_surname) : null,
                 'review_date' => $result->review_date ? explode(',', $result->review_date) : null,
                 'total_reviews' => $result->total_reviews,
-                'average_vote' =>intval($result->average_vote) ? intval($result->average_vote) : 0,
+                'average_vote' => intval($result->average_vote) ? intval($result->average_vote) : 0,
             ];
             $profilesData[] = $profileData;
         }
@@ -116,11 +117,11 @@ class DevProfileController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    public function show($id) 
+    public function show($id)
     {
         $profile = Profile::with('technologies')->where('id', $id)->first(); // !! sto usando l'id !!
 
-        if($profile) {
+        if ($profile) {
             return response()->json([
                 'success' => true,
                 'profile' => $profile
