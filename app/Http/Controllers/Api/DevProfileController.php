@@ -119,7 +119,6 @@ class DevProfileController extends Controller
 
     public function show($id)
     {
-        // $profile = Profile::with('technologies', 'reviews')->where('id', $id)->first(); // !! sto usando l'id !!
 
         $profileQuery = DB::table('profiles')
             ->join('users', 'profiles.user_id', '=', 'users.id')
@@ -129,7 +128,6 @@ class DevProfileController extends Controller
             ->leftJoin('profile_technology', 'profiles.id', '=', 'profile_technology.profile_id')
             ->leftJoin('technologies', 'profile_technology.technology_id', '=', 'technologies.id')
             ->where('profiles.id', '=', $id)
-
             ->select(
                 'profiles.*',
                 'users.*',
@@ -138,19 +136,22 @@ class DevProfileController extends Controller
                 DB::raw('GROUP_CONCAT(DISTINCT fields.id ORDER BY fields.id) as field_ids'),
                 DB::raw('GROUP_CONCAT(DISTINCT technologies.name ORDER BY technologies.name) as technology_names'),
                 DB::raw('GROUP_CONCAT(DISTINCT technologies.id ORDER BY technologies.id) as technology_ids'),
-                //DB::raw('GROUP_CONCAT(DISTINCT reviews.description ORDER BY reviews.description) as review_desc'),
-                // DB::raw('GROUP_CONCAT(DISTINCT reviews.id ORDER BY reviews.id) as review_ids'),
-                DB::raw('GROUP_CONCAT(DISTINCT reviews.vote) as review_vote'),
-                DB::raw('GROUP_CONCAT(DISTINCT reviews.description) as review_desc'),
-                DB::raw('GROUP_CONCAT(DISTINCT reviews.name) as review_name'),
-                DB::raw('GROUP_CONCAT(DISTINCT reviews.surname) as review_surname'),
-                DB::raw('GROUP_CONCAT(DISTINCT reviews.date) as review_date'),
-                DB::raw('COUNT(DISTINCT reviews.id) as total_reviews'), // Aggiungi il conteggio delle recensioni
-                DB::raw('AVG(reviews.vote) as average_vote'),
-
             )
             ->groupBy('profiles.id', 'users.id')
             ->first();
+
+            // dati relativi alle recensioni del profilo
+            $reviews = DB::table('reviews')
+            ->where('profile_id', '=', $id)
+            ->select('description', 'name', 'surname', 'date', 'vote')
+            ->orderBy('date', 'desc')
+            ->get();
+            $profileQuery->reviews = $reviews;
+            // totale recensioni
+            $totalReviews = count($reviews);
+            // media voti
+            $averageVote = $reviews->avg('vote');
+
 
 
         $profileData = [
@@ -171,16 +172,15 @@ class DevProfileController extends Controller
             'field_ids' => explode(',', $profileQuery->field_ids), // Converto la stringa in un array di ID dei campi
             'technology_names' => $profileQuery->technology_names ? explode(',', $profileQuery->technology_names) : null,
             'technology_ids' => $profileQuery->technology_ids ? explode(',', $profileQuery->technology_ids) : null,
-            'review_desc' => $profileQuery->review_desc ? explode(',', $profileQuery->review_desc) : null,
-            'review_vote' => $profileQuery->review_vote ? explode(',', $profileQuery->review_vote) : null,
-            'review_name' => $profileQuery->review_name ? explode(',', $profileQuery->review_name) : null,
-            'review_surname' => $profileQuery->review_surname ? explode(',', $profileQuery->review_surname) : null,
-            'review_date' => $profileQuery->review_date ? explode(',', $profileQuery->review_date) : null,
-            'total_reviews' => $profileQuery->total_reviews,
-            'average_vote' => intval($profileQuery->average_vote) ? intval($profileQuery->average_vote) : 0,
+            // recensioni
+            'total_reviews' => $totalReviews,
+            'average_vote' => $averageVote,
+            'reviews' => $profileQuery->reviews,
         ];
 
-        if ($profileData) {
+        
+
+        if ($profileQuery) {
             return response()->json([
                 'success' => true,
                 'profile' => $profileData
