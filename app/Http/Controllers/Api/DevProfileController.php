@@ -116,9 +116,9 @@ class DevProfileController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    public function show($email) 
+    public function show($id) 
     {
-        $profile = Profile::where('email', $email)->first(); // !! da modificare email !!
+        $profile = Profile::with('technologies')->where('id', $id)->first(); // !! sto usando l'id !!
 
         if($profile) {
             return response()->json([
