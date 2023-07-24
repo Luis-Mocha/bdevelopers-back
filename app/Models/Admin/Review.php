@@ -11,6 +11,7 @@ class Review extends Model
 
     protected $table = 'reviews';
     protected $fillable = [
+        "profile_id",
         "vote",
         "description",
         "name",

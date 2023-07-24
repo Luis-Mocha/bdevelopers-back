@@ -23,10 +23,13 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+// index profili
+Route::get('/profiles', [DevProfileController::class, 'index']);
+// show profilo
+Route::get('/profiles/{slug}', [DevProfileController::class, 'show']);
+
 
 Route::post('/contacts', [LeadController::class, 'store']);
-
-Route::get('/profiles', [DevProfileController::class, 'index']);
 
 Route::get('/fields', [FieldController::class, 'index']);
 
