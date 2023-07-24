@@ -34,3 +34,5 @@ Route::post('/contacts', [LeadController::class, 'store']);
 Route::get('/fields', [FieldController::class, 'index']);
 
 Route::get('/reviews', [ReviewController::class, 'index']);
+
+Route::post('/reviews/store', [ReviewController::class, 'store']);

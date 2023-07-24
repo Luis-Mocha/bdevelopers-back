@@ -33,7 +33,17 @@ class ReviewController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $review = new Review();
+        $review->profile_id = $request->input('profile_id');
+        $review->name = $request->input('name');
+        $review->surname = $request->input('surname');
+        $review->date = $request->input('date');
+        $review->vote = $request->input('vote');
+        $review->description = $request->input('description');
+
+        $review->save();
+
+        return response()->json(['message' => 'Recensione salvata con successo!'], 201);
     }
 
     /**

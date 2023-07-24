@@ -23,7 +23,7 @@ class ReviewController extends Controller
         
         $user_id = Auth::id();
         $profile = Profile::where('user_id', $user_id)->first();
-        $profile_review = Review::where('profile_id', $profile->id)->orderBy('date', 'desc')->get();
+        $profile_review = Review::where('profile_id', $profile->id)->orderBy('created_at', 'desc')->get();
         $averageRating = Review::where('profile_id', $profile->id)->average('vote');
 
         return view('admin.profile.reviews', compact('profile_review', 'averageRating'));
