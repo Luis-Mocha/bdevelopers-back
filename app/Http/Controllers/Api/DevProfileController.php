@@ -116,8 +116,20 @@ class DevProfileController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    public function show($id)
+    public function show($email) 
     {
-        //
+        $profile = Profile::where('email', $email)->first(); // !! da modificare email !!
+
+        if($profile) {
+            return response()->json([
+                'success' => true,
+                'profile' => $profile
+            ]);
+        } else {
+            return response()->json([
+                'success' => false,
+                'error' => 'Non risulta alcun post'
+            ])->setStatusCode(404);
+        }
     }
 }
