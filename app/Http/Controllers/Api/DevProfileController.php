@@ -119,12 +119,71 @@ class DevProfileController extends Controller
 
     public function show($id)
     {
-        $profile = Profile::with('technologies')->where('id', $id)->first(); // !! sto usando l'id !!
+        // $profile = Profile::with('technologies', 'reviews')->where('id', $id)->first(); // !! sto usando l'id !!
 
-        if ($profile) {
+        $profileQuery = DB::table('profiles')
+            ->join('users', 'profiles.user_id', '=', 'users.id')
+            ->join('field_user', 'users.id', '=', 'field_user.user_id')
+            ->join('fields', 'field_user.field_id', '=', 'fields.id')
+            ->leftJoin('reviews', 'profiles.id', '=', 'reviews.profile_id')
+            ->leftJoin('profile_technology', 'profiles.id', '=', 'profile_technology.profile_id')
+            ->leftJoin('technologies', 'profile_technology.technology_id', '=', 'technologies.id')
+            ->where('profiles.id', '=', $id)
+
+            ->select(
+                'profiles.*',
+                'users.*',
+                DB::raw('profiles.id as profile_id'),
+                DB::raw('GROUP_CONCAT(DISTINCT fields.name ORDER BY fields.name) as field_names'),
+                DB::raw('GROUP_CONCAT(DISTINCT fields.id ORDER BY fields.id) as field_ids'),
+                DB::raw('GROUP_CONCAT(DISTINCT technologies.name ORDER BY technologies.name) as technology_names'),
+                DB::raw('GROUP_CONCAT(DISTINCT technologies.id ORDER BY technologies.id) as technology_ids'),
+                //DB::raw('GROUP_CONCAT(DISTINCT reviews.description ORDER BY reviews.description) as review_desc'),
+                // DB::raw('GROUP_CONCAT(DISTINCT reviews.id ORDER BY reviews.id) as review_ids'),
+                DB::raw('GROUP_CONCAT(DISTINCT reviews.vote) as review_vote'),
+                DB::raw('GROUP_CONCAT(DISTINCT reviews.description) as review_desc'),
+                DB::raw('GROUP_CONCAT(DISTINCT reviews.name) as review_name'),
+                DB::raw('GROUP_CONCAT(DISTINCT reviews.surname) as review_surname'),
+                DB::raw('GROUP_CONCAT(DISTINCT reviews.date) as review_date'),
+                DB::raw('COUNT(DISTINCT reviews.id) as total_reviews'), // Aggiungi il conteggio delle recensioni
+                DB::raw('AVG(reviews.vote) as average_vote'),
+
+            )
+            ->groupBy('profiles.id', 'users.id')
+            ->first();
+
+
+        $profileData = [
+            'profile_id' => $profileQuery->profile_id,
+            'name' => $profileQuery->name,
+            'surname' => $profileQuery->surname,
+            'birth_date' => $profileQuery->birth_date,
+            'address' => $profileQuery->address,
+            'phone_number' => $profileQuery->phone_number,
+            'email' => $profileQuery->email,
+            'github_url' => $profileQuery->github_url,
+            'linkedin_url' => $profileQuery->linkedin_url,
+            'profile_image' => $profileQuery->profile_image,
+            'curriculum' => $profileQuery->curriculum,
+            'performance' => $profileQuery->performance,
+            // Field e technologies
+            'field_names' => explode(',', $profileQuery->field_names), // Converto la stringa in un array di nomi dei campi
+            'field_ids' => explode(',', $profileQuery->field_ids), // Converto la stringa in un array di ID dei campi
+            'technology_names' => $profileQuery->technology_names ? explode(',', $profileQuery->technology_names) : null,
+            'technology_ids' => $profileQuery->technology_ids ? explode(',', $profileQuery->technology_ids) : null,
+            'review_desc' => $profileQuery->review_desc ? explode(',', $profileQuery->review_desc) : null,
+            'review_vote' => $profileQuery->review_vote ? explode(',', $profileQuery->review_vote) : null,
+            'review_name' => $profileQuery->review_name ? explode(',', $profileQuery->review_name) : null,
+            'review_surname' => $profileQuery->review_surname ? explode(',', $profileQuery->review_surname) : null,
+            'review_date' => $profileQuery->review_date ? explode(',', $profileQuery->review_date) : null,
+            'total_reviews' => $profileQuery->total_reviews,
+            'average_vote' => intval($profileQuery->average_vote) ? intval($profileQuery->average_vote) : 0,
+        ];
+
+        if ($profileData) {
             return response()->json([
                 'success' => true,
-                'profile' => $profile
+                'profile' => $profileData
             ]);
         } else {
             return response()->json([
