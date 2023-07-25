@@ -15,7 +15,7 @@
                 </div>
             @endforeach
         @else
-            <h2 class="text-center">Non hai ancora ricevuto nessuna recensione</h2>
+            <h2 class="text-center">Non hai ancora ricevuto nessun messaggio</h2>
         @endif
     </div>
 @endsection
