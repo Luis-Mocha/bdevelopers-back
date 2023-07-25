@@ -22,8 +22,10 @@
                         if (pagamento.readyState === XMLHttpRequest.DONE) {
                             if (pagamento.status === 200) {
                                 console.log('success', payload.nonce);
+                                alert('Payment successfull!');
                             } else {
                                 console.log('error', payload.nonce);
+                                alert('Payment failed');
                             }
                         }
                     };
