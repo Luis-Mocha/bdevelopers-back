@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 
 // Importo Controller Profilo
 use App\Http\Controllers\Admin\DevProfileController;
+use App\Http\Controllers\Admin\LeadController;
 use App\Http\Controllers\Admin\ReviewController;
 
 //importo model Profile
@@ -41,7 +42,7 @@ Route::middleware('auth',)->group(function () {
     // Rotta resource Profile
     Route::resource('/admin', DevProfileController::class);
     Route::resource('/reviews', ReviewController::class);
-    
+    Route::resource('/leads', LeadController::class);
 });
 
 

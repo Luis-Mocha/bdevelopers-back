@@ -30,41 +30,52 @@ class LeadController extends Controller
      */
     public function store(Request $request)
     {
-        $data = $request->all();
+        // $data = $request->all();
 
         // VALIDAZIONE
-        $validator = Validator::make($data, [
-            'name' => 'required',
-            'email' => 'required',
-            'message' => 'required'
-        ]);
+        // $validator = Validator::make($data, [
+        //     'name' => 'required',
+        //     'email' => 'required',
+        //     'message' => 'required'
+        // ]);
 
         // VALIDAZIONE NON ANDATA A BUON FINE
-        if ($validator->fails()) {
-            return response()->json(
-                [
-                    'success' => false,
-                    'errors' => $validator->errors()
-                ]
-            );
-        }
+        // if ($validator->fails()) {
+        //     return response()->json(
+        //         [
+        //             'success' => false,
+        //             'errors' => $validator->errors()
+        //         ]
+        //     );
+        // }
 
         // SALVATAGGIO DATI NEL DB
         // $new_lead = new Lead();
         // $new_lead->fill($data);
         // $new_lead->save();
 
-        $new_lead = Lead::create($data);
+        // $new_lead = Lead::create($data);
 
         // INVIO DELLE MAIL
-        Mail::to('info@boolfolio.it')->send(new NewContact($new_lead));
+        // Mail::to('info@boolfolio.it')->send(new NewContact($new_lead));
 
         // OTTENERE UNA RISPOSTA POSITIVA IN JSON
-        return response()->json(
-            [
-                'success' => true
-            ]
-        );
+        // return response()->json(
+        //     [
+        //         'success' => true
+        //     ]
+        // );
+
+        $lead = new Lead();
+        $lead->profile_id = $request->input('profile_id');
+        $lead->name = $request->input('name');
+        $lead->surname = $request->input('surname');
+        $lead->email = $request->input('email');
+        $lead->message = $request->input('message');
+
+        $lead->save();
+
+        return response()->json(['message' => 'Messaggio inviato con successo!'], 201);
     }
 
 

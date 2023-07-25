@@ -36,3 +36,5 @@ Route::get('/fields', [FieldController::class, 'index']);
 Route::get('/reviews', [ReviewController::class, 'index']);
 
 Route::post('/reviews/store', [ReviewController::class, 'store']);
+
+Route::post('/leads/store', [LeadController::class, 'store']);
