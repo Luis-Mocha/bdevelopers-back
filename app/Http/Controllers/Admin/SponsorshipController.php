@@ -11,6 +11,8 @@ class SponsorshipController extends Controller
     public function token(Request $request)
     {
 
+        $amount = $request->input('amount');
+
         $gateway = new \Braintree\Gateway([
             'environment' => env('BRAINTREE_ENV'),
             'merchantId' => env("BRAINTREE_MERCHANT_ID"),
@@ -22,7 +24,7 @@ class SponsorshipController extends Controller
             $nonceFromTheClient = $request->input('nonce');
 
             $gateway->transaction()->sale([
-                'amount' => '50.00',
+                'amount' => $amount,
                 'paymentMethodNonce' => $nonceFromTheClient,
                 'options' => [
                     'submitForSettlement' => True
