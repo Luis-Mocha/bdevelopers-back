@@ -23,7 +23,7 @@ return new class extends Migration
             $table->unsignedBigInteger('sponsorship_id');
             $table->foreign('sponsorship_id')->references('id')->on('sponsorships')->cascadeOnDelete();
 
-            $table->primary(['profile_id', 'sponsorship_id']);
+            // $table->primary(['profile_id', 'sponsorship_id']);
 
             $table->dateTime('start_date', $precision = 0);
             $table->dateTime('end_date', $precision = 0);

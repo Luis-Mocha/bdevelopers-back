@@ -10,6 +10,8 @@ use App\Models\Admin\Profile;
 use App\Models\Admin\Sponsorship;
 use Illuminate\Support\Facades\Auth;
 
+use Carbon\Carbon;
+
 
 class SponsorshipController extends Controller
 {
@@ -27,6 +29,20 @@ class SponsorshipController extends Controller
             'privateKey' => env("BRAINTREE_PRIVATE_KEY")
         ]);
 
+        $user_id = Auth::id();
+        $profile = Profile::where('user_id', $user_id)->first();
+
+        $today = Carbon::now();
+        $last_sponsorship = $profile->sponsorships()->latest('end_date')->first();
+
+        // $dataFinal= Carbon::parse($last_sponsorship->pivot->end_date);
+
+        
+        // dd($last_sponsorship->pivot->end_date, $dataFinal);
+
+        $duration = 0;
+        $sponsorshipType = null;
+
         if ($request->input('nonce') != null) {
             $nonceFromTheClient = $request->input('nonce');
 
@@ -38,55 +54,51 @@ class SponsorshipController extends Controller
                 ]
             ]);
 
-            $duration = 0;
-            $sponsorshipType = [];
-
+           
             if ($amount == 2.99) {
                 $duration = 24;
                 $sponsorshipType = Sponsorship::where('id', 1)->first();
-            } elseif ($amount == 5.99) {
+
+            } else if ($amount == 5.99) {
                 $duration = 72;
                 $sponsorshipType = Sponsorship::where('id', 2)->first();
+
             } else {
                 $duration = 144;
                 $sponsorshipType = Sponsorship::where('id', 3)->first();
             }
 
+            
 
-            $user_id = Auth::id();
-            $profile = Profile::where('user_id', $user_id)->first();
+            if ($last_sponsorship && $today->lessThan($last_sponsorship->pivot->end_date)) {
 
-            $today = now();
+                $dataStringa = $last_sponsorship->pivot->end_date;
+                $dataOra= Carbon::parse($dataStringa);
+                $dataSecondoAggiornata= $dataOra->addSeconds(5);
+                $dataOraAggiornata = $dataOra->addHours(24);
 
-            $last_sponsorship = $profile->sponsorships()->latest('end_date')->first();
+                // $dataFinal= Carbon::parse($last_sponsorship->pivot->end_date);
+                // $dataFinal->addHours($duration);
+                // $start_date_value = $last_sponsorship->pivot_end_date;
+
+                // $start_date_value = $dataFinal->addSeconds(1);
+                // $end_date_value =  $start_date_value->addHours(1);
+
+                // $profile->sponsorships()->attach($sponsorshipType->id, ['start_date' => '2025-12-12 09:12:23', 'end_date' => '2025-12-14 09:12:23']);
+                $profile->sponsorships()->attach($sponsorshipType->id, ['start_date' => $dataSecondoAggiornata, 'end_date' => $dataOraAggiornata]);
 
 
-            if ($last_sponsorship && $today <= $last_sponsorship->end_date) {
-
-                $start_date_value = $last_sponsorship->end_date->addSecond();
-
-                if ($amount == 2.99) {
-
-                    $sponsorshipType = Sponsorship::where('id', 1)->first();
-                    $end_date_value = $start_date_value->addHours(24);
-                } elseif ($amount == 5.99) {
-
-                    $sponsorshipType = Sponsorship::where('id', 2)->first();
-                    $end_date_value = $start_date_value->addHours(72);
-                } else {
-
-                    $sponsorshipType = Sponsorship::where('id', 3)->first();
-                    $end_date_value = $start_date_value->addHours(144);
-                }
-
-                $profile->sponsorships()->attach($sponsorshipType->id, ['start_date' => $start_date_value, 'end_date' => $end_date_value]);
             } else {
-
+                
+                $start_date_value = $today;
+                $end_date_value = now()->addHours($duration);
                 $profile->sponsorships()->attach($sponsorshipType->id, ['start_date' => now(), 'end_date' => now()->addHours($duration)]);
+
             }
 
+            // $profile->sponsorships()->attach($sponsorshipType->id, ['start_date' => $start_date_value, 'end_date' => $end_date_value]);
 
-            // return view('dashboard');
+            
         } else {
             $clientToken = $gateway->clientToken()->generate();
             return view('admin.profile.sponsorship', ['token' => $clientToken]);

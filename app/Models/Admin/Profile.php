@@ -46,7 +46,8 @@ class Profile extends Model
     //crea relazione many to many verso la tabella sponsorships
     public function sponsorships()
     {
-        return $this->belongsToMany(Sponsorship::class);
+        return $this->belongsToMany(Sponsorship::class)
+        ->withPivot('end_date');
     }
 
     //crea relazione one to many verso la tabella leads
