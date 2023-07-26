@@ -45,6 +45,7 @@ Route::middleware('auth',)->group(function () {
     Route::resource('/leads', LeadController::class);
     // Route::resource('/sponsorship', SponsorshipController::class);
 
+    Route::any('/sponsorship', [SponsorshipController::class, 'index']);
     Route::any('/sponsorship', [SponsorshipController::class, 'token'])->name('token');
 });
 

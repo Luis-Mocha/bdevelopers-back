@@ -5,6 +5,12 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
+//Importo il modello
+use App\Models\Admin\Profile;
+use App\Models\Admin\Sponsorship;
+use Illuminate\Support\Facades\Auth;
+
+
 class SponsorshipController extends Controller
 {
 
@@ -12,6 +18,7 @@ class SponsorshipController extends Controller
     {
 
         $amount = $request->input('amount');
+
 
         $gateway = new \Braintree\Gateway([
             'environment' => env('BRAINTREE_ENV'),
@@ -30,6 +37,37 @@ class SponsorshipController extends Controller
                     'submitForSettlement' => True
                 ]
             ]);
+
+            $user_id = Auth::id();
+            $profile = Profile::where('user_id', $user_id)->first();
+
+            $today = now();
+
+            if ($amount == 2.99) {
+
+                //
+                $sponsorshipType = Sponsorship::where('id', 1)->first();
+
+                $end_date_value = $today->addHours(24);
+
+                $profile->sponsorships()->attach($sponsorshipType->id, ['start_date' => now(), 'end_date' => $end_date_value]);
+            } elseif ($amount == 5.99) {
+
+                $sponsorshipType = Sponsorship::where('id', 2)->first();
+
+                $end_date_value = $today->addHours(72);
+
+                $profile->sponsorships()->attach($sponsorshipType->id, ['start_date' => now(), 'end_date' => $end_date_value]);
+            } else {
+
+
+                $sponsorshipType = Sponsorship::where('id', 3)->first();
+
+                $end_date_value = $today->addHours(144);
+
+                $profile->sponsorships()->attach($sponsorshipType->id, ['start_date' => now(), 'end_date' => $end_date_value]);
+            }
+
             // return view('dashboard');
         } else {
             $clientToken = $gateway->clientToken()->generate();

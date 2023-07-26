@@ -25,8 +25,8 @@ return new class extends Migration
 
             $table->primary(['profile_id', 'sponsorship_id']);
 
-            $table->date('start_date');
-            $table->date('end_date');
+            $table->dateTime('start_date', $precision = 0);
+            $table->dateTime('end_date', $precision = 0);
         });
     }
 
