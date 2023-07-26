@@ -38,35 +38,53 @@ class SponsorshipController extends Controller
                 ]
             ]);
 
+            $duration = 0;
+            $sponsorshipType = [];
+
+            if ($amount == 2.99) {
+                $duration = 24;
+                $sponsorshipType = Sponsorship::where('id', 1)->first();
+            } elseif ($amount == 5.99) {
+                $duration = 72;
+                $sponsorshipType = Sponsorship::where('id', 2)->first();
+            } else {
+                $duration = 144;
+                $sponsorshipType = Sponsorship::where('id', 3)->first();
+            }
+
+
             $user_id = Auth::id();
             $profile = Profile::where('user_id', $user_id)->first();
 
             $today = now();
 
-            if ($amount == 2.99) {
+            $last_sponsorship = $profile->sponsorships()->latest('end_date')->first();
 
-                //
-                $sponsorshipType = Sponsorship::where('id', 1)->first();
 
-                $end_date_value = $today->addHours(24);
+            if ($last_sponsorship && $today <= $last_sponsorship->end_date) {
 
-                $profile->sponsorships()->attach($sponsorshipType->id, ['start_date' => now(), 'end_date' => $end_date_value]);
-            } elseif ($amount == 5.99) {
+                $start_date_value = $last_sponsorship->end_date->addSecond();
 
-                $sponsorshipType = Sponsorship::where('id', 2)->first();
+                if ($amount == 2.99) {
 
-                $end_date_value = $today->addHours(72);
+                    $sponsorshipType = Sponsorship::where('id', 1)->first();
+                    $end_date_value = $start_date_value->addHours(24);
+                } elseif ($amount == 5.99) {
 
-                $profile->sponsorships()->attach($sponsorshipType->id, ['start_date' => now(), 'end_date' => $end_date_value]);
+                    $sponsorshipType = Sponsorship::where('id', 2)->first();
+                    $end_date_value = $start_date_value->addHours(72);
+                } else {
+
+                    $sponsorshipType = Sponsorship::where('id', 3)->first();
+                    $end_date_value = $start_date_value->addHours(144);
+                }
+
+                $profile->sponsorships()->attach($sponsorshipType->id, ['start_date' => $start_date_value, 'end_date' => $end_date_value]);
             } else {
 
-
-                $sponsorshipType = Sponsorship::where('id', 3)->first();
-
-                $end_date_value = $today->addHours(144);
-
-                $profile->sponsorships()->attach($sponsorshipType->id, ['start_date' => now(), 'end_date' => $end_date_value]);
+                $profile->sponsorships()->attach($sponsorshipType->id, ['start_date' => now(), 'end_date' => now()->addHours($duration)]);
             }
+
 
             // return view('dashboard');
         } else {
