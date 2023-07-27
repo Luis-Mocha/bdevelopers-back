@@ -26,7 +26,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 // index profili
 Route::get('/profiles', [DevProfileController::class, 'index']);
 // show profilo
-Route::get('/profiles/{slug}', [DevProfileController::class, 'show']);
+Route::get('/profiles/{dev_id}', [DevProfileController::class, 'show']);
 
 
 Route::post('/contacts', [LeadController::class, 'store']);
