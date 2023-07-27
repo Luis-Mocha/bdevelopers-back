@@ -21,7 +21,6 @@ class SponsorshipController extends Controller
 
         $amount = $request->input('amount');
 
-
         $gateway = new \Braintree\Gateway([
             'environment' => env('BRAINTREE_ENV'),
             'merchantId' => env("BRAINTREE_MERCHANT_ID"),
@@ -34,11 +33,6 @@ class SponsorshipController extends Controller
 
         $today = Carbon::now();
         $last_sponsorship = $profile->sponsorships()->latest('end_date')->first();
-
-        // $dataFinal= Carbon::parse($last_sponsorship->pivot->end_date);
-
-        
-        // dd($last_sponsorship->pivot->end_date, $dataFinal);
 
         $duration = 0;
         $sponsorshipType = null;
@@ -69,34 +63,18 @@ class SponsorshipController extends Controller
             }
 
             
-
             if ($last_sponsorship && $today->lessThan($last_sponsorship->pivot->end_date)) {
 
                 $dataStringa = $last_sponsorship->pivot->end_date;
                 $dataOra= Carbon::parse($dataStringa);
 
-                // $dataSecondoAggiornata= $dataOra->addSeconds(5);
-                // $dataOraAggiornata = $dataOra->addHours(24);
-
                 $dataOraAggiornata = $dataOra->clone()->addHours($duration);
 
-                // $dataFinal= Carbon::parse($last_sponsorship->pivot->end_date);
-                // $dataFinal->addHours($duration);
-                // $start_date_value = $last_sponsorship->pivot_end_date;
-
-                // $start_date_value = $dataFinal->addSeconds(1);
-                // $end_date_value =  $start_date_value->addHours(1);
-
-                // $profile->sponsorships()->attach($sponsorshipType->id, ['start_date' => '2025-12-12 09:12:23', 'end_date' => '2025-12-14 09:12:23']);
                 $profile->sponsorships()->attach($sponsorshipType->id, ['start_date' => $dataOra, 'end_date' => $dataOraAggiornata]);
-
 
             } else {
                 
-                // $start_date_value = $today;
-                // $end_date_value = now()->addHours($duration);
                 $profile->sponsorships()->attach($sponsorshipType->id, ['start_date' => now(), 'end_date' => now()->addHours($duration)]);
-
             }
 
             
