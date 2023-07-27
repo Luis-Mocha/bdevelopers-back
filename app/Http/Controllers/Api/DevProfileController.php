@@ -141,7 +141,7 @@ class DevProfileController extends Controller
         $reviews = DB::table('reviews')
             ->where('profile_id', '=', $id)
             ->select('description', 'name', 'surname', 'date', 'vote')
-            ->orderBy('created_at', 'desc')
+            ->orderBy('date', 'desc')
             ->get();
         $profileQuery->reviews = $reviews;
         // totale recensioni
