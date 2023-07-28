@@ -12,19 +12,19 @@
         <div class="">
             <div class="mb-3">
                 <span class="label">Nome:</span>
-                <div class="fw-bold">{{ $profile['name'] }}</div>
+                <div class="fw-bold index-info">{{ $profile['name'] }}</div>
             </div>
             <div class="mb-3">
                 <span class="label">Cognome:</span>
-                <div class="fw-bold">{{ $profile['surname'] }}</div>
+                <div class="fw-bold index-info">{{ $profile['surname'] }}</div>
             </div>
             <div class="mb-3">
                 <span class="label">Email:</span>
-                <div class="fw-bold">{{ $profile['email'] }}</div>
+                <div class="fw-bold index-info">{{ $profile['email'] }}</div>
             </div>
             <div class="mb-3">
                 <span class="label">Indirizzo:</span>
-                <div class="fw-bold">{{ $profile['address'] }}</div>
+                <div class="fw-bold index-info">{{ $profile['address'] }}</div>
             </div>
         </div>
 
@@ -33,9 +33,9 @@
             <span class="label">Data di nascita:</span>
 
             @if ($profile['birth_date'])
-                <div class="fw-bold">{{ $profile['birth_date'] }}</div>
+                <div class="fw-bold index-info">{{ $profile['birth_date'] }}</div>
             @else
-                <div class="fw-light fst-italic text-secondary">Nessun dato inserito</div>
+                <div class="fw-light fst-italic text-secondary index-info">Nessun dato inserito</div>
             @endif
         
         </div>
@@ -44,19 +44,19 @@
             <span class="label">Numero di telefono:</span>
 
             @if ($profile['phone_number'])
-                <div class="fw-bold">{{ $profile['phone_number'] }}</div>
+                <div class="fw-bold index-info">{{ $profile['phone_number'] }}</div>
             @else
-                <div class="fw-light fst-italic text-secondary">Nessun dato inserito</div>
+                <div class="fw-light fst-italic text-secondary index-info">Nessun dato inserito</div>
             @endif
         </div>
         
         <div class="mb-3">
-            <span>Github:</span>
+            <span class="label">Github:</span>
 
             @if ($profile['github_url'])
-                <div class="fw-bold">{{ $profile['github_url'] }}</div>
+                <div class="fw-bold index-info">{{ $profile['github_url'] }}</div>
             @else
-                <div class="fw-light fst-italic text-secondary">Nessun dato inserito</div>
+                <div class="fw-light fst-italic text-secondary index-info">Nessun dato inserito</div>
             @endif
 
         </div>
@@ -65,9 +65,9 @@
             <span class="label">Linkedin:</span>
             
             @if ($profile['linkedin_url'])
-                <div class="fw-bold">{{ $profile['linkedin_url'] }}</div>
+                <div class="fw-bold index-info">{{ $profile['linkedin_url'] }}</div>
             @else
-                <div class="fw-light fst-italic text-secondary">Nessun dato inserito</div>
+                <div class="fw-light fst-italic text-secondary index-info">Nessun dato inserito</div>
             @endif
         </div>
 
@@ -82,12 +82,12 @@
 
                     @foreach ($fields as $fieldElem)
                         <div class="ms-4 d-flex">
-                            <div class="fw-bold text-capitalize">{{$fieldElem->name}}</div>
+                            <div class="fw-bold text-capitalize index-info">{{$fieldElem->name}}</div>
                         </div>
                     @endforeach
                 </div>
             @else
-                <div class="fw-light fst-italic text-secondary">Nessun dato inserito</div>
+                <div class="fw-light fst-italic text-secondary index-info">Nessun dato inserito</div>
             @endif
         </div>
 
@@ -102,12 +102,12 @@
 
                     @foreach ($technologies as $techElem)
                         <div class="ms-4 d-flex">
-                            <div class="fw-bold text-capitalize">{{$techElem->name}}</div>
+                            <div class="fw-bold text-capitalize index-info">{{$techElem->name}}</div>
                         </div>
                     @endforeach
                 </div> 
             @else
-                <div class="fw-light fst-italic text-secondary">Nessun dato inserito</div>
+                <div class="fw-light fst-italic text-secondary index-info">Nessun dato inserito</div>
             @endif
 
             
@@ -118,7 +118,12 @@
             <span class="label">Curriculum:</span>
 
             @if ($profile['curriculum'])
-                <a href="{{ asset('storage/' . $profile->curriculum) }}" download="{{ $profile['name'] }}-{{ $profile['surname'] }}-CV">Scarica il tuo curriculum</a>
+            <button class="btn-cv">
+                <a href="{{ asset('storage/' . $profile->curriculum) }}" target="_blank" >
+                    <i class="fa-solid fa-file-pdf"></i>
+                    Scarica
+                </a>
+            </button>
             @else
                 <div class="fw-light fst-italic text-secondary">Nessuna curriculum aggiunto</div>
             @endif

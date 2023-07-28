@@ -13,11 +13,14 @@
         letter-spacing: 3px;
         text-transform: uppercase;
     }
+    .index-info{
+        font-family: 'Montserrat', sans-serif;
+    }
     
     .profile-img {
         border-radius: 20px 10px 20px 10px;
-        max-width: 600px;
-        max-height: 500px;
+        max-width: 70%;
+        max-height: 70%;
         object-fit: cover;
         box-shadow: 22px 22px 7px -5px rgba(0,0,0,0.75);
     }
@@ -30,6 +33,18 @@
     
         i {
             color: black;
+        }
+    }
+
+    .btn-cv{
+        background-color: #1d1b2c;
+        border: 2px solid #E7A117;
+        padding: 5px 8px;
+        border-radius: 10px;
+        
+        a{
+            text-decoration: none;
+            color: white;
         }
     }
     
