@@ -4,11 +4,11 @@
 @section('content')
 <section id="sponsorship-section">
 
+        <h1 class="page-title text-center m-0">Sponsorizza te stesso nella nostra vetrina !</h1>
 
-    <div class="container">
-        <h1 class="page-title text-center">Sponsorizza te stesso nella nostra vetrina !</h1>
-        <div class="text-center row column-gap-5">
-            <div class="card-sponsor col-12 col-md-12 col-lg-4">
+        <div class="card-container d-flex flex-column flex-lg-row align-items-center justify-content-center">
+            
+            <div class="card-sponsor">
                 <div class="cover item-a">
                     <h1>Silver</h1>
                     <p>Compari tra gli sviluppatori  <br> in evidenza per 24 ore</p>
@@ -19,7 +19,8 @@
                     </div>
                 </div>
             </div>
-            <div class="card-sponsor col-12 col-md-12 col-lg-4">
+
+            <div class="card-sponsor">
                 <div class="cover item-b">
                     <h1>Gold</h1>
                     <p>Compari tra gli sviluppatori <br> in evidenza per 48 ore</p>
@@ -28,7 +29,7 @@
                     </div>
                 </div>
             </div>
-            <div class="card-sponsor col-12 col-md-12 col-lg-4">
+            <div class="card-sponsor">
                 <div class="cover item-c">
                     <h1>Platinum</h1>
                     <p>Compari tra gli sviluppatori <br> in evidenza per 144 ore</p>
@@ -38,7 +39,6 @@
                 </div>
             </div>
         </div>
-    </div>
 
     <!-- <div class="container">
         <div class="d-flex justify-content-center my-3 text-center">

@@ -1,19 +1,22 @@
 #sponsorship-section {
-
+    height: 100%;
     $transition-time: 2.3s;
+    // overflow: auto;
 
-    .container {
-
-        // width: 80%;
-        // margin: 0 auto;
-
-        // height: 50vh !important;
+    .page-title {
+        height: 50px;
+        background-color: pink;
+    }
+    .card-container {
+        min-height: calc(100% - 50px);
+        background-color: lightcoral;
+        overflow: auto;
 
         .card-sponsor {
             width: 300px;
-            aspect-ratio: 1 / 1;; 
+            aspect-ratio: 1 / 1; 
             position: relative;
-            margin: 10px 0;
+            margin: 10px 10px;
             transition: ease all $transition-time;
             perspective: 1200px;
 
@@ -180,12 +183,4 @@
             }
         }
     }
-
-    .row {
-        align-items: center;
-        height: 100vh;
-    }
-
-
-
 }
