@@ -1,7 +1,7 @@
-@extends('layouts.app')
+@extends('layouts.back')
 
 @section('content')
-<h1 class="text-center">I tuoi messaggi</h1>
+<h1 class="page-title">I tuoi messaggi</h1>
 <div class="container">
     <h4>Messaggi ricevuti</h4>
     @if (count($profile_leads) > 0)

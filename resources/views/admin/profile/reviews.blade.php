@@ -1,7 +1,7 @@
-@extends('layouts.app')
+@extends('layouts.back')
 
 @section('content')
-<h1 class="text-center">Le tue recensioni</h1>
+<h1 class="page-title">Le tue recensioni</h1>
 <div class="container">
     <h4>Voto medio: {{round($averageRating, 1)}}</h4>
     @if (count($profile_review) > 0 )

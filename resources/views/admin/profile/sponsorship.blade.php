@@ -1,7 +1,9 @@
-@extends('layouts.app')
+@extends('layouts.back')
 
 
 @section('content')
+
+<h1 class="page-title">Metti in evidenza il tuo profilo!</h1>
 
 <div class="container">
     <div class="d-flex justify-content-center my-3 text-center">

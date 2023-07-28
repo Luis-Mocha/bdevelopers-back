@@ -1,33 +1,45 @@
 #app {
-    .navbar {
-        background: #000000c7;
-        .animate-charcter
-        {
-           text-transform: uppercase;
-          background-image: linear-gradient(
-            -225deg,
-            #231557 0%,
-            #44107a 29%,
-            #ff1361 67%,
-            #fff800 100%
-          );
-          background-size: auto auto;
-          background-clip: border-box;
-          background-size: 200% auto;
-          color: #fff;
-          background-clip: text;
-          text-fill-color: transparent;
-          -webkit-background-clip: text;
-          -webkit-text-fill-color: transparent;
-          animation: textclip 3.5s linear infinite;
-          display: inline-block;
-              font-size: 190px;
-        }
-        
-        @keyframes textclip {
-          to {
-            background-position: 200% center;
-          }
-        }
+
+
+  .navbar {
+    background-color: #222832;
+    // background: #0F2027;  /* fallback for old browsers */
+    // background: -webkit-linear-gradient(to right, #2C5364, #203A43, #0F2027);  /* Chrome 10-25, Safari 5.1-6 */
+    // background: linear-gradient(to right, #2C5364, #203A43, #0F2027); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    
+    .logo {
+      font-family: 'Anton', sans-serif;
     }
+
+      .animate-character
+      {
+        text-transform: uppercase;
+        background-image: linear-gradient(
+          -225deg,
+          #231557 0%,
+          #44107a 29%,
+          #ff1361 67%,
+          #fff800 100%
+        );
+        background-size: auto auto;
+        background-clip: border-box;
+        background-size: 200% auto;
+        color: #fff;
+        background-clip: text;
+        text-fill-color: transparent;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        animation: textclip 3.5s linear infinite;
+        display: inline-block;
+        font-size: 70px;
+      }
+      
+      @keyframes textclip {
+        to {
+          background-position: 200% center;
+        }
+      }
+    
+      
+  }
 }

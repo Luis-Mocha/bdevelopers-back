@@ -20,8 +20,8 @@
 
     {{-- font google: Anton/Handjet/Josefin/Montserrat--}}
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Handjet&family=Josefin+Sans&family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Handjet&family=Josefin+Sans&family=Montserrat:wght@400;600&family=Space+Grotesk:wght@400;500;600&display=swap" rel="stylesheet">
 
     <!-- Usando Vite -->
     @vite(['resources/js/app.js'])
@@ -37,7 +37,7 @@
         <nav class="navbar navbar-expand-md navbar-light shadow-sm z-3">
             <div class="container">
                 <a class="navbar-brand d-flex align-items-center" href="{{ url('/') }}">
-                    <div class="fs-1 animate-character logo">
+                    <div class=" animate-character logo">
                         &lt;My_developer/&gt;
                     </div>
                     {{-- config('app.name', 'Laravel') --}}
@@ -97,9 +97,69 @@
             </div>
         </nav>
 
-        <main class="">
-            @yield('content')
-        </main>
+        <div class="page-body ">
+
+            {{-- sidebar offcanvas --}}
+            {{-- <button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample" aria-controls="offcanvasExample">
+                Button with data-bs-target
+            </button>
+            <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
+                <div class="offcanvas-header">
+                    <h5 class="offcanvas-title" id="offcanvasExampleLabel">Offcanvas</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                </div>
+                <div class="offcanvas-body">
+                    <div>
+                    Some text as placeholder. In real life you can have the elements you have chosen. Like, text, images, lists, etc.
+                    </div>
+                    <div class="dropdown mt-3">
+                    <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown">
+                        Dropdown button
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="#">Action</a></li>
+                        <li><a class="dropdown-item" href="#">Another action</a></li>
+                        <li><a class="dropdown-item" href="#">Something else here</a></li>
+                    </ul>
+                    </div>
+                </div>
+            </div> --}}
+
+            {{-- SIDEBAR --}}
+            <aside id="sidebar" class="sidebar">
+                {{-- col-1 col-md-3 col-lg-2 --}}
+                <a class="" href="{{ url('admin') }}">{{ __('Profilo') }}</a>
+                <a class="" href="{{ url('reviews') }}">{{ __('Reviews') }}</a>
+                <a class="" href="{{ url('leads') }}">{{ __('Messaggi') }}</a>
+                <a class="" href="{{ url('sponsorship') }}">{{ __('Premium') }}</a>
+                <a class="" href="{{ url('profile') }}">{{ __('Impostazioni') }}</a>
+            </aside>
+            {{-- bottone sidebar --}}
+            <div class="sidebar-button" id="open-button" onclick="openSidebar()">
+                <button>
+                    +
+                </button>
+            </div>
+
+            <main class="">
+                {{-- col-11 col-md-9 col-lg-10 --}}
+                @yield('content')
+            </main>
+
+        </div>
+
+        <script>
+            const sidebarBtn = document.getElementById('open-button');
+            console.log('ciao', sidebarBtn);
+            const sidebar = document.getElementById('sidebar');
+
+            function openSidebar() {
+                const sidebar = document.getElementById('sidebar');
+                sidebar.classList.toggle('sidebar-show');
+            }
+        </script>
+
+        
     </div>
 </body>
 

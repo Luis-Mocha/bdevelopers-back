@@ -1,0 +1,114 @@
+      // font-family: 'Anton', sans-serif;
+      // font-family: 'Handjet', cursive;
+      // font-family: 'Josefin Sans', sans-serif;
+      // font-family: 'Montserrat', sans-serif;
+
+.navbar {
+    height: 90px;
+    
+}
+
+.page-body {
+    position: relative;
+    height: calc(100vh - 90px);
+    display: flex;
+
+    .sidebar {
+        // width sidebar!
+        width: 0px;
+        height: 95%;
+
+
+        margin-top: 20px;
+        // margin-left: 20px;
+        border-radius: 0 60px 60px 0;
+        box-shadow: 4px 6px 5px 8px rgba(0,0,0,0.75);
+        
+        background-color: #222832;
+        border-right: 2px solid #E7A117;
+
+        // da flexare column i bottoni
+        display: flex;
+        flex-direction: column;
+        align-items: start;
+        justify-content: center;
+        a {
+            color: #E7A117;
+            text-decoration: none;
+            margin-left: 5px;
+            margin-bottom: 30px;
+
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 400;
+            letter-spacing: 8px;
+            text-transform: uppercase;
+            transition: 0.5s;
+
+            &:hover {
+                background-color: white;
+                color: #2C5364;
+                margin-left: 30px;
+                transition: 1s;
+            }
+        }
+    }
+    .sidebar-button {
+        position: absolute;
+        left: 30px;
+        top: 30px;
+        color: red;
+        z-index: 99;
+
+    }
+    .sidebar-show{
+        width: 100%;
+        // position: absolute;
+    }
+
+    @media screen and (min-width: 600px) {
+        .main {
+            width: calc(100vw - 220px);
+        }
+        .sidebar {
+            width: 220px;
+        }
+        .sidebar-button {
+            display: none;
+        }
+    }
+    
+    main {
+        overflow: auto;
+        // width main!
+        width: calc(100vw - 90px);
+        
+        
+        .page-title {
+            text-align: end;
+        }
+         
+    }
+
+    .type {
+        font-family: monospace;
+        color:#0000;
+        background:
+        linear-gradient(-90deg,#000000 5px,#0000 0) 10px 0,
+        linear-gradient(#000000 0 0) 0 0;
+        background-size:calc(var(--n)*1ch) 200%;
+        -webkit-background-clip:padding-box,text;
+        background-clip:padding-box,text;
+        background-repeat:no-repeat;
+        animation: 
+        b .5s infinite steps(1),   
+        t calc(var(--n)*0.2s) steps(var(--n)) forwards;
+        }
+        @keyframes t{
+            from {background-size:0 200%}
+        }
+        @keyframes b{
+            50% {background-position:0 -100%,0 0}
+    }
+
+   
+}
