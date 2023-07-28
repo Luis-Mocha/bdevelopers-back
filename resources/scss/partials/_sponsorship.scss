@@ -2,7 +2,7 @@
 
     $transition-time: 2.3s;
 
-    .container-sponsor {
+    .container {
 
         // width: 80%;
         // margin: 0 auto;
@@ -10,13 +10,12 @@
         // height: 50vh !important;
 
         .card-sponsor {
+            width: 300px;
+            aspect-ratio: 1 / 1;; 
             position: relative;
-            height: 400px;
-            // width: calc(100% / 3 - 20px);
             margin: 10px 0;
             transition: ease all $transition-time;
             perspective: 1200px;
-
 
             // box-shadow: #222832;
 
