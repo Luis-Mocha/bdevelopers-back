@@ -80,6 +80,7 @@
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                                     {{-- <a class="dropdown-item" href="{{ url('dashboard') }}">{{ __('Dashboard') }}</a> --}}
                                     <a class="dropdown-item" href="{{ url('admin') }}">{{ __('Area Personale') }}</a>
+                                    <a class="dropdown-item" href="{{ url('profile') }}">{{ __('Impostazioni') }}</a>
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                         onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
@@ -114,7 +115,7 @@
                         <a class="sidebar-button" href="{{ url('reviews') }}">{{ __('Reviews') }}</a>
                         <a class="sidebar-button" href="{{ url('leads') }}">{{ __('Messaggi') }}</a>
                         <a class="sidebar-button" href="{{ url('sponsorship') }}">{{ __('Premium') }}</a>
-                        <a class="sidebar-button" href="{{ url('profile') }}">{{ __('Impostazioni') }}</a>
+                        {{-- <a class="sidebar-button" href="{{ url('profile') }}">{{ __('Impostazioni') }}</a> --}}
                    </div>
     
                    {{-- link sidebar icone MOBILE--}}
@@ -135,10 +136,10 @@
                             <i class="fa-solid fa-bullhorn"></i>
                             <span class="icon-label d-none">Premium</span>
                         </a>
-                        <a class="sidebar-button sidebar-icon" href="{{ url('profile') }}">
+                        {{-- <a class="sidebar-button sidebar-icon" href="{{ url('profile') }}">
                             <i class="fa-solid fa-gears"></i>
                             <span class="icon-label d-none">Impostazioni</span>
-                        </a>
+                        </a> --}}
                    </div>              
                     
                 </aside>
