@@ -3,36 +3,37 @@
 
 @section('content')
 <section id="sponsorship-section">
-    <h1 class="page-title">Metti in evidenza il tuo profilo!</h1>
 
-    <div class="container">
-        <div class="d-flex justify-content-center my-3 text-center">
-            <div class="card">
+
+    <div class="container-sponsor">
+        <h1 class="page-title">Metti in evidenza il tuo profilo!</h1>
+        <div class="text-center row column-gap-5 flex-nowrap">
+            <div class="card-sponsor col-12 col-md-4">
                 <div class="cover item-a">
                     <h1>Silver</h1>
                     <p>Metti in risalto il <br> tuo profilo per 24 ore</p>
                     <!-- <span class="price">€2.99</span> -->
                     <div class="card-back">
-                        <a href="#" class="" id="submit-button-1" data-amount="10">24 Ore: €2.99</a>
+                        <a href="#" class="submit" id="submit-button-1" data-amount="10">24 Ore: €2.99</a>
                         <!-- <a href="#" class="cart-btn"></a> -->
                     </div>
                 </div>
             </div>
-            <div class="card">
+            <div class="card-sponsor col-12 col-md-4">
                 <div class="cover item-b">
                     <h1>Gold</h1>
                     <p>Metti in risalto il <br> tuo profilo per 48 ore</p>
                     <div class="card-back">
-                        <a href="#" id="submit-button-2" data-amount="20">48 Ore: €5.99</a>
+                        <a href="#" class="submit" id="submit-button-2" data-amount="20">48 Ore: €5.99</a>
                     </div>
                 </div>
             </div>
-            <div class="card">
+            <div class="card-sponsor col-12 col-md-4 ">
                 <div class="cover item-c">
                     <h1>Platinum</h1>
                     <p>Metti in risalto il <br> tuo profilo per 144 ore</p>
                     <div class="card-back">
-                        <a href="#" id="submit-button-3" data-amount="30">144 Ore: €9.99</a>
+                        <a href="#" class="submit" id="submit-button-3" data-amount="30">144 Ore: €9.99</a>
                     </div>
                 </div>
             </div>
