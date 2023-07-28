@@ -2,33 +2,68 @@
 
 
 @section('content')
+<section id="sponsorship-section">
 
-<h1 class="page-title">Metti in evidenza il tuo profilo!</h1>
 
-<div class="container">
-    <div class="d-flex justify-content-center my-3 text-center">
-        <div class="sponsor-base col-3 d-flex flex-column justify-content-center px-3 py-2 border">
-            <div class="mb-2">Piano Base</div>
-            <div class="mb-2">
-                Sponsorizza la tu pagina per <b>24 ore.</b>
+    <div class="container">
+        <h1 class="page-title text-center">Sponsorizza te stesso nella nostra vetrina !</h1>
+        <div class="text-center row column-gap-5">
+            <div class="card-sponsor col-12 col-md-12 col-lg-4">
+                <div class="cover item-a">
+                    <h1>Silver</h1>
+                    <p>Compari tra gli sviluppatori  <br> in evidenza per 24 ore</p>
+                    <!-- <span class="price">€2.99</span> -->
+                    <div class="card-back">
+                        <a href="#" class="submit" id="submit-button-1" data-amount="10">24 Ore: €2.99</a>
+                        <!-- <a href="#" class="cart-btn"></a> -->
+                    </div>
+                </div>
             </div>
-            <a id="submit-button-1" class="btn btn-sm btn-success" data-amount="10">€2.99</a>
-        </div>
-        <div class="sponsor-medium col-3 d-flex flex-column justify-content-center px-3 py-2 border">
-            <div class="mb-2">Piano Medium</div>
-            <div class="mb-2">
-                Sponsorizza la tu pagina per <b>72 ore.</b>
+            <div class="card-sponsor col-12 col-md-12 col-lg-4">
+                <div class="cover item-b">
+                    <h1>Gold</h1>
+                    <p>Compari tra gli sviluppatori <br> in evidenza per 48 ore</p>
+                    <div class="card-back">
+                        <a href="#" class="submit" id="submit-button-2" data-amount="20">48 Ore: €5.99</a>
+                    </div>
+                </div>
             </div>
-            <a id="submit-button-2" class="btn btn-sm btn-success" data-amount="20">€5.99</a>
-        </div>
-        <div class="sponsor-base col-3 d-flex flex-column justify-content-center px-3 py-2 border">
-            <div class="mb-2">Piano Advanced</div>
-            <div class="mb-2">
-                Sponsorizza la tu pagina per <b>144 ore.</b>
+            <div class="card-sponsor col-12 col-md-12 col-lg-4">
+                <div class="cover item-c">
+                    <h1>Platinum</h1>
+                    <p>Compari tra gli sviluppatori <br> in evidenza per 144 ore</p>
+                    <div class="card-back">
+                        <a href="#" class="submit" id="submit-button-3" data-amount="30">144 Ore: €9.99</a>
+                    </div>
+                </div>
             </div>
-            <a id="submit-button-3" class="btn btn-sm btn-success" data-amount="30">€9.99</a>
         </div>
     </div>
+
+    <!-- <div class="container">
+        <div class="d-flex justify-content-center my-3 text-center">
+            <div class="sponsor-base col-3 d-flex flex-column justify-content-center px-3 py-2 border">
+                <div class="mb-2">Piano Base</div>
+                <div class="mb-2">
+                    Sponsorizza la tu pagina per <b>24 ore.</b>
+                </div>
+                <a id="submit-button-1" class="btn btn-sm btn-success" data-amount="10">€2.99</a>
+            </div>
+            <div class="sponsor-medium col-3 d-flex flex-column justify-content-center px-3 py-2 border">
+                <div class="mb-2">Piano Medium</div>
+                <div class="mb-2">
+                    Sponsorizza la tu pagina per <b>72 ore.</b>
+                </div>
+                <a id="submit-button-2" class="btn btn-sm btn-success" data-amount="20">€5.99</a>
+            </div>
+            <div class="sponsor-base col-3 d-flex flex-column justify-content-center px-3 py-2 border">
+                <div class="mb-2">Piano Advanced</div>
+                <div class="mb-2">
+                    Sponsorizza la tu pagina per <b>144 ore.</b>
+                </div>
+                <a id="submit-button-3" class="btn btn-sm btn-success" data-amount="30">€9.99</a>
+            </div>
+        </div> -->
 
     @csrf
     <div id="dropin-container" style="display: flex;justify-content: center;align-items: center;"></div>
@@ -36,7 +71,8 @@
         <a id="submit-button" class="btn btn-sm btn-success d-none">Submit payment</a>
 
     </div>
-</div>
+    </div>
+</section>
 <script>
     function performPayment(amount) {
         // seleziono bottone payment
@@ -56,9 +92,11 @@
                             if (pagamento.status === 200) {
                                 console.log('success', payload.nonce);
                                 alert('Payment successfull!');
+                                window.location.reload();
                             } else {
                                 console.log('error', payload.nonce);
                                 alert('Payment failed');
+                                window.location.reload();
                             }
                         }
                     };

@@ -1,0 +1,191 @@
+#sponsorship-section {
+
+    $transition-time: 2.3s;
+
+    .container {
+
+        // width: 80%;
+        // margin: 0 auto;
+
+        // height: 50vh !important;
+
+        .card-sponsor {
+            width: 300px;
+            aspect-ratio: 1 / 1;; 
+            position: relative;
+            margin: 10px 0;
+            transition: ease all $transition-time;
+            perspective: 1200px;
+
+            // box-shadow: #222832;
+
+            &:hover {
+                .cover {
+                    transform: rotateX(0deg) rotateY(-180deg);
+
+                    &:before {
+                        transform: translateZ(30px);
+                    }
+
+                    &:after {
+                        background-color: #222832;
+                    }
+
+                    h1 {
+                        transform: translateZ(100px);
+                    }
+
+                    .price {
+                        transform: translateZ(60px);
+                    }
+
+                    a {
+                        transform: translateZ(-60px) rotatey(-180deg);
+                    }
+                }
+            }
+
+            .cover {
+                position: absolute;
+                height: 100%;
+                width: 100%;
+                transform-style: preserve-3d;
+                transition: ease all $transition-time;
+                background-size: cover;
+                background-position: center center;
+                background-repeat: no-repeat;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+
+                p {
+                    color: white;
+                    font-size: 1.5em;
+                }
+
+                .prezzo {
+
+                    color: white;
+                    //transform: translateX(-180deg);
+
+
+                }
+
+                &:before {
+                    content: '';
+                    position: absolute;
+                    //border: 5px solid rgba(255, 255, 255, .5);
+                    box-shadow: 0 0 12px rgba(0, 0, 0, .3);
+                    top: 20px;
+                    left: 20px;
+                    right: 20px;
+                    bottom: 20px;
+                    z-index: 2;
+                    transition: ease all $transition-time;
+                    transform-style: preserve-3d;
+                    transform: translateZ(0px);
+                }
+
+                &:after {
+                    content: '';
+                    position: absolute;
+                    top: 0px;
+                    left: 0px;
+                    right: 0px;
+                    bottom: 0px;
+                    z-index: 2;
+                    transition: ease all 1.3s;
+                    background: rgba(0, 0, 0, .2);
+                }
+
+                &.item-a {
+                    background-image: url('https://img.freepik.com/free-vector/hand-painted-watercolour-background-with-silver-glitter_1048-14233.jpg?w=1060&t=st=1690535958~exp=1690536558~hmac=a3d9f5c1c1bcc71d0261d04472fee1b1048e5bdc6dc19c448faf838f9d8a3ea7');
+                }
+
+                &.item-b {
+                    background-image: url('https://img.freepik.com/free-photo/golden-foil-texture-background-shiny-wrapping-paper-decoration-element_211682-61.jpg?w=1380&t=st=1690535906~exp=1690536506~hmac=2bc4a826ce51c0954bf49aae687f1f188dbdba89766dc4ad2c9c89ced4ea11b9');
+
+                }
+
+                &.item-c {
+                    background-image: url('https://img.freepik.com/free-vector/shiny-metal-background_1048-6645.jpg?size=626&ext=jpg&ga=GA1.2.153422916.1689762852&semt=sph');
+                }
+
+                h1 {
+                    font-weight: 600;
+                    // position: absolute;
+                    // bottom: 100px;
+                    // left: 50px;
+                    color: white;
+                    transform-style: preserve-3d;
+                    transition: ease all $transition-time;
+                    z-index: 3;
+                    font-size: 3em;
+                    transform: translateZ(0px);
+                }
+
+                .price {
+                    font-weight: 200;
+                    position: absolute;
+                    top: 55px;
+                    right: 50px;
+                    color: white;
+                    transform-style: preserve-3d;
+                    transition: ease all $transition-time;
+                    z-index: 4;
+                    font-size: 2em;
+                    transform: translateZ(0px);
+                }
+            }
+
+            .card-back {
+                position: absolute;
+                height: 100%;
+                width: 100%;
+                background-color: #222832;
+                transform-style: preserve-3d;
+                transition: ease all $transition-time;
+                transform: translateZ(-1px);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+
+                &:hover {
+                    a {
+                        display: block;
+                    }
+                }
+
+                a {
+                    transform-style: preserve-3d;
+                    transition: ease transform $transition-time, ease background .5s;
+                    transform: translateZ(-1px) rotatey(-180deg);
+                    background: transparent;
+                    border: 1px solid #E7A117;
+                    font-weight: 200;
+                    font-size: 1.3em;
+                    color: #E7A117;
+                    padding: 14px 32px;
+                    outline: none;
+                    text-decoration: none;
+                    display: none;
+
+                    &:hover {
+                        background-color: white;
+                        color: #0b0f08;
+
+                    }
+                }
+            }
+        }
+    }
+
+    .row {
+        align-items: center;
+        height: 100vh;
+    }
+
+
+
+}
