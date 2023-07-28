@@ -14,29 +14,28 @@
     display: flex;
 
     .sidebar {
+        position: relative;
         // width sidebar!
-        width: 0px;
+        width: 50px;
         height: 95%;
-
-
-        margin-top: 20px;
-        // margin-left: 20px;
-        border-radius: 0 60px 60px 0;
-        box-shadow: 4px 6px 5px 8px rgba(0,0,0,0.75);
         
         background-color: #222832;
-        border-right: 2px solid #E7A117;
-
-        // da flexare column i bottoni
+        border-right: 2px solid #E7A117; 
+        border-radius: 0 60px 60px 0;  
+        
         display: flex;
         flex-direction: column;
-        align-items: start;
+        align-items: center;
         justify-content: center;
-        a {
+
+        .sidebar-mobile {
+            box-shadow: none;
+        }
+
+        .sidebar-button {
             color: #E7A117;
             text-decoration: none;
-            margin-left: 5px;
-            margin-bottom: 30px;
+            text-align: center;
 
             font-family: 'Space Grotesk', sans-serif;
             font-weight: 400;
@@ -44,44 +43,27 @@
             text-transform: uppercase;
             transition: 0.5s;
 
-            &:hover {
-                background-color: white;
-                color: #2C5364;
-                margin-left: 30px;
-                transition: 1s;
-            }
+            // &:hover {
+            //     background-color: white;
+            //     color: #2C5364;
+            //     margin-left: 30px;
+            //     transition: 1s;
+            // }
         }
     }
-    .sidebar-button {
+    .sidebar-toggle {
         position: absolute;
-        left: 30px;
+        left: 10px;
         top: 30px;
-        color: red;
         z-index: 99;
-
-    }
-    .sidebar-show{
-        width: 100%;
-        // position: absolute;
-    }
-
-    @media screen and (min-width: 600px) {
-        .main {
-            width: calc(100vw - 220px);
-        }
-        .sidebar {
-            width: 220px;
-        }
-        .sidebar-button {
-            display: none;
-        }
+        font-size: 20px;
     }
     
     main {
         overflow: auto;
         // width main!
-        width: calc(100vw - 90px);
-        
+        width: calc(100vw - 50px);
+        width: 100%;
         
         .page-title {
             text-align: end;
@@ -89,26 +71,64 @@
          
     }
 
-    .type {
-        font-family: monospace;
-        color:#0000;
-        background:
-        linear-gradient(-90deg,#000000 5px,#0000 0) 10px 0,
-        linear-gradient(#000000 0 0) 0 0;
-        background-size:calc(var(--n)*1ch) 200%;
-        -webkit-background-clip:padding-box,text;
-        background-clip:padding-box,text;
-        background-repeat:no-repeat;
-        animation: 
-        b .5s infinite steps(1),   
-        t calc(var(--n)*0.2s) steps(var(--n)) forwards;
+    @media screen and (min-width: 0px) {
+        .sidebar-show{
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            border-radius: 0;
+            border-right: 4px ridge #E7A117;
+            border-bottom: 4px ridge #E7A117;
         }
-        @keyframes t{
-            from {background-size:0 200%}
+        .sidebar-icon {
+            font-size: 24px;
         }
-        @keyframes b{
-            50% {background-position:0 -100%,0 0}
+    }
+    @media screen and (min-width: 500px) {
+        .sidebar-show{
+            width: 50%;
+            height: 95%;
+            position: absolute;
+            border-radius: 0 60px 60px 0;
+        }
+        .sidebar-icon {
+            font-size: 18px;
+        }
+    }
+    @media screen and (min-width: 992px) {
+        .main {
+            width: calc(100vw - 220px);
+        }
+        .sidebar {
+            width: 220px;
+            box-shadow: 4px 3px 4px 5px rgba(0,0,0,0.75);
+        }
+        .sidebar-toggle {
+            display: none;
+        }
     }
 
    
 }
+
+
+// .type {
+    //     font-family: monospace;
+    //     color:#0000;
+    //     background:
+    //     linear-gradient(-90deg,#000000 5px,#0000 0) 10px 0,
+    //     linear-gradient(#000000 0 0) 0 0;
+    //     background-size:calc(var(--n)*1ch) 200%;
+    //     -webkit-background-clip:padding-box,text;
+    //     background-clip:padding-box,text;
+    //     background-repeat:no-repeat;
+    //     animation: 
+    //     b .5s infinite steps(1),   
+    //     t calc(var(--n)*0.2s) steps(var(--n)) forwards;
+    //     }
+    //     @keyframes t{
+    //         from {background-size:0 200%}
+    //     }
+    //     @keyframes b{
+    //         50% {background-position:0 -100%,0 0}
+    // }

@@ -97,49 +97,54 @@
             </div>
         </nav>
 
-        <div class="page-body ">
-
-            {{-- sidebar offcanvas --}}
-            {{-- <button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample" aria-controls="offcanvasExample">
-                Button with data-bs-target
-            </button>
-            <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
-                <div class="offcanvas-header">
-                    <h5 class="offcanvas-title" id="offcanvasExampleLabel">Offcanvas</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-                </div>
-                <div class="offcanvas-body">
-                    <div>
-                    Some text as placeholder. In real life you can have the elements you have chosen. Like, text, images, lists, etc.
-                    </div>
-                    <div class="dropdown mt-3">
-                    <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown">
-                        Dropdown button
-                    </button>
-                    <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="#">Action</a></li>
-                        <li><a class="dropdown-item" href="#">Another action</a></li>
-                        <li><a class="dropdown-item" href="#">Something else here</a></li>
-                    </ul>
-                    </div>
-                </div>
-            </div> --}}
+        <div class="page-body">
 
             {{-- SIDEBAR --}}
-            <aside id="sidebar" class="sidebar">
-                {{-- col-1 col-md-3 col-lg-2 --}}
-                <a class="" href="{{ url('admin') }}">{{ __('Profilo') }}</a>
-                <a class="" href="{{ url('reviews') }}">{{ __('Reviews') }}</a>
-                <a class="" href="{{ url('leads') }}">{{ __('Messaggi') }}</a>
-                <a class="" href="{{ url('sponsorship') }}">{{ __('Premium') }}</a>
-                <a class="" href="{{ url('profile') }}">{{ __('Impostazioni') }}</a>
-            </aside>
-            {{-- bottone sidebar --}}
-            <div class="sidebar-button" id="open-button" onclick="openSidebar()">
-                <button>
-                    +
-                </button>
+            <div class="sidebar-container h-100 d-flex align-items-center">
+
+                <aside id="sidebar" class="sidebar px-2">
+                    {{-- bottone sidebar --}}
+                    <div class="sidebar-button">
+                        <i class="fa-solid fa-angles-right sidebar-toggle" id="toggle-button" onclick="openSidebar()"></i>
+                    </div>
+    
+                    {{-- link sidebar labels COMPUTER --}}
+                    <div class="d-none d-lg-flex h-50 flex-column justify-content-around align-items-start">
+                        <a class="sidebar-button" href="{{ url('admin') }}">{{ __('Profilo') }}</a>
+                        <a class="sidebar-button" href="{{ url('reviews') }}">{{ __('Reviews') }}</a>
+                        <a class="sidebar-button" href="{{ url('leads') }}">{{ __('Messaggi') }}</a>
+                        <a class="sidebar-button" href="{{ url('sponsorship') }}">{{ __('Premium') }}</a>
+                        <a class="sidebar-button" href="{{ url('profile') }}">{{ __('Impostazioni') }}</a>
+                   </div>
+    
+                   {{-- link sidebar icone MOBILE--}}
+                   <div class="d-lg-none h-75 w-100 d-flex flex-column justify-content-around align-items-center align-items-md-start sidebar-mobile">
+                        <a class="sidebar-button sidebar-icon" href="{{ url('admin') }}">
+                            <i class="fa-solid fa-user"></i>
+                            <span class="icon-label d-none">Profilo</span>
+                        </a>
+                        <a class="sidebar-button sidebar-icon" href="{{ url('reviews') }}">
+                            <i class="fa-solid fa-star-half-stroke"></i>
+                            <span class="icon-label d-none">Recensioni</span>
+                        </a>
+                        <a class="sidebar-button sidebar-icon" href="{{ url('leads') }}">
+                            <i class="fa-regular fa-comment"></i>
+                            <span class="icon-label d-none">Messaggi</span>
+                        </a>
+                        <a class="sidebar-button sidebar-icon" href="{{ url('sponsorship') }}">
+                            <i class="fa-solid fa-bullhorn"></i>
+                            <span class="icon-label d-none">Premium</span>
+                        </a>
+                        <a class="sidebar-button sidebar-icon" href="{{ url('profile') }}">
+                            <i class="fa-solid fa-gears"></i>
+                            <span class="icon-label d-none">Impostazioni</span>
+                        </a>
+                   </div>              
+                    
+                </aside>
             </div>
+            
+            
 
             <main class="">
                 {{-- col-11 col-md-9 col-lg-10 --}}
@@ -149,13 +154,28 @@
         </div>
 
         <script>
-            const sidebarBtn = document.getElementById('open-button');
-            console.log('ciao', sidebarBtn);
+            const toggleBtn = document.getElementById('toggle-button');
+
             const sidebar = document.getElementById('sidebar');
+            let iconLabels = document.querySelectorAll('.icon-label')
 
             function openSidebar() {
                 const sidebar = document.getElementById('sidebar');
                 sidebar.classList.toggle('sidebar-show');
+                console.log(iconLabels);
+
+                iconLabels.forEach(elem => {
+                    elem.classList.toggle('d-none');
+                });
+
+                if (toggleBtn.classList.contains('fa-angles-right')) {
+                    toggleBtn.classList.remove('fa-angles-right');
+                    toggleBtn.classList.add('fa-angles-left');
+                } else {
+                    toggleBtn.classList.remove('fa-angles-left');
+                    toggleBtn.classList.add('fa-angles-right');
+                }
+
             }
         </script>
 
