@@ -24,7 +24,7 @@
             {{-- INPUT NOME --}}
             <div class="mb-3">
                 <label class="form-label">Nome *</label>
-                <input name="name" type="text" class="form-control" value="{{ old('surname') ?? $profile_id->name }}" placeholder="Inserisci il tuo nome (max 30 caratteri)" required maxlength="30" readonly>
+                <input name="name" type="text" class="form-control" value="{{ old('name') ?? $profile_id->name }}" placeholder="Inserisci il tuo nome (max 30 caratteri)" required maxlength="30" readonly>
                 @error('name')
                 <div class="alert alert-danger">{{ $message }}</div>
                 @enderror
