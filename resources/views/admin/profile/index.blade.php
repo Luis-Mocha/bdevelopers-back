@@ -4,10 +4,10 @@
 
 <div class="page-title type mt-3 text-uppercase fw-bold fs-3 " style="--n:40; width: fit-content">Ecco il tuo profilo da sviluppatore!</div>
 
-<div class="contenuto-index container my-5 d-md-flex">
+<div class="contenuto-index my-5 d-md-flex">
 
     {{-- dati scritti --}}
-    <div class="col-12 col-md-6">
+    <div id="left-index" class="col-12 col-md-6">
         {{-- dati utente --}}
         <div class="">
             <div class="mb-3">
@@ -138,10 +138,10 @@
     </div>
 
     {{-- parte destra pagina --}}
-    <div class="mb-3 col-12 col-md-6">
+    <div id="right-index" class="mb-3 col-12 col-md-6">
 
         {{-- immagine profilo --}}
-        <div class="d-flex justify-content-end mb-5">
+        <div class="d-flex justify-content-center justify-content-md-end mb-5">
             @if ($profile['profile_image'])
             <img class="profile-img" src="{{ asset('storage/' . $profile->profile_image) }}" alt="">
             @else
