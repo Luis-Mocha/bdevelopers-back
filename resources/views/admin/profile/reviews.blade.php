@@ -10,11 +10,11 @@
             <div id="box-dati">
                 <div>
                     <span class="review-info text-capitalize">{{$elem->name}}</span>
-                    <span class="review-info text-capitalize">{{$elem->surname}}</span><br>
+                    <span class="review-info text-capitalize">{{$elem->surname}}</span>
                 </div>
                 <div>    
                     <span class="label">Data: </span>
-                    <span class="review-info">{{ date('d m Y', strtotime($elem->date)) }}</span><br>
+                    <span class="review-info">{{ date('d m Y', strtotime($elem->date)) }}</span>
                 </div>
             </div>
             @for ($i = 0; $i < 5; $i++)

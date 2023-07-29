@@ -1,0 +1,42 @@
+#container-leads{
+    border: 3px solid #1d1b2c ;
+    border-radius: 10px;
+  
+    .box-leads{
+    
+        display: flex;
+        justify-content: space-between;
+       
+       
+    }
+}
+
+
+
+
+
+@media screen and (min-width: 0px) {
+    .label{
+        font-family: 'Space Grotesk', sans-serif;
+        font-size: 14px;
+    }
+    .leads-info{
+        font-family: 'Montserrat', sans-serif;
+        font-size: 14px;
+    }
+    .leads-description{
+        font-family: 'Montserrat', sans-serif;
+        font-size: 14px;
+    }
+}
+@media screen and (min-width: 500px) {
+    .label{
+        font-size: 20px;
+    }
+    .leads-info{
+        font-size: 20px;
+    }
+    .leads-description{
+        font-size: 18px;
+    }
+}
