@@ -155,7 +155,7 @@
                     {{-- PROFILE IMAGE --}}
                     <div class="mb-3">
                         <label for="profile_image" class="form-label">Immagine di profilo</label>
-                        <input type="file" class="form-control" name="profile_image" id="profile_image" accept=".jpg,.png,.jpg,.gif" aria-describedby="fileHelpId" onchange="readURL(this);">
+                        <input type="file" class="form-control" name="profile_image" id="profile_image" accept=".jpg,.png,.jpg" aria-describedby="fileHelpId" onchange="readURL(this);">
                     </div>
                     {{-- CV --}}
                     <div class="mb-3">
@@ -170,8 +170,8 @@
                 <div class="mb-3">
                     <div class="">Anteprima immagine:</div>
                     
-                        <img id="img-preview" src="{{ asset('storage/' . $profile_id->profile_image) }}" alt="Immagine Profilo preview">
-                        {{-- <div class="text-secondary fw-light fst-italic">Nessuna immagine di profilo</div> --}}
+                    <img id="img-preview" src="{{ asset('storage/' . $profile_id->profile_image) }}" alt="Immagine Profilo preview">
+                    {{-- <div class="text-secondary fw-light fst-italic">Nessuna immagine di profilo</div> --}}
                 </div> 
             </div>
             
@@ -231,6 +231,5 @@
      // Assegna la funzione di validazione all'evento onsubmit del form
      editForm.onsubmit = validateForm;
 </script>
-
 
 @endsection

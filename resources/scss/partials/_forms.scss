@@ -5,6 +5,13 @@
 // font-family: 'Space Grotesk', sans-serif;
 
 .form-backend {
+    input {
+        &:focus { 
+            outline: none !important;
+            border-color: #E7A117;
+            box-shadow: 0 0 10px #E7A117;
+         }
+    }
     margin-bottom: 50px;
     font-family: 'Montserrat', sans-serif;
     h1 {
