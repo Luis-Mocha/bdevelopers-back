@@ -39,7 +39,6 @@ class DevProfileController extends Controller
                 DB::raw('AVG(reviews.vote) as average_vote'),
                 DB::raw('MAX(profile_sponsorship.end_date) as max_end_date'),
                 DB::raw('CASE WHEN NOW() <= MAX(profile_sponsorship.end_date) THEN 1 ELSE 0 END as active_sponsorship'),
-
             )
             ->groupBy('profiles.id', 'users.id')
             ->orderBy('active_sponsorship', 'desc')
@@ -97,14 +96,22 @@ class DevProfileController extends Controller
                 'total_reviews' => $result->total_reviews,
                 'average_vote' => intval($result->average_vote) ? intval($result->average_vote) : 0,
                 'active_sponsorship' => $result->active_sponsorship,
-                'max_end_date' => $result->max_end_date
+                'max_end_date' => $result->max_end_date,
+
             ];
             $profilesData[] = $profileData;
         }
 
+        // Numero profili filtrati
+        $profilesFiltered = $profiles->count();
+        // Numero profili nel db
+        $profilesTotal = DB::table('profiles')->count();
+
         return response()->json([
             'success' => true,
-            'profilesData' => $profilesData
+            'profilesData' => $profilesData,
+            'profilesTotal' => $profilesTotal,
+            'profilesFiltered' => $profilesFiltered,
         ]);
     }
 
