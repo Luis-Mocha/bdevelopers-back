@@ -100,7 +100,7 @@
             <div style="visibility:hidden; color:red; " id="chk_option_error">
                 Seleziona almeno un ambito di sviluppo
             </div>
-            <div id="edit-fields" class="form-group mt-3 mb-4 d-flex">
+            <div id="edit-fields" class="form-group mt-3 mb-4">
                 <div class="form-label">
                     Ambiti di svilluppo:
                 </div>
