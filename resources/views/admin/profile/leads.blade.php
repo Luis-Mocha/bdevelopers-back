@@ -6,12 +6,20 @@
     <h4>Messaggi ricevuti</h4>
     @if (count($profile_leads) > 0)
     @foreach ($profile_leads as $elem)
-    <div class="mb-3 border p-2">
-        <div>Nome: {{ $elem->name }}</div>
-        <div>Cognome: {{ $elem->surname }}</div>
-        <div>email: {{ $elem->email }}</div>
-        <div>Messaggio: {{ $elem->message }}</div>
-        <div>Ricevuto il: {{ date('d/m/Y H:i', strtotime($elem->created_at)) }}</div>
+    <div id="container-leads" class="mb-3 p-2">
+        <div class="box-leads">
+            <div>
+                <span class="leads-info text-capitalize">{{ $elem->name }}</span>
+                <span class="leads-info text-capitalize">{{ $elem->surname }}</span>
+                <div class="label">Inviato da: {{ $elem->email }}</div>
+            </div>
+            <div>
+                <div class="leads-info">{{ date('d/m/Y H:i', strtotime($elem->created_at)) }}</div>        
+            </div>
+        </div>
+        <div class="leads-description mt-3">Messaggio: {{ $elem->message }}</div>
+        
+        
     </div>
     @endforeach
     @else
