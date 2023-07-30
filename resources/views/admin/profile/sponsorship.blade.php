@@ -73,7 +73,10 @@
             @if(count($sponsorshipsData) > 0)
                 {{-- bottone mostra tutti --}}
                 @if(count($sponsorshipsData) > 3)
-                    <button id="revealButton">Mostra tutti gli abbonamenti</button>
+                    @php
+                        $totalSponsors = count($sponsorshipsData);
+                    @endphp
+                    <button id="revealButton">Mostra tutti gli abbonamenti ( {{$totalSponsors}} )</button>
                 @endif
 
                 {{-- Tabella recap --}}

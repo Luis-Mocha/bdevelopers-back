@@ -201,6 +201,15 @@
     // RECAP SPONSORSHIPS
     .sponsor-recap {
         padding-bottom: 40px;
+        font-family: 'Montserrat', sans-serif;
+
+        #revealButton {
+            background-color: transparent;
+            border:none;
+            font-size: 16px;
+            font-style: italic;
+            text-decoration: underline;
+        }
 
         .sponsor-status {
             font-size: 30px;
