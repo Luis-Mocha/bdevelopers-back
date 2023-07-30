@@ -114,7 +114,7 @@
                         <a class="sidebar-button" href="{{ url('admin') }}">{{ __('Profilo') }}</a>
                         <a class="sidebar-button" href="{{ url('reviews') }}">{{ __('Reviews') }}</a>
                         <a class="sidebar-button" href="{{ url('leads') }}">{{ __('Messaggi') }}</a>
-                        <a class="sidebar-button" href="{{ url('sponsorship') }}">{{ __('Premium') }}</a>
+                        <a class="sidebar-button" href="{{ url('sponsorships') }}">{{ __('Premium') }}</a>
                         {{-- <a class="sidebar-button" href="{{ url('profile') }}">{{ __('Impostazioni') }}</a> --}}
                    </div>
     
@@ -132,7 +132,7 @@
                             <i class="fa-regular fa-comment"></i>
                             <span class="icon-label d-none">Messaggi</span>
                         </a>
-                        <a class="sidebar-button sidebar-icon" href="{{ url('sponsorship') }}">
+                        <a class="sidebar-button sidebar-icon" href="{{ url('sponsorships') }}">
                             <i class="fa-solid fa-bullhorn"></i>
                             <span class="icon-label d-none">Premium</span>
                         </a>
@@ -163,7 +163,7 @@
             function openSidebar() {
                 const sidebar = document.getElementById('sidebar');
                 sidebar.classList.toggle('sidebar-show');
-                console.log(iconLabels);
+                // console.log(iconLabels);
 
                 iconLabels.forEach(elem => {
                     elem.classList.toggle('d-none');

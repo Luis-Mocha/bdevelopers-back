@@ -9,6 +9,9 @@ use Illuminate\Http\Request;
 use App\Models\Admin\Profile;
 use App\Models\Admin\Sponsorship;
 use Illuminate\Support\Facades\Auth;
+use App\Models\User;
+
+use Illuminate\Support\Facades\DB;
 
 use Carbon\Carbon;
 
@@ -20,7 +23,7 @@ class SponsorshipController extends Controller
     {
 
         $amount = $request->input('amount');
-
+        // dd($amount, $request);
         $gateway = new \Braintree\Gateway([
             'environment' => env('BRAINTREE_ENV'),
             'merchantId' => env("BRAINTREE_MERCHANT_ID"),
@@ -77,10 +80,10 @@ class SponsorshipController extends Controller
                 $profile->sponsorships()->attach($sponsorshipType->id, ['start_date' => now(), 'end_date' => now()->addHours($duration)]);
             }
 
-            
+            // return redirect()->route('sponsorships.index');
         } else {
             $clientToken = $gateway->clientToken()->generate();
-            return view('admin.profile.sponsorship', ['token' => $clientToken]);
+            return view('admin.profile.payment', ['token' => $clientToken]);
         }
     }
 
@@ -92,7 +95,18 @@ class SponsorshipController extends Controller
      */
     public function index()
     {
-        return view('admin.profile.sponsorship');
+
+        //prendo i dati delle sponsor
+        // Ottengo lo user autenticato
+        $user_id = Auth::id();
+        $currentUser = User::find($user_id);
+
+        $sponsorshipsData = DB::table('profile_sponsorship')
+        ->where('profile_id', '=', $currentUser->id)
+        ->orderBy('end_date', 'desc')
+        ->get();
+
+        return view('admin.profile.sponsorship', compact('sponsorshipsData'));
     }
 
     /**
