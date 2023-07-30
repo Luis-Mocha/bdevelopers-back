@@ -99,10 +99,10 @@ class SponsorshipController extends Controller
         //prendo i dati delle sponsor
         // Ottengo lo user autenticato
         $user_id = Auth::id();
-        $currentUser = User::find($user_id);
+        $profile = Profile::where('user_id', $user_id)->first();
 
         $sponsorshipsData = DB::table('profile_sponsorship')
-        ->where('profile_id', '=', $currentUser->id)
+        ->where('profile_id', '=', $profile->id)
         ->orderBy('end_date', 'desc')
         ->get();
 
