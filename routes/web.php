@@ -45,8 +45,10 @@ Route::middleware('auth',)->group(function () {
     Route::resource('/leads', LeadController::class);
     // Route::resource('/sponsorship', SponsorshipController::class);
 
-    Route::any('/sponsorships', [SponsorshipController::class, 'index'])->name('sponsorships.index');
-    Route::any('/sponsorships/payment', [SponsorshipController::class, 'token'])->name('token');
+    Route::get('/sponsorships', [SponsorshipController::class, 'index'])->name('sponsorships.index');
+    Route::any('/sponsorships/payment/silver', [SponsorshipController::class, 'tokenSilver'])->name('tokenSilver');
+    Route::any('/sponsorships/payment/gold', [SponsorshipController::class, 'tokenGold'])->name('tokenGold');
+    Route::any('/sponsorships/payment/platinum', [SponsorshipController::class, 'tokenPlatinum'])->name('tokenPlatinum');
 });
 
 

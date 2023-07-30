@@ -14,7 +14,7 @@
                     <p>Compari tra gli sviluppatori in evidenza per <strong>24</strong> ore</p>
                     <div class="card-back silver">
                         {{-- <a href="{{ url('sponsorships/payment') }}" class="submit" id="submit-button-1" data-amount="2.99" >24 Ore: €2.99</a> --}}
-                        <a href="{{ route('token', ['amount' => 2.99]) }}">24 Ore: €2.99</a>
+                        <a href="{{ route('tokenSilver') }}">24 Ore: €2.99</a>
                     </div>
                 </div>
             </div>
@@ -26,7 +26,7 @@
                     <div class="card-back gold">
                         {{-- <a href="#" class="submit" id="submit-button-2" data-amount="5.99" data-bs-toggle="modal"
                             data-bs-target="#paymentModal">72 Ore: €5.99</a> --}}
-                            <a href="{{ route('token', ['amount' => 5.99]) }}">72 Ore: €5.99</a>
+                            <a href="{{ route('tokenGold') }}">72 Ore: €5.99</a>
                     </div>
                 </div>
             </div>
@@ -36,7 +36,7 @@
                     <p>Compari tra gli sviluppatori in evidenza per <strong>144</strong> ore</p>
                     <div class="card-back platinum">
                         {{-- <a href="#" class="submit" id="submit-button-3" data-amount="9.99" data-bs-toggle="modal" data-bs-target="#paymentModal">144 Ore: €9.99</a> --}}
-                        <a href="{{ route('token', ['amount' => 9.99]) }}">144 Ore: €9.99</a>
+                        <a href="{{ route('tokenPlatinum') }}">144 Ore: €9.99</a>
                     </div>
                 </div>
             </div>

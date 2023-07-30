@@ -4,7 +4,7 @@
 @section('content')
     <section id="sponsorship-section">
 
-        <h1 class="page-title text-center m-0">Completa l'acquisto</h1>
+        <h1 class="page-title text-center m-0">Completa l'acquisto del piano Platinum</h1>
 
         {{-- <div>{{$amount}}</div> --}}
         @csrf
@@ -18,7 +18,6 @@
     </section>
 
     <script>
-        console.log();
             // Select the payment button inside the modal
             let button = document.querySelector('#payment-button');
 
@@ -36,23 +35,15 @@
                                 if (pagamento.status === 200) {
                                     console.log('success', payload.nonce);
                                     alert('Payment successful!');
-                                    // Close the modal after successful payment
-                                    // document.getElementById('paymentModal').style.display =
-                                    //     'none';
-                                    // window.location.reload();
                                     window.location.href = "http://127.0.0.1:8000/sponsorships";
                                 } else {
                                     console.log('error', payload.nonce);
                                     alert('Payment failed');
-                                    // Close the modal after payment failure
-                                    // document.getElementById('paymentModal').style.display =
-                                    //     'none';
-                                    // window.location.reload();
                                 }
                             }
                         };
 
-                        pagamento.open("POST", "{{ route('token') }}", true);
+                        pagamento.open("POST", "{{ route('tokenPlatinum') }}", true);
                         pagamento.setRequestHeader('Content-Type',
                             'application/x-www-form-urlencoded');
                         pagamento.setRequestHeader('X-CSRF-TOKEN', document.querySelector(
