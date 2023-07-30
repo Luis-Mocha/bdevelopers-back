@@ -42,48 +42,90 @@
             </div>
         </div>
 
-        {{-- <!-- Modale pagamento -->
-        <div class="modal fade" id="paymentModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h1 class="modal-title fs-5" id="exampleModalLabel">Inserisci i dati per il pagamento</h1>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        @csrf
-                        <div id="dropin-container-modal" style="display: flex;justify-content: center;align-items: center;">
-                        </div>
-                        <div style="display: flex;justify-content: center;align-items: center; color: white">
-                            <a id="submit-button-modal" class="btn btn-sm btn-success d-none">Effettua Pagamento</a>
-                        </div>
-                    </div>
+        {{-- @php
+            dd($sponsorshipsData)
+        @endphp --}}
 
-                </div>
-            </div>
-        </div> --}}
+        <div class="sponsor-recap px-5">
+            @if(count($sponsorshipsData) > 0)
+                @php
+                    $firstSponsorship = $sponsorshipsData->first();
+                    $endDate = $firstSponsorship->end_date;
+                    $today = now();
+                @endphp
 
-        <div class="px-5">
-            @foreach ($sponsorshipsData as $elem)
-                <div>{{$elem->end_date}}</div>
-            @endforeach 
+                @if($endDate >= $today)
+                     @php
+                        $endDateCarbon = \Carbon\Carbon::parse($endDate);
+                        $formattedDate = $endDateCarbon->format('d/m/Y');
+                        $formattedTime = $endDateCarbon->format('H:i');
+                    @endphp
+                
+                    <div class="sponsor-status">Il tuo periodo in evidenza scadrà il {{ $formattedDate }} alle {{ $formattedTime }}.</div>
+
+                @else
+                    <div class="sponsor-status">Non hai una sponsorizzazione attiva al momento.</div>
+                @endif
+            @else
+                <div class="sponsor-status">Il profilo non ha mai effettuato una sponsorizzazione.</div>
+            @endif
+
+            @if(count($sponsorshipsData) > 0)
+                {{-- bottone mostra tutti --}}
+                @if(count($sponsorshipsData) > 3)
+                    <button id="revealButton">Mostra tutti gli abbonamenti</button>
+                @endif
+
+                {{-- Tabella recap --}}
+                <table id="recap-table">
+                    <thead>
+                        <tr>
+                            <th>Tipo di sponsor</th>
+                            <th>Data di inizio</th>
+                            <th>Data di fine</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tableBody">
+                        @foreach ($sponsorshipsData as $elem)
+                            <tr>
+                                <td>
+                                    @if ($elem->sponsorship_id == 1)
+                                        Silver
+                                    @elseif ($elem->sponsorship_id == 2)
+                                        Gold
+                                    @else
+                                        Platinum
+                                    @endif
+                                </td>
+                                <td>{{$elem->start_date}}</td>
+                                <td>{{$elem->end_date}}</td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            @endif
 
         </div> 
     </section>
 
     <script>
-       
-        
-        // Richiamo la funzione con amount diverso in base al tasto
-        // document.getElementById('submit-button-1').addEventListener('click', function() {
-        //     performPayment(2.99);
-        // });
-        // document.getElementById('submit-button-2').addEventListener('click', function() {
-        //     performPayment(5.99);
-        // });
-        // document.getElementById('submit-button-3').addEventListener('click', function() {
-        //     performPayment(9.99);
-        // });
-        
+        document.addEventListener('DOMContentLoaded', function () {
+            let tableBody = document.getElementById('tableBody');
+            let rows = tableBody.getElementsByTagName('tr');
+    
+            // Nascondi tutte le righe della tabella tranne le prime tre
+            for (let i = 3; i < rows.length; i++) {
+                rows[i].style.display = 'none';
+            }
+    
+            // Aggiungi l'evento click al pulsante "Rivela tutte le righe"
+            document.getElementById('revealButton').addEventListener('click', function () {
+                // Mostra tutte le righe nascoste
+                for (let i = 3; i < rows.length; i++) {
+                    rows[i].style.display = (rows[i].style.display === 'none') ? 'table-row' : 'none';
+                }
+            });
+        });
     </script>
+
 @endsection
