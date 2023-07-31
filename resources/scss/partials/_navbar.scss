@@ -16,10 +16,9 @@
         text-transform: uppercase;
         background-image: linear-gradient(
           -225deg,
-          #231557 0%,
-          #44107a 29%,
-          #ff1361 67%,
-          #fff800 100%
+          #1d1b2c 0%,
+          #E7A117 70%,
+          #F6EEE0 100%
         );
         background-size: auto auto;
         background-clip: border-box;
@@ -31,7 +30,7 @@
         -webkit-text-fill-color: transparent;
         animation: textclip 3.5s linear infinite;
         display: inline-block;
-        font-size: 20px;
+        font-size: 40px;
       }
       
       @keyframes textclip {
@@ -39,18 +38,36 @@
           background-position: 200% center;
         }
       }
+      .nav-link {
+        font-family: 'Anton', sans-serif;
+        letter-spacing: 3px;
+        color: #E7A117;
+      }
+      .border-register {
+        border: 1px solid #E7A117;
+
+        &:hover {
+          background-color: #E7A117;
+          color: #1d1b2c;
+          transition: 0.8s;
+        }
+      }
       #navbarDropdown {
         color: #E7A117 !important;
       }
       .dropdown-menu {
-        background-color: #f2e5c6;
+        background-color: #F6EEE0;
 
         .dropdown-item {
+          // font-family: 'Anton', sans-serif;
+          font-family: 'Space Grotesk', sans-serif;
+          font-size: 13px;
+          letter-spacing: 2px;
           color: #E7A117;
           
           &:hover {
             background-color: #E7A117;
-            color: #f2e4c4;
+            color: #F6EEE0;
           }
         }
         

@@ -1,9 +1,9 @@
 @extends('layouts.back')
 
 @section('content')
-<h1 class="page-title">Le tue recensioni</h1>
-<div class="container">
-    <h4 class="label-vote">Media voti: {{round($averageRating, 1)}}</h4>
+
+<div class="container px-5">
+    <h4 class="label-vote mt-5 mb-4">Media voti: {{round($averageRating, 1)}}</h4>
     @if (count($profile_review) > 0 )
         @foreach ($profile_review as $elem)
         <div id="box-review" class="mb-3 p-2">
@@ -20,6 +20,7 @@
             @for ($i = 0; $i < 5; $i++)
                 <span><i class="{{$i < $elem->vote ? 'fa-solid fa-star star':'fa-regular fa-star star'}}"></i></span>            
             @endfor
+            <span class="ms-2">{{$elem->vote}}/5</span>
             <div class="review-description">{{$elem->description}}</div>
         </div>
         @endforeach

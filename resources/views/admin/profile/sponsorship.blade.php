@@ -4,9 +4,9 @@
 @section('content')
     <section id="sponsorship-section">
 
-        <h1 class="page-title text-center m-0">Sponsorizza te stesso nella nostra vetrina !</h1>
+        <h1 class="page-title text-center mt-4 mb-4">Metti il tuo profilo in evidenza nelle ricerche!</h1>
 
-        <div class="card-container d-flex flex-column flex-lg-row align-items-center justify-content-center">
+        <div class="card-container d-flex flex-column flex-lg-row align-items-center justify-content-center px-5">
 
             <div class="card-sponsor">
                 <div class="cover item-a">
@@ -61,7 +61,7 @@
                         $formattedTime = $endDateCarbon->format('H:i');
                     @endphp
                 
-                    <div class="sponsor-status">Il tuo periodo in evidenza scadrà il {{ $formattedDate }} alle {{ $formattedTime }}.</div>
+                    <div class="sponsor-status pt-4">Il tuo periodo in evidenza scadrà il {{ $formattedDate }} alle {{ $formattedTime }}.</div>
 
                 @else
                     <div class="sponsor-status">Non hai una sponsorizzazione attiva al momento.</div>

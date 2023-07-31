@@ -1,8 +1,8 @@
 @extends('layouts.back')
 
 @section('content')
-<h1 class="page-title">I tuoi messaggi</h1>
-<div class="container">
+<h1 class="page-title p-4">I tuoi messaggi</h1>
+<div class="container px-5">
     <h4>Messaggi ricevuti</h4>
     @if (count($profile_leads) > 0)
     @foreach ($profile_leads as $elem)
