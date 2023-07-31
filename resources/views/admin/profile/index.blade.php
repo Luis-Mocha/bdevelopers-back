@@ -2,8 +2,6 @@
 
 @section('content')
 
-<div class="page-title type mt-3 text-uppercase fw-bold fs-3 " style="--n:40; width: fit-content">Ecco il tuo profilo da sviluppatore!</div>
-
 <div class="contenuto-index my-5 d-md-flex">
 
     {{-- dati scritti --}}
