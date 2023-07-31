@@ -11,12 +11,10 @@
             <div class="card-sponsor">
                 <div class="cover item-a">
                     <h2>Silver</h2>
-                    <p>Compari tra gli sviluppatori <br> in evidenza per 24 ore</p>
-                    <!-- <span class="price">€2.99</span> -->
+                    <p>Compari tra gli sviluppatori in evidenza per <strong>24</strong> ore</p>
                     <div class="card-back silver">
-                        <a href="#" class="submit" id="submit-button-1" data-amount="2.99" data-bs-toggle="modal"
-                            data-bs-target="#exampleModal">24 Ore: €2.99</a>
-                        <!-- <a href="#" class="cart-btn"></a> -->
+                        {{-- <a href="{{ url('sponsorships/payment') }}" class="submit" id="submit-button-1" data-amount="2.99" >24 Ore: €2.99</a> --}}
+                        <a href="{{ route('tokenSilver') }}">24 Ore: €2.99</a>
                     </div>
                 </div>
             </div>
@@ -24,115 +22,113 @@
             <div class="card-sponsor">
                 <div class="cover item-b">
                     <h2>Gold</h2>
-                    <p>Compari tra gli sviluppatori <br> in evidenza per 48 ore</p>
+                    <p>Compari tra gli sviluppatori in evidenza per <strong>72</strong> ore</p>
                     <div class="card-back gold">
-                        <a href="#" class="submit" id="submit-button-2" data-amount="5.99" data-bs-toggle="modal"
-                            data-bs-target="#exampleModal">48 Ore: €5.99</a>
+                        {{-- <a href="#" class="submit" id="submit-button-2" data-amount="5.99" data-bs-toggle="modal"
+                            data-bs-target="#paymentModal">72 Ore: €5.99</a> --}}
+                            <a href="{{ route('tokenGold') }}">72 Ore: €5.99</a>
                     </div>
                 </div>
             </div>
             <div class="card-sponsor">
                 <div class="cover item-c">
                     <h2>Platinum</h2>
-                    <p>Compari tra gli sviluppatori <br> in evidenza per 144 ore</p>
+                    <p>Compari tra gli sviluppatori in evidenza per <strong>144</strong> ore</p>
                     <div class="card-back platinum">
-                        <a href="#" class="submit" id="submit-button-3" data-amount="9.99" data-bs-toggle="modal"
-                            data-bs-target="#exampleModal">144 Ore: €9.99</a>
+                        {{-- <a href="#" class="submit" id="submit-button-3" data-amount="9.99" data-bs-toggle="modal" data-bs-target="#paymentModal">144 Ore: €9.99</a> --}}
+                        <a href="{{ route('tokenPlatinum') }}">144 Ore: €9.99</a>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- Modal -->
-        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        @csrf
-                        <div id="dropin-container-modal" style="display: flex;justify-content: center;align-items: center;">
-                        </div>
-                        <div style="display: flex;justify-content: center;align-items: center; color: white">
-                            <a id="submit-button-modal" class="btn btn-sm btn-success d-none">Submit payment</a>
-                        </div>
-                    </div>
+        {{-- @php
+            dd($sponsorshipsData)
+        @endphp --}}
 
-                </div>
-            </div>
-        </div>
+        <div class="sponsor-recap px-5">
+            @if(count($sponsorshipsData) > 0)
+                @php
+                    $firstSponsorship = $sponsorshipsData->first();
+                    $endDate = $firstSponsorship->end_date;
+                    $today = now();
+                @endphp
 
+                @if($endDate >= $today)
+                     @php
+                        $endDateCarbon = \Carbon\Carbon::parse($endDate);
+                        $formattedDate = $endDateCarbon->format('d/m/Y');
+                        $formattedTime = $endDateCarbon->format('H:i');
+                    @endphp
+                
+                    <div class="sponsor-status">Il tuo periodo in evidenza scadrà il {{ $formattedDate }} alle {{ $formattedTime }}.</div>
+
+                @else
+                    <div class="sponsor-status">Non hai una sponsorizzazione attiva al momento.</div>
+                @endif
+            @else
+                <div class="sponsor-status">Il profilo non ha mai effettuato una sponsorizzazione.</div>
+            @endif
+
+            @if(count($sponsorshipsData) > 0)
+                {{-- bottone mostra tutti --}}
+                @if(count($sponsorshipsData) > 3)
+                    @php
+                        $totalSponsors = count($sponsorshipsData);
+                    @endphp
+                    <button id="revealButton">Mostra tutti gli abbonamenti ( {{$totalSponsors}} )</button>
+                @endif
+
+                {{-- Tabella recap --}}
+                <table id="recap-table">
+                    <thead>
+                        <tr>
+                            <th>Tipo di sponsor</th>
+                            <th>Data di inizio</th>
+                            <th>Data di fine</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tableBody">
+                        @foreach ($sponsorshipsData as $elem)
+                            <tr>
+                                <td>
+                                    @if ($elem->sponsorship_id == 1)
+                                        Silver
+                                    @elseif ($elem->sponsorship_id == 2)
+                                        Gold
+                                    @else
+                                        Platinum
+                                    @endif
+                                </td>
+                                <td>{{$elem->start_date}}</td>
+                                <td>{{$elem->end_date}}</td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            @endif
+
+        </div> 
     </section>
+
     <script>
-        // Function to perform payment with Braintree Drop-in
-        function performPayment(amount) {
-            // Select the payment button inside the modal
-            let button = document.querySelector('#submit-button-modal');
-            button.classList.remove('d-none');
-
-            // Create the Braintree Drop-in instance inside the modal
-            braintree.dropin.create({
-                authorization: '{{ $token }}',
-                container: '#dropin-container-modal'
-            }, function(createErr, instance) {
-                // Logic when the "Submit payment" button is clicked inside the modal
-                button.addEventListener('click', function() {
-                    instance.requestPaymentMethod(function(err, payload) {
-                        let pagamento = new XMLHttpRequest();
-                        pagamento.onreadystatechange = function() {
-                            if (pagamento.readyState === XMLHttpRequest.DONE) {
-                                if (pagamento.status === 200) {
-                                    console.log('success', payload.nonce);
-                                    alert('Payment successful!');
-                                    // Close the modal after successful payment
-                                    document.getElementById('exampleModal').style.display =
-                                        'none';
-                                    window.location.reload();
-                                } else {
-                                    console.log('error', payload.nonce);
-                                    alert('Payment failed');
-                                    // Close the modal after payment failure
-                                    document.getElementById('exampleModal').style.display =
-                                        'none';
-                                    window.location.reload();
-                                }
-                            }
-                        };
-
-                        pagamento.open("POST", "{{ route('token') }}", true);
-                        pagamento.setRequestHeader('Content-Type',
-                            'application/x-www-form-urlencoded');
-                        pagamento.setRequestHeader('X-CSRF-TOKEN', document.querySelector(
-                            'meta[name="csrf-token"]').getAttribute('content'));
-                        let data = "nonce=" + encodeURIComponent(payload.nonce) + "&amount=" +
-                            amount;
-                        pagamento.send(data);
-                    });
-                });
+        document.addEventListener('DOMContentLoaded', function () {
+            let tableBody = document.getElementById('tableBody');
+            let rows = tableBody.getElementsByTagName('tr');
+    
+            // Nascondi tutte le righe della tabella tranne le prime tre
+            for (let i = 3; i < rows.length; i++) {
+                rows[i].style.display = 'none';
+            }
+    
+            // Aggiungi l'evento click al pulsante "Rivela tutte le righe"
+            document.getElementById('revealButton').addEventListener('click', function () {
+                // Mostra tutte le righe nascoste
+                for (let i = 3; i < rows.length; i++) {
+                    rows[i].style.display = (rows[i].style.display === 'none') ? 'table-row' : 'none';
+                }
             });
-        }
-
-     // Richiamo la funzione con amount diverso in base al tasto
-     document.getElementById('submit-button-1').addEventListener('click', function() {
-            performPayment(2.99);
         });
-        document.getElementById('submit-button-2').addEventListener('click', function() {
-            performPayment(5.99);
-        });
-        document.getElementById('submit-button-3').addEventListener('click', function() {
-            performPayment(9.99);
-        });
-
-    // Aggiungi un listener per il click sui pulsanti di ciascuna card
-    document.querySelectorAll('.submit').forEach(function(button) {
-        button.addEventListener('click', function() {
-            const amount = button.getAttribute('data-amount');
-            performPayment(amount);
-        });
-    });
-
-        
     </script>
+
 @endsection

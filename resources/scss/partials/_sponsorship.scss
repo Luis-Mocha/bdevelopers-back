@@ -18,6 +18,7 @@
             margin: 10px 10px;
             transition: ease all $transition-time;
             perspective: 1200px;
+            text-align: center;
 
             // box-shadow: #222832;
 
@@ -197,4 +198,59 @@
             }
         }
     }
+
+    // RECAP SPONSORSHIPS
+    .sponsor-recap {
+        padding-bottom: 40px;
+        font-family: 'Montserrat', sans-serif;
+
+        #revealButton {
+            background-color: transparent;
+            border:none;
+            font-size: 16px;
+            font-style: italic;
+            text-decoration: underline;
+        }
+
+        .sponsor-status {
+            font-size: 30px;
+            text-align: center;
+            font-family: 'Montserrat', sans-serif;
+            margin-bottom: 25px;
+        }
+    
+        /* Stile per la tabella */
+        #recap-table {
+            margin-bottom: 30px;
+            width: 100%;
+            border-collapse: collapse;
+            border: 2px solid #1d1b2c; /* Bordi della tabella */
+    
+            /* Stile per le celle di intestazione della tabella */
+            th {
+                background-color: #1d1b2c;
+                color: #E7A117;
+                padding: 8px;
+                text-align: center;
+            }
+            
+            /* Stile per le celle del corpo della tabella */
+            td {
+                padding: 8px;
+                border: 1px solid white; /* Bordi delle celle */
+                text-align: center;
+            }
+            
+            tr:nth-child(odd) {
+                background-color: white; /* Colore di sfondo per le righe pari */
+                color: black;
+            }
+            /* Stile per ogni seconda riga (per rendere il design a righe alternate) */
+            tr:nth-child(even) {
+                background-color: #1d1b2c; /* Colore di sfondo per le righe pari */
+                color: white;
+            }
+        } 
+    }
+       
 }
