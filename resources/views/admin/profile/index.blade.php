@@ -138,8 +138,11 @@
             @endif
         </div>
 
-        <button class="btn-cv">
-            <a href="http://localhost:5174/developer/{{$profile['id']}}" target="_blank">Visualizza come gli altri vedono il tuo profilo</a>
+        <button class="btn-cv mb-3 d-md-block m-auto">
+            <a href="http://localhost:5174/developer/{{$profile['id']}}" target="_blank">
+                Visualizza come gli altri vedono il tuo profilo
+                <i class="fa-solid fa-up-right-from-square"></i>
+            </a>
         </button>
 
     </div>

@@ -8,24 +8,10 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    {{-- <title>{{ config('app.name', 'Laravel') }}</title> --}}
-    <title>My Developer Dev</title>
+    <title>{{ config('app.name', 'Laravel') }}</title>
 
-<<<<<<< HEAD
-    <!-- favicon -->
- 
-  <link rel="shortcut icon" href="{{ asset('favicon/favicon-32x32.png') }}">
-    <!-- Fonts -->
-    <link rel="dns-prefetch" href="//fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
-        integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
-        crossorigin="anonymous" referrerpolicy="no-referrer" />
 
-    {{-- font google: Anton/Handjet/Josefin/Montserrat--}}
-=======
     {{-- font google: Anton/Handjet/Josefin/Montserrat/SpaceGrotesk--}}
->>>>>>> 29fb6106493a264e08aac04cd5b3004fffe86a82
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Anton&family=Handjet&family=Josefin+Sans&family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
@@ -36,7 +22,7 @@
     <!-- cdn Braintree -->
     <script src="https://js.braintreegateway.com/web/dropin/1.39.0/js/dropin.min.js"></script>
 
-    {{-- font google: Anton/Handjet/Josefin/Montserrat--}}
+    {{-- font google: Anton/Handjet/Josefin/Montserrat/SpaceGrotesk--}}
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Anton&family=Handjet&family=Josefin+Sans&family=Montserrat:wght@400;600&family=Space+Grotesk:wght@400;500;600&display=swap" rel="stylesheet">
@@ -105,10 +91,90 @@
             </div>
         </nav>
 
-        <main class="">
+        <main class="payment-main">
+            {{-- carattersitiche diverse di ogni pagamento --}}
             @yield('content')
+
+            @csrf
+            <div id="dropin-payment" style="display: flex;justify-content: center;align-items: center;">
+            </div>
+            <div style="display: flex;justify-content: center;align-items: center; color: white">
+                <a id="payment-button" class="btn btn-sm btn-success">Effettua Pagamento</a>
+            </div>
+
+            <div id="modalSuccess" class="modal">
+                <div class="modal-content">
+                    <p>Pagamento effettutato con successo!</p>
+                    <button id="successBtn" class="close">Continua</button>
+                </div>
+            </div>
+
+            <div id="modalFail" class="modal">
+                <div class="modal-content">
+                    <p>Pagamento fallito!</p>
+                    <button id="failBtn" class="close">Riprova</button>
+                </div>
+            </div>
         </main>
     </div>
+
+    <script>
+        // Select the payment button inside the modal
+        let button = document.querySelector('#payment-button');
+
+        const modalSuccess = document.getElementById('modalSuccess');
+        const successBtn = document.getElementById('successBtn');
+
+
+        const modalFail = document.getElementById('modalFail');
+        const failBtn = document.getElementById('failBtn');
+
+        successBtn.addEventListener('click', function() {
+            window.location.href = "http://127.0.0.1:8000/sponsorships#recap-table"
+        });
+
+        failBtn.addEventListener('click', function() {
+            modalFail.style.display = 'd-none';
+        });
+
+        // Create the Braintree Drop-in instance inside the modal
+        braintree.dropin.create({
+            authorization: '{{ $token }}',
+            container: '#dropin-payment'
+        }, function(createErr, instance) {
+            // Logic when the "Submit payment" button is clicked inside the modal
+            button.addEventListener('click', function() {
+                instance.requestPaymentMethod(function(err, payload) {
+                    let pagamento = new XMLHttpRequest();
+                    pagamento.onreadystatechange = function() {
+                        if (pagamento.readyState === XMLHttpRequest.DONE) {
+                            if (pagamento.status === 200) {
+                                console.log('success', payload.nonce);
+                                // alert('Payment successful!');
+
+                                modalSuccess.style.display = 'block';
+
+                            } else {
+                                console.log('error', payload.nonce);
+                                // alert('Payment failed');
+                                modalFail.style.display = 'block';
+                            }
+                        }
+                    };
+
+                    pagamento.open("POST", "{{ route('tokenSilver') }}", true);
+                    pagamento.setRequestHeader('Content-Type',
+                        'application/x-www-form-urlencoded');
+                    pagamento.setRequestHeader('X-CSRF-TOKEN', document.querySelector(
+                        'meta[name="csrf-token"]').getAttribute('content'));
+                    let data = "nonce=" + encodeURIComponent(payload.nonce)
+                    pagamento.send(data);
+                });
+            });
+        });
+    
+    </script>
+
 </body>
 
 </html>

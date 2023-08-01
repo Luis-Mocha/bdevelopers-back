@@ -4,7 +4,7 @@
 @section('content')
     <section id="sponsorship-section">
 
-        <h1 class="page-title text-center mt-4 mb-4">Metti il tuo profilo in evidenza nelle ricerche!</h1>
+        <h1 class="page-title text-center">Metti il tuo profilo in evidenza nelle ricerche!</h1>
 
         <div class="card-container d-flex flex-column flex-lg-row align-items-center justify-content-center px-5">
 

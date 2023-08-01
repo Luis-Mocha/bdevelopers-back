@@ -2,9 +2,12 @@
     height: 100%;
     $transition-time: 2.3s;
     // overflow: auto;
+    scroll-behavior: smooth;
 
     h1 {
         color: #1d1b2c;
+        margin-top: 50px;
+        font-family: 'Space Grotesk', sans-serif;
     }
 
     .page-title {

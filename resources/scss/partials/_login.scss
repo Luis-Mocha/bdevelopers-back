@@ -1,0 +1,51 @@
+main {
+    background-color: #F6EEE0;
+    font-family: "Montserrat", sans-serif;
+
+
+    #contenuto-login {
+        height: calc(100vh - 90px);
+
+        h2 {
+            font-family: 'Space Grotesk', sans-serif;
+
+        }
+
+        .login-btn {
+            padding: 5px 7px;
+            border: 3px solid #1d1b2c;
+            background-color: #1d1b2c;
+            color: #E7A117;
+            text-transform: uppercase;
+
+            &:hover {
+                border-color: #E7A117;
+                border-width: 3px;
+            }
+        }
+
+        .btn-forgot {
+            color: #1d1b2c;
+
+            &:hover {
+                color: #5e5c75;
+            }
+        }
+
+        .checkbox-custom {
+            &:checked {
+                color: #E7A117;
+            }
+        }
+
+        input {
+            &:focus {
+                outline: none !important;
+                border-color: #1d1b2c;
+                box-shadow: 0 0 10px #1d1b2c;
+            }
+        }
+
+
+    }
+}
