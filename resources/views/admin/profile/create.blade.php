@@ -148,7 +148,7 @@
                     {{-- PROFILE IMAGE --}}
                     <div class="mb-3">
                         <label for="profile_image" class="form-label">Immagine di profilo</label>
-                        <input type="file" class="form-control" name="profile_image" id="profile_image" aria-describedby="fileHelpId" accept=".jpg,.png,.jpg" onchange="readURL(this);">
+                        <input type="file" class="form-control" name="profile_image" id="profile_image" aria-describedby="fileHelpId" accept=".jpg,.png,.jpg,.jpeg" onchange="readURL(this);">
                         @error('profile_image')
                         <div class="alert alert-danger">{{ $message }}</div>
                         @enderror
@@ -166,7 +166,7 @@
                 
                 <div class="mb-3">
                     <div class="">Anteprima immagine:</div>
-                    <img id="img-preview" src="http://placehold.it/180" alt="Anteprima Immagine Profilo">
+                    <img id="img-preview" src="http://placehold.it/180" alt="Anteprima Immagine Profilo" class="rounded">
                 </div>
             
             </div>
