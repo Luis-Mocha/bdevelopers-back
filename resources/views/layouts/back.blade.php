@@ -9,7 +9,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>My Developer Dev</title>
-    {{--Favicon --}}
+    {{-- Favicon --}}
     <link rel="shortcut icon" href="{{ asset('favicon/favicon-32x32.png') }}">
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -18,10 +18,12 @@
         integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
 
-    {{-- font google: Anton/Handjet/Josefin/Montserrat--}}
+    {{-- font google: Anton/Handjet/Josefin/Montserrat --}}
     <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Anton&family=Handjet&family=Josefin+Sans&family=Montserrat:wght@400;600&family=Space+Grotesk:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Anton&family=Handjet&family=Josefin+Sans&family=Montserrat:wght@400;600&family=Space+Grotesk:wght@400;500;600&display=swap"
+        rel="stylesheet">
 
     <!-- Usando Vite -->
     @vite(['resources/js/app.js'])
@@ -46,7 +48,9 @@
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                     data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
                     aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
-                    <span class="navbar-toggler-icon"></span>
+                    <span class="navbar-toggler-icon">
+                        <i class="fa-solid fa-bars"></i>
+                    </span>
                 </button>
 
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -106,9 +110,10 @@
                 <aside id="sidebar" class="sidebar px-2">
                     {{-- bottone sidebar --}}
                     <div class="sidebar-button">
-                        <i class="fa-solid fa-angles-right sidebar-toggle" id="toggle-button" onclick="openSidebar()"></i>
+                        <i class="fa-solid fa-angles-right sidebar-toggle" id="toggle-button"
+                            onclick="openSidebar()"></i>
                     </div>
-    
+
                     {{-- link sidebar labels COMPUTER --}}
                     <div class="d-none d-lg-flex h-50 flex-column justify-content-around align-items-start">
                         <a class="sidebar-button" href="{{ url('admin') }}">{{ __('Profilo') }}</a>
@@ -116,10 +121,11 @@
                         <a class="sidebar-button" href="{{ url('leads') }}">{{ __('Messaggi') }}</a>
                         <a class="sidebar-button" href="{{ url('sponsorships') }}">{{ __('Premium') }}</a>
                         {{-- <a class="sidebar-button" href="{{ url('profile') }}">{{ __('Impostazioni') }}</a> --}}
-                   </div>
-    
-                   {{-- link sidebar icone MOBILE--}}
-                   <div class="d-lg-none h-75 w-100 d-flex flex-column justify-content-around align-items-center align-items-md-start sidebar-mobile">
+                    </div>
+
+                    {{-- link sidebar icone MOBILE --}}
+                    <div
+                        class="d-lg-none h-75 w-100 d-flex flex-column justify-content-around align-items-center align-items-md-start sidebar-mobile">
                         <a class="sidebar-button sidebar-icon" href="{{ url('admin') }}">
                             <i class="fa-solid fa-user"></i>
                             <span class="icon-label d-none">Profilo</span>
@@ -140,12 +146,12 @@
                             <i class="fa-solid fa-gears"></i>
                             <span class="icon-label d-none">Impostazioni</span>
                         </a> --}}
-                   </div>              
-                    
+                    </div>
+
                 </aside>
             </div>
-            
-            
+
+
 
             <main class="">
                 {{-- col-11 col-md-9 col-lg-10 --}}
@@ -180,7 +186,7 @@
             }
         </script>
 
-        
+
     </div>
 </body>
 
