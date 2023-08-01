@@ -130,7 +130,7 @@
         const failBtn = document.getElementById('failBtn');
 
         successBtn.addEventListener('click', function() {
-            window.location.href = "http://127.0.0.1:8000/sponsorships"
+            window.location.href = "http://127.0.0.1:8000/sponsorships#recap-table"
         });
 
         failBtn.addEventListener('click', function() {
