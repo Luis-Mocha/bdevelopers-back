@@ -101,12 +101,41 @@
             <div style="display: flex;justify-content: center;align-items: center; color: white">
                 <a id="payment-button" class="btn btn-sm btn-success">Effettua Pagamento</a>
             </div>
+
+            <div id="modalSuccess" class="modal">
+                <div class="modal-content">
+                    <p>Pagamento effettutato con successo!</p>
+                    <button id="successBtn" class="close">Continua</button>
+                </div>
+            </div>
+
+            <div id="modalFail" class="modal">
+                <div class="modal-content">
+                    <p>Pagamento fallito!</p>
+                    <button id="failBtn" class="close">Riprova</button>
+                </div>
+            </div>
         </main>
     </div>
 
     <script>
         // Select the payment button inside the modal
         let button = document.querySelector('#payment-button');
+
+        const modalSuccess = document.getElementById('modalSuccess');
+        const successBtn = document.getElementById('successBtn');
+
+
+        const modalFail = document.getElementById('modalFail');
+        const failBtn = document.getElementById('failBtn');
+
+        successBtn.addEventListener('click', function() {
+            window.location.href = "http://127.0.0.1:8000/sponsorships"
+        });
+
+        failBtn.addEventListener('click', function() {
+            modalFail.style.display = 'd-none';
+        });
 
         // Create the Braintree Drop-in instance inside the modal
         braintree.dropin.create({
@@ -121,12 +150,14 @@
                         if (pagamento.readyState === XMLHttpRequest.DONE) {
                             if (pagamento.status === 200) {
                                 console.log('success', payload.nonce);
-                                alert('Payment successful!');
+                                // alert('Payment successful!');
 
-                                window.location.href = "http://127.0.0.1:8000/sponsorships";
+                                modalSuccess.style.display = 'block';
+
                             } else {
                                 console.log('error', payload.nonce);
-                                alert('Payment failed');
+                                // alert('Payment failed');
+                                modalFail.style.display = 'block';
                             }
                         }
                     };
