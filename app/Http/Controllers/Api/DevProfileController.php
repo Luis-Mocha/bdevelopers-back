@@ -115,6 +115,64 @@ class DevProfileController extends Controller
         ]);
     }
 
+    public function indexHome(Request $request)
+    {
+
+        $profilesQuery = DB::table('profiles')
+            ->join('users', 'profiles.user_id', '=', 'users.id')
+            ->join('field_user', 'users.id', '=', 'field_user.user_id')
+            ->join('fields', 'field_user.field_id', '=', 'fields.id')
+            ->leftJoin('reviews', 'profiles.id', '=', 'reviews.profile_id')
+            ->leftJoin('profile_sponsorship', 'profiles.id', '=', 'profile_sponsorship.profile_id')
+
+            ->select(
+                'profiles.*',
+                'users.*',
+                DB::raw('profiles.id as profile_id'),
+                DB::raw('GROUP_CONCAT(DISTINCT fields.name ORDER BY fields.name) as field_names'),
+                DB::raw('GROUP_CONCAT(DISTINCT fields.id ORDER BY fields.id) as field_ids'),
+                DB::raw('COUNT(DISTINCT reviews.id) as total_reviews'), // Aggiungi il conteggio delle recensioni
+                DB::raw('AVG(reviews.vote) as average_vote'),
+                DB::raw('MAX(profile_sponsorship.end_date) as max_end_date'),
+                DB::raw('CASE WHEN NOW() <= MAX(profile_sponsorship.end_date) THEN 1 ELSE 0 END as active_sponsorship'),
+            )
+            // ->whereRaw('NOW() <= MAX(profile_sponsorship.end_date)')
+            ->groupBy('profiles.id', 'users.id')
+            ->havingRaw('MAX(profile_sponsorship.end_date) >= NOW()')
+            ->orderBy('active_sponsorship', 'desc')
+            ->orderBy('average_vote', 'desc');
+
+        $profiles = $profilesQuery->get();
+        $numberOfProfiles = $profiles->count();
+
+        $profilesData = [];
+        foreach ($profiles as $result) {
+            $profileData = [
+                'profile_id' => $result->profile_id,
+                'name' => $result->name,
+                'surname' => $result->surname,
+                'profile_image' => $result->profile_image,
+                'performance' => $result->performance,
+                // Field e technologies
+                'field_names' => explode(',', $result->field_names),
+                'field_ids' => explode(',', $result->field_ids),
+                // voto e sponsorships
+                'average_vote' => intval($result->average_vote) ? intval($result->average_vote) : 0,
+                'active_sponsorship' => $result->active_sponsorship,
+                'max_end_date' => $result->max_end_date,
+
+            ];
+            $profilesData[] = $profileData;
+        }
+        
+
+        return response()->json([
+            'success' => true,
+            'profilesData' => $profilesData,
+            'numberOfProfiles' => $numberOfProfiles,
+        ]);
+    }
+
     /**
      * Show the form for creating a new resource.
      *

@@ -28,6 +28,9 @@ Route::get('/profiles', [DevProfileController::class, 'index']);
 // show profilo
 Route::get('/profiles/{dev_id}', [DevProfileController::class, 'show']);
 
+Route::get('/home', [DevProfileController::class, 'indexHome']);
+
+
 
 Route::post('/contacts', [LeadController::class, 'store']);
 
