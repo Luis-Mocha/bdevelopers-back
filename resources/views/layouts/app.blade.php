@@ -11,7 +11,6 @@
     {{-- <title>{{ config('app.name', 'Laravel') }}</title> --}}
     <title>My Developer Dev</title>
 
-<<<<<<< HEAD
     <!-- favicon -->
  
   <link rel="shortcut icon" href="{{ asset('favicon/favicon-32x32.png') }}">
@@ -23,9 +22,6 @@
         crossorigin="anonymous" referrerpolicy="no-referrer" />
 
     {{-- font google: Anton/Handjet/Josefin/Montserrat--}}
-=======
-    {{-- font google: Anton/Handjet/Josefin/Montserrat/SpaceGrotesk--}}
->>>>>>> 29fb6106493a264e08aac04cd5b3004fffe86a82
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Anton&family=Handjet&family=Josefin+Sans&family=Montserrat:wght@400;600&display=swap" rel="stylesheet">

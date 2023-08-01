@@ -8,7 +8,11 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>My Developer Dev</title>
+
+    <!-- favicon -->
+ 
+    <link rel="shortcut icon" href="{{ asset('favicon/favicon-32x32.png') }}">
 
 
     {{-- font google: Anton/Handjet/Josefin/Montserrat/SpaceGrotesk--}}
