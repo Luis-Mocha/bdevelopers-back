@@ -155,7 +155,7 @@
                     {{-- PROFILE IMAGE --}}
                     <div class="mb-3">
                         <label for="profile_image" class="form-label">Immagine di profilo</label>
-                        <input type="file" class="form-control" name="profile_image" id="profile_image" accept=".jpg,.png,.jpg" aria-describedby="fileHelpId" onchange="readURL(this);">
+                        <input type="file" class="form-control" name="profile_image" id="profile_image" accept=".jpg,.png,.jpg,.jpeg" aria-describedby="fileHelpId" onchange="readURL(this);">
                     </div>
                     {{-- CV --}}
                     <div class="mb-3">
@@ -170,7 +170,7 @@
                 <div class="mb-3">
                     <div class="">Anteprima immagine:</div>
                     
-                    <img id="img-preview" src="{{ asset('storage/' . $profile_id->profile_image) }}" alt="Immagine Profilo preview">
+                    <img id="img-preview" src="{{ asset('storage/' . $profile_id->profile_image) }}" alt="Immagine Profilo preview" class="rounded">
                     {{-- <div class="text-secondary fw-light fst-italic">Nessuna immagine di profilo</div> --}}
                 </div> 
             </div>
